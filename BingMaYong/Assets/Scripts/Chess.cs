@@ -23,7 +23,7 @@ public class Chess : MonoBehaviour {
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            player.GetComponent<Animator>().SetTrigger("IsChessAttack");
+            //player.GetComponent<Animator>().SetTrigger("IsChessAttack");
         }
     }
 }
