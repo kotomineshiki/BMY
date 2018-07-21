@@ -35,7 +35,7 @@ public class PathFinder:MonoBehaviour{//这个类从MapController中分离出来
                 valueMatrix[i, j] += -HamiltonDistance(destination,new Vector2Int(i,j));//越靠近目的地，其权值应该越大
             }
         }
-
+        //step2
         for (int i = 0; i < 10; ++i)//step3
         {
             for (int j = 0; j < 14; ++j)
@@ -72,7 +72,8 @@ public class PathFinder:MonoBehaviour{//这个类从MapController中分离出来
     Vector2Int SelectPosition(List<Vector2Int> positions)//辅助函数，这个函数从待选择的列表中选择一个位置作为返回值
     {
         if (positions.Count == 0) Debug.Log("竟然没有值得走的。");
-        return positions[0];//暂时只选择最上面的
+
+        return positions[(int)Random.Range(0,positions.Count)];//暂时只选择最上面的
     }
     List<Vector2Int> FindGoodPositions(Vector2Int currentPosition)
     {
@@ -121,6 +122,7 @@ public class PathFinder:MonoBehaviour{//这个类从MapController中分离出来
             route.Add(temp);
             currentPosition = temp;
         }
+        route.Add(currentPosition);
         return route;
     }
     int HamiltonDistance(Vector2Int pointA, Vector2Int pointB)//哈密顿距离，传入两个格子坐标计算其间的哈密顿距离

@@ -52,4 +52,13 @@ public class MapController : MonoBehaviour {
             return true;
         else return false;
     }
+    public void SetObstacle(Vector2Int pos)//传入格子坐标，把一个格子设置成不可逾越的
+    {
+        tiles[pos.x, pos.y].tileState = TileState.Obstacle;
+    }
+    public void SetOccupied(Vector2Int pos)//传入格子坐标，把一个格子设置成被一方占领的
+    {
+        tiles[pos.x, pos.y].tileState = TileState.Occupied;
+
+    }
 }
