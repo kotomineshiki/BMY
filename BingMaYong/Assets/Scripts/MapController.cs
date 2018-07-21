@@ -10,15 +10,19 @@ public class MapController : MonoBehaviour {
     public int row = 14;//行数目
 
     public PathFinder pathFinder;
+    public List<Vector2Int> testRoute;
 	// Use this for initialization
 	void Awake () {
         Initialize();
-        pathFinder = new PathFinder();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetButtonDown("Fire1"))
+        {
+            testRoute = pathFinder.GetTheRoute(new Vector2Int(1,1),new Vector2Int(5,5));
+        }
 	}
     /*todo 寻路函数返回位置*/
 
@@ -40,5 +44,12 @@ public class MapController : MonoBehaviour {
     public Vector3 GetWorldPosition(Vector2Int input)//输入一个格子的格子坐标，返回该格子对应的正方体的世界坐标
     {//未测试
         return tiles[input.x, input.y].gameObject.transform.position;
+    }
+
+    public bool IsObstacle(Vector2Int input)//传入一个格子坐标，返回该格子是否是不可逾越的
+    {
+        if (tiles[input.x, input.y].tileState == TileState.Occupied || tiles[input.x, input.y].tileState == TileState.Obstacle)
+            return true;
+        else return false;
     }
 }
