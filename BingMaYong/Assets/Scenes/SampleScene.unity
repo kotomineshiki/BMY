@@ -505,7 +505,7 @@ MonoBehaviour:
   tilePrefab: {fileID: 1249142003744454, guid: 747c15dd8701d0e4c9008b3089b1872a, type: 2}
   column: 10
   row: 14
-  pathFinder: {fileID: 0}
+  pathFinder: {fileID: 1797982571}
   testRoute: []
 --- !u!114 &1797982571
 MonoBehaviour:

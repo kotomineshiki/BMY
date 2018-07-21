@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
         positions.Push(new Vector3(0.025f, 3.36f, -0.54f));
 
         role.GetComponent<Role>().SetPath(positions);
+        role.GetComponent<Role>().SetDestination(endPosition);
         role.GetComponent<Role>().Move();
     }
     /*

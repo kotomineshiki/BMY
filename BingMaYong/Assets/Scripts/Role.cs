@@ -8,11 +8,14 @@ public class Role : MonoBehaviour
     private Stack<Vector3> path = new Stack<Vector3>();             //兵马俑会移动的路径
     private GameObject victim;                                      //被攻击者
     private bool isAttack;                                          //是否需要攻击
+    Vector2 destination;
+    MapController mapController;
 
     public void Start()
     {
         //初始化运动管理器单例
         action_manager = Singleton<RoleActionManager>.Instance;
+        mapController = Singleton<MapController>.Instance;
         isAttack = false;
     }
 
@@ -24,6 +27,11 @@ public class Role : MonoBehaviour
      */
     public void Move()
     {
+        //判断是否到达终点
+        //通过action_manager获得下一个位置
+        //将vec2转换为vec3
+
+
         if (path.Count != 0)
         {
             Vector3 nextPos = path.Peek();
@@ -123,5 +131,10 @@ public class Role : MonoBehaviour
             child.gameObject.GetComponent<Animator>().SetTrigger("IsChessAttack");
             break;
         }
+    }
+
+    public void SetDestination(Vector2 pos)
+    {
+        destination = pos;
     }
 }
