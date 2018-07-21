@@ -6,8 +6,7 @@ public class UserInterface : MonoBehaviour {
     public GameObject clickedObjectA;
     public GameObject clickedObjectB;
     private PlayerController playerController;    //玩家控制器
-   // public GameObject role;                       //目前没用生成角色所以先在外部创建然后赋值
-    // Use this for initialization
+
     void Start ()
     {
         playerController = Singleton<PlayerController>.Instance;
@@ -15,13 +14,8 @@ public class UserInterface : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
-        //按下空格
-		if(Input.GetKeyDown(KeyCode.Space))
-        {
-            //调用玩家控制器的Move方法
-          //  playerController.Move(role,new Vector2(0,0));
-        }
+    void Update()
+    {
         
         if (Input.GetButtonDown("Fire1"))//获得鼠标点击的东西
         {
@@ -57,6 +51,7 @@ public class UserInterface : MonoBehaviour {
         }else
         if (clickedObjectA.tag == "Chess" && clickedObjectB.tag == "Chess") {
             Debug.Log("执行A攻击B");
+            playerController.Attack(clickedObjectA, clickedObjectB);
             clickedObjectA = null;
             clickedObjectB = null;
         }else

@@ -6,11 +6,14 @@ public class Role : MonoBehaviour
 {
     private RoleActionManager action_manager;                       //运动管理器
     private Stack<Vector3> path = new Stack<Vector3>();             //兵马俑会移动的路径
+    private GameObject victim;                                      //被攻击者
+    private bool isAttack;                                          //是否需要攻击
 
     public void Start()
     {
         //初始化运动管理器单例
         action_manager = Singleton<RoleActionManager>.Instance;
+        isAttack = false;
     }
 
     /*
@@ -26,6 +29,13 @@ public class Role : MonoBehaviour
             Vector3 nextPos = path.Peek();
             MoveToPosition(nextPos);
             path.Pop();
+        }
+        else if(isAttack)
+        {
+            //如果是攻击状态在移动结束后需要攻击
+            float hurt = gameObject.GetComponent<Chess>().GetHurt();
+            action_manager.Attack(gameObject, victim, hurt);
+            isAttack = false;
         }
     }
     /*
@@ -74,5 +84,44 @@ public class Role : MonoBehaviour
     private void MoveToPosition(Vector3 pos)
     {
         action_manager.Move(gameObject, pos);
+    }
+
+    /*
+     * 设置攻击目标,转变为攻击状态
+     * 传入攻击目标vic
+     * 无返回值
+     */
+    public void SetAttack(GameObject vic)
+    {
+        victim = vic;
+        isAttack = true;
+    }
+    /*
+     * 减少自身的血量
+     * 传入攻击者的伤害hurt
+     * 无返回值
+     * 调用了Chess的方法
+     */
+    public void ReduceBoold(float hurt)
+    {
+        float boold = gameObject.GetComponent<Chess>().GetBoold();
+        if (boold - hurt >= 0)
+        {
+            gameObject.GetComponent<Chess>().SetBoold(boold - hurt);
+        }
+    }
+    /*
+     * 播放攻击动画
+     * 无参数,无返回值
+     * 获取子对象的动画组件设置trigger
+     */
+    public void PlayAttackAnimation()
+    {
+        foreach (Transform child in transform)
+        {
+            Debug.Log("Attack");
+            child.gameObject.GetComponent<Animator>().SetTrigger("IsChessAttack");
+            break;
+        }
     }
 }

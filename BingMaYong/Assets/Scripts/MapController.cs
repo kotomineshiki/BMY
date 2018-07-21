@@ -21,7 +21,7 @@ public class MapController : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Fire1"))
         {
-            testRoute = pathFinder.GetTheRoute(new Vector2Int(1,1),new Vector2Int(5,5));
+           // testRoute = pathFinder.GetTheRoute(new Vector2Int(1,1),new Vector2Int(5,5));
         }
 	}
     /*todo 寻路函数返回位置*/
