@@ -9,9 +9,11 @@ public class MapController : MonoBehaviour {
     public int column = 10;//列数目
     public int row = 14;//行数目
 
+    public PathFinder pathFinder;
 	// Use this for initialization
 	void Awake () {
         Initialize();
+        pathFinder = new PathFinder();
 	}
 	
 	// Update is called once per frame
