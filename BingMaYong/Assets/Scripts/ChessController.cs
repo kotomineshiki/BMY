@@ -9,7 +9,7 @@ public enum Side{//这个枚举类用来表明棋子的阵营，也用来标识�
 public class ChessController : MonoBehaviour {
     public List<Chess> playerA;
     public List<Chess> playerB;
-
+    /*todo 在某一格子上放置一个棋子*/
 	// Use this for initialization
 	void Start () {
 		

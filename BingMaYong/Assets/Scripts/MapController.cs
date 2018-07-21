@@ -20,6 +20,8 @@ public class MapController : MonoBehaviour {
 	void Update () {
 		
 	}
+    /*todo 寻路函数返回位置*/
+
     private void Initialize()//这个函数用来逐行逐列创建地图，创建后格子的父类为当前类
     {
         tiles = new Tile[column, row];
