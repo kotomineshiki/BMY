@@ -9,21 +9,37 @@ public class Chess : MonoBehaviour {
     GameObject player;
     GameObject enemy;
 
-	// Use this for initialization
-	void Start () {
+    public float hurt = 10;               //兵马俑的伤害
+    public float blood = 100;             //兵马俑的血量
+
+	void Start ()
+    {
         player = GameObject.FindGameObjectWithTag("Chess");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        Attack(player,enemy);
-	}
 
-    void Attack(GameObject player,GameObject enemy)
+    /*
+     * 得到兵马俑的伤害
+     * 返回float类型的hurt
+     */
+    public float GetHurt()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            //player.GetComponent<Animator>().SetTrigger("IsChessAttack");
-        }
+        return hurt;
+    }
+    /*
+     * 设置此兵马俑的血量
+     * 传入float类型的血量blo
+     */
+    public void SetBoold(float blo)
+    {
+        Debug.Log(blo);
+        blood = blo;
+    }
+    /*
+     * 返回当前兵马俑的血量
+     * 返回float类型的blood
+     */
+    public float GetBoold()
+    {
+        return blood;
     }
 }
