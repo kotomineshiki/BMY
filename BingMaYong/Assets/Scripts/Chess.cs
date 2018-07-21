@@ -5,17 +5,22 @@ using UnityEngine;
 public class Chess : MonoBehaviour {
 
     public Side chessSide;
-
-    GameObject player;
-    GameObject enemy;
+    Vector2Int currentPosition;//当前位于格子坐标
+   // GameObject player;
+    //GameObject enemy;
 
     public float hurt = 10;               //兵马俑的伤害
     public float blood = 100;             //兵马俑的血量
 
 	void Start ()
     {
-        player = GameObject.FindGameObjectWithTag("Chess");
+     //   player = GameObject.FindGameObjectWithTag("Chess");
 	}
+    public Vector2Int GetCurrentPosition()
+    {
+        return currentPosition;
+    }
+
 
     /*
      * 得到兵马俑的伤害
