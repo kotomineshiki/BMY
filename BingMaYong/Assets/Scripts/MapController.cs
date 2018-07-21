@@ -21,11 +21,14 @@ public class MapController : MonoBehaviour {
 	void Update () {
         if (Input.GetButtonDown("Fire1"))
         {
-           // testRoute = pathFinder.GetTheRoute(new Vector2Int(1,1),new Vector2Int(5,5));
+            testRoute = pathFinder.GetTheRoute(new Vector2Int(1,1),new Vector2Int(5,5));
         }
 	}
     /*todo 寻路函数返回位置*/
-
+    public Vector2Int GetNextStep(Vector2Int currentPosition, Vector2Int destination)
+    {
+        return pathFinder.GetNextStep(currentPosition, destination);
+    }
     private void Initialize()//这个函数用来逐行逐列创建地图，创建后格子的父类为当前类
     {
         tiles = new Tile[column, row];

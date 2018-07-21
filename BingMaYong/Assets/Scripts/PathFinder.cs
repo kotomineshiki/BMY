@@ -66,7 +66,7 @@ public class PathFinder:MonoBehaviour{//这个类从MapController中分离出来
         Clear();
         Evaluating(destination);
         var goodPositions = FindGoodPositions(currentPosition);//获取邻接区域中估值比当前区域大的地方
-
+        
         return SelectPosition(goodPositions);
     }
     Vector2Int SelectPosition(List<Vector2Int> positions)//辅助函数，这个函数从待选择的列表中选择一个位置作为返回值
