@@ -11,24 +11,40 @@ public class MapController : MonoBehaviour {
 
     public PathFinder pathFinder;
     public List<Vector2Int> testRoute;
+    public Material playerAMaterial;
+    public Material playerBMaterial;
+    public Material obstacleMateiral;
 	// Use this for initialization
 	void Awake () {
         Initialize();
-
-	}
+        SetObstacle(new Vector2Int(5, 5));
+        SetObstacle(new Vector2Int(4, 5));
+        SetObstacle(new Vector2Int(3, 5));
+        SetObstacle(new Vector2Int(2, 5));
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            testRoute = pathFinder.GetTheRoute(new Vector2Int(1,1),new Vector2Int(5,5));
-        }
+
 	}
     /*todo 寻路函数返回位置*/
     public Vector2Int GetNextStep(Vector2Int currentPosition, Vector2Int destination)
     {
-        Debug.Log("!!!!!!!!!!!" + pathFinder.GetNextStep(currentPosition, destination)+currentPosition+" "+destination);
-        return pathFinder.GetNextStep(currentPosition, destination);
+        //     Debug.Log("!!!!!!!!!!!" + pathFinder.GetNextStep(currentPosition, destination)+currentPosition+" "+destination);
+        //return pathFinder.GetNextStep(currentPosition, destination);
+        List<Vector2Int> currentObstacles=new List<Vector2Int>();//目前的障碍格子
+        for(int i = 0; i < column;i++)
+        {
+            for(int j = 0; j < row;j++)
+            {
+                if(IsObstacle(new Vector2Int(i, j)))
+                {
+                    currentObstacles.Add(new Vector2Int(i, j));
+                }
+            }
+        }
+        Debug.Log(pathFinder.GeneratePath(currentPosition, destination, currentObstacles)[0]);
+        return pathFinder.GeneratePath(currentPosition, destination, currentObstacles)[0];
     }
     private void Initialize()//这个函数用来逐行逐列创建地图，创建后格子的父类为当前类
     {
@@ -59,6 +75,7 @@ public class MapController : MonoBehaviour {
     public void SetObstacle(Vector2Int pos)//传入格子坐标，把一个格子设置成不可逾越的
     {
         tiles[pos.x, pos.y].tileState = TileState.Obstacle;
+        tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material = obstacleMateiral;
     }
     public void SetOccupied(Vector2Int pos)//传入格子坐标，把一个格子设置成被一方占领的
     {

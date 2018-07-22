@@ -1,134 +1,231 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathFinder:MonoBehaviour{//这个类从MapController中分离出来，专门负责寻路
-    public float[,] valueMatrix;
-    public List<Vector2Int> obstacles;//不可逾越之地的一个列表
-    public Vector2Int destiny;//目的地
+public enum GridType
+{
+    Normal,//正常
+    Obstacle,//障碍物
+    Start,//起点
+    End//终点
+}
+
+//为了格子排序 需要继承IComparable接口实现排序
+public class MapGrid : IComparable//排序接口
+{
+    public int x;//记录坐标
+    public int y;
+
+    public int f;//总消耗
+    public int g;//当前点到起点的消耗
+    public int h;//当前点到终点的消耗
+
+
+    public GridType type;//格子类型
+    public MapGrid fatherNode;//父节点
+
+
+    //排序
+    public int CompareTo(object obj)     //排序比较方法 ICloneable的方法
+    {
+        //升序排序
+        MapGrid grid = (MapGrid)obj;
+        if (this.f < grid.f)
+        {
+            return -1;                    //升序
+        }
+        if (this.f > grid.f)
+        {
+            return 1;                    //降序
+        }
+        return 0;
+    }
+
+}
+
+
+
+
+public class PathFinder: MonoBehaviour
+{
+    //格子大小
+    public int row = 10;
+    public int col = 14;
+    public int size = 70;                //格子大小
+
+    public MapGrid[,] grids;            //格子数组
+
+    public ArrayList openList;            //开启列表
+    public ArrayList closeList;            //结束列表
+
+    //开始,结束点位置
+    public Vector2Int StartPoint;
+
+    public Vector2Int EndPoint;
+
+    public  Stack<Vector2Int> fatherNodeLocation;
+    public List<Vector2Int> result;
+    public List<Vector2Int> Obstacles;//传入障碍物的列表
+    void Init()
+    {
+        find = false;
+        result.Clear();
+        openList.Clear();
+        closeList.Clear();
+        fatherNodeLocation.Clear();
+        for (int i = 0; i < row; i++)
+        {
+            for (int j = 0; j < col; j++)
+            {
+
+                grids[i, j].x = i;
+                grids[i, j].y = j;        //初始化格子,记录格子坐标
+                grids[i, j].fatherNode = null;
+                grids[i, j].type = GridType.Normal;
+                grids[i, j].g = 0;
+                grids[i, j].f = 0;
+                grids[i, j].h = 0;
+            }
+        }
+        grids[StartPoint.x, StartPoint.y].type = GridType.Start;
+        grids[StartPoint.x, StartPoint.y].h = Manhattan(StartPoint.x, StartPoint.y);    //起点的 h 值
+
+        grids[EndPoint.x, EndPoint.y].type = GridType.End;                    //结束点
+
+
+        foreach(var i in Obstacles)//设置障碍物
+        {
+            grids[i.x, i.y].type = GridType.Obstacle;
+        }
+        openList.Add(grids[StartPoint.x, StartPoint.y]);
+    }
+
+    int Manhattan(int x, int y)                    //计算算法中的 h
+    {
+        return (int)(Mathf.Abs(EndPoint.x - x) + Mathf.Abs(EndPoint.y - y)) * 10;
+    }
+
+    public bool find = false;
+    // Use this for initialization
+    public List<Vector2Int> GeneratePath(Vector2Int start, Vector2Int end,List<Vector2Int> ob)
+    {
+        StartPoint = start;
+        EndPoint = end;
+        Obstacles = ob;
+        Init();
+        while (find != true)
+        {
+        //    Debug.Log("Step");
+            NextStep();
+        }
+        result.Remove(start);
+        result.Add(end);//去头加尾
+        return result;
+    }
     void Awake()
     {
-        valueMatrix = new float[10, 14];//此处写的不好
-        for(int i=0;i<10; ++i)
+        grids = new MapGrid[row, col];    //初始化数组
+        for (int i = 0; i < row; i++)
         {
-            for(int j = 0; j < 14; ++j)
+            for (int j = 0; j < col; j++)
             {
-                valueMatrix[i, j] = 0;
+                grids[i, j] = new MapGrid();
+                grids[i, j].x = i;
+                grids[i, j].y = j;        //初始化格子,记录格子坐标
+                grids[i, j].fatherNode = null;
             }
         }
-
+        fatherNodeLocation = new Stack<Vector2Int>();
+        openList = new ArrayList();
+        closeList = new ArrayList();
     }
-    void Evaluating(Vector2Int destination)
-    {
-        /*用来赋予权值的函数,步骤是
-         * 1.按照到目的地的哈密顿距离赋予权值
-         * 2.按照尽可能贴近友军的方向走，并且尽可能远离敌方？？
-         * 3.所有不能走的地块都强制设置权值为非常负的数；
-         * 
-         */
-        this.GetComponent<MapController>();
 
-        for (int i = 0; i < 10; ++i)//step1
+
+    //每个格子显示的内容
+    string FGH(MapGrid grid)
+    {
+        string str = "F" + grid.f + "\n";
+        str += "G" + grid.g + "\n";
+        str += "H" + grid.h + "\n";
+        str += "(" + grid.x + "," + grid.y + ")";
+        return str;
+    }
+
+
+    void NextStep()
+    {
+        if (openList.Count == 0)                //没有可走的点
         {
-            for (int j = 0; j < 14; ++j)
-            {
-                valueMatrix[i, j] += -HamiltonDistance(destination,new Vector2Int(i,j));//越靠近目的地，其权值应该越大
-            }
+            Debug.Log("Over !");
+            return;
         }
-        //step2
-        for (int i = 0; i < 10; ++i)//step3
+        MapGrid grid = (MapGrid)openList[0];    //取出openList数组中的第一个点
+        if (grid.type == GridType.End)            //找到终点
         {
-            for (int j = 0; j < 14; ++j)
+            find = true;
+            ShowFatherNode(grid);        //找节点//打印路线
+            return;
+        }
+
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
             {
-                if (this.GetComponent<MapController>().IsObstacle(new Vector2Int(i, j)))
+                int rcl = Mathf.Abs(i) + Mathf.Abs(j);
+                if (   (!(i == 0 && j == 0))   &&rcl!=2    )//只能横竖走
                 {
-                    valueMatrix[i, j] = -10000f;
-                }   //所有不能走的地方，其权值为-10000
+                    int x = grid.x + i;
+                    int y = grid.y + j;
+                    //x,y不超过边界,不是障碍物,不在closList里面
+                    if (x >= 0 && x < row && y >= 0 && y < col && grids[x, y].type != GridType.Obstacle && !closeList.Contains(grids[x, y]))
+                    {
+
+
+                        //到起点的消耗
+                        int g = grid.g + (int)(Mathf.Sqrt((Mathf.Abs(i) + Mathf.Abs(j))) * 10);
+                        if (grids[x, y].g == 0 || grids[x, y].g > g)
+                        {
+                            grids[x, y].g = g;
+                            grids[x, y].fatherNode = grid;        //更新父节点
+                        }
+                        //到终点的消耗
+                        grids[x, y].h = Manhattan(x, y);
+                        grids[x, y].f = grids[x, y].g + grids[x, y].h;
+                        if (!openList.Contains(grids[x, y]))
+                        {
+                            openList.Add(grids[x, y]);            //如果没有则加入到openlist
+                        }
+                        openList.Sort();                        //排序
+                    }
+                }
             }
         }
-
+        //添加到关闭数组
+        closeList.Add(grid);
+        //从open数组删除
+        openList.Remove(grid);
     }
-    void Clear()//清空当前估值矩阵内的所有数据
+
+
+    //回溯法 递归父节点
+    void ShowFatherNode(MapGrid grid)
     {
-        for (int i = 0; i < 10; ++i)
+   //     Debug.Log("调用");
+        if (grid.fatherNode != null)
         {
-            for (int j = 0; j < 14; ++j)
-            {
-                valueMatrix[i, j] =0;//清空
-            }
+            //print(grid.fatherNode.x + "," + grid.fatherNode.y);
+            //string str = grid.fatherNode.x + "," + grid.fatherNode.y;
+      //      Debug.Log("PUSH");
+            fatherNodeLocation.Push(new Vector2Int(grid.fatherNode.x,grid.fatherNode.y));
+            ShowFatherNode(grid.fatherNode);
+        }
+        if (fatherNodeLocation.Count != 0)
+        {
+     //       Debug.Log("添加");
+            result.Add(fatherNodeLocation.Pop());
         }
     }
-    public Vector2Int GetNextStep(Vector2Int currentPosition,Vector2Int destination)
-    {
-        /*传入当前位置和目的地
-         *返回下一个位置的格子坐标
-         */
-        Clear();
-        Evaluating(destination);
-        var goodPositions = FindGoodPositions(currentPosition);//获取邻接区域中估值比当前区域大的地方
-        
-        return SelectPosition(goodPositions);
-    }
-    Vector2Int SelectPosition(List<Vector2Int> positions)//辅助函数，这个函数从待选择的列表中选择一个位置作为返回值
-    {
-        if (positions.Count == 0) Debug.Log("竟然没有值得走的。");
 
-        return positions[(int)Random.Range(0,positions.Count)];//暂时只选择最上面的
-    }
-    List<Vector2Int> FindGoodPositions(Vector2Int currentPosition)
-    {
-        //辅助函数，输入一个位置，返回和该位置邻接的位置的值比它大的位置的列表
-        List<Vector2Int> temp = new List<Vector2Int>();
-        if (currentPosition.x + 1 < 10  )//边界条件判定
-        {
-            if (valueMatrix[currentPosition.x + 1, currentPosition.y]>valueMatrix[currentPosition.x,currentPosition.y]) {
-                temp.Add(new Vector2Int(currentPosition.x + 1, currentPosition.y ));
-            }
 
-        }
-        if ( currentPosition.y - 1 >=0)//边界条件判定
-        {
-            if (valueMatrix[currentPosition.x , currentPosition.y - 1] > valueMatrix[currentPosition.x, currentPosition.y])
-            {
-                temp.Add(new Vector2Int(currentPosition.x , currentPosition.y - 1));
-            }
-
-        }
-        if (currentPosition.x - 1 >=0 )//边界条件判定
-        {
-            if (valueMatrix[currentPosition.x - 1, currentPosition.y ] > valueMatrix[currentPosition.x, currentPosition.y])
-            {
-                temp.Add(new Vector2Int(currentPosition.x - 1, currentPosition.y ));
-            }
-
-        }
-        if ( currentPosition.y + 1 <14)//边界条件判定
-        {
-            if (valueMatrix[currentPosition.x , currentPosition.y + 1] > valueMatrix[currentPosition.x, currentPosition.y])
-            {
-                temp.Add(new Vector2Int(currentPosition.x , currentPosition.y + 1));
-            }
-
-        }
-        return temp;
-    }
-    public List<Vector2Int> GetTheRoute(Vector2Int startPosition,Vector2Int destination)
-    {//传入开始位置和目的地，返回一条路径
-        List<Vector2Int> route = new List<Vector2Int>();
-        var currentPosition = startPosition;
-        while (GetNextStep(currentPosition,destination) !=destination)
-        {
-            var temp = GetNextStep(currentPosition, destination);
-            route.Add(temp);
-            currentPosition = temp;
-        }
-        route.Add(currentPosition);
-        return route;
-    }
-    int HamiltonDistance(Vector2Int pointA, Vector2Int pointB)//哈密顿距离，传入两个格子坐标计算其间的哈密顿距离
-    {
-        Vector2Int delta = pointA - pointB;
-        int value = Mathf.Abs(delta.x) + Mathf.Abs(delta.y);
-        return value; 
-    }
 }

@@ -410,6 +410,9 @@ MonoBehaviour:
   row: 14
   pathFinder: {fileID: 1797982571}
   testRoute: []
+  playerAMaterial: {fileID: 0}
+  playerBMaterial: {fileID: 0}
+  obstacleMateiral: {fileID: 0}
 --- !u!114 &1797982571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,8 +424,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fceea48caf1876149b19f4a4c991b4da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacles: []
-  destiny: {x: 0, y: 0}
+  row: 10
+  col: 14
+  size: 70
+  StartPoint: {x: 0, y: 0}
+  EndPoint: {x: 0, y: 0}
+  result: []
+  Obstacles: []
+  find: 0
 --- !u!1 &1825684678
 GameObject:
   m_ObjectHideFlags: 0
