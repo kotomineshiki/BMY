@@ -56,13 +56,16 @@ public class ActionManager : MonoBehaviour, IActionCallback
      * 动作的回调函数
      * 传入动作,int类型参数,当前动作结束的对象
      * 无返回值
-     * 根据参数执行下一个动作,调用了Role的一些方法
+     * 根据参数执行下一个动作,调用了Role,Chess的一些方法
      */
     public void SSActionEvent(Action source, int intParam = 0, GameObject objectParam = null)
     {
         if(intParam == 1)
         {
+            //设置兵马俑当前的位置
+            objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Role>().GetNextDestination());
             objectParam.gameObject.GetComponent<Role>().StopMoveAnimation();
+            //移动到下一个位置
             objectParam.gameObject.GetComponent<Role>().Move();
         }
     }

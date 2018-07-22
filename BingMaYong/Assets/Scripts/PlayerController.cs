@@ -12,19 +12,11 @@ public class PlayerController : MonoBehaviour
      * 无返回值
      * 调用寻路管理器获取一个路径容器,赋值给角色的路径容器,调用角色的Move方法
      */ 
-    public void Move(GameObject role,Vector2 endPosition)
+    public void Move(GameObject role, Vector2Int endPosition)
     {
-        Stack<Vector3> positions = new Stack<Vector3>();
-        //调用寻路管理，返回一个路径容器
-        //不知道用什么先用stack
-        positions.Push(new Vector3(2.25f, 5.46f, -0.54f));
-        positions.Push(new Vector3(1.16f, 5.46f, -0.54f));
-        positions.Push(new Vector3(0.025f, 5.46f, -0.54f));
-        positions.Push(new Vector3(0.025f, 4.39f, -0.54f));
-        positions.Push(new Vector3(0.025f, 3.36f, -0.54f));
-
-        role.GetComponent<Role>().SetPath(positions);
+        //设置目的地
         role.GetComponent<Role>().SetDestination(endPosition);
+        //移动
         role.GetComponent<Role>().Move();
     }
     /*
@@ -35,16 +27,8 @@ public class PlayerController : MonoBehaviour
      */
     public void Attack(GameObject role,GameObject victim)
     {
-        Stack<Vector3> positions = new Stack<Vector3>();
-        //调用寻路管理，返回一个路径容器
-        //不知道用什么先用stack
-        positions.Push(new Vector3(2.25f, 5.46f, -0.54f));
-        positions.Push(new Vector3(1.16f, 5.46f, -0.54f));
-        positions.Push(new Vector3(0.025f, 5.46f, -0.54f));
-        positions.Push(new Vector3(0.025f, 4.39f, -0.54f));
-        positions.Push(new Vector3(0.025f, 3.36f, -0.54f));
-        //设置路线
-        role.GetComponent<Role>().SetPath(positions);
+        //设置目的地
+        role.GetComponent<Role>().SetDestination(victim.GetComponent<Chess>().GetCurrentPosition() + new Vector2Int(0,1));
         //设置被攻击者
         role.GetComponent<Role>().SetAttack(victim);
         //移动

@@ -5,11 +5,11 @@ using UnityEngine;
 public class Role : MonoBehaviour
 {
     private RoleActionManager action_manager;                       //运动管理器
-    private Stack<Vector3> path = new Stack<Vector3>();             //兵马俑会移动的路径
     private GameObject victim;                                      //被攻击者
     private bool isAttack;                                          //是否需要攻击
-    Vector2 destination;
-    MapController mapController;
+    private Vector2Int destination;                                 //最终目的地
+    private MapController mapController;                            //地图控制器
+    private Vector2Int nextDestination;                             //下一个要到达的位置
 
     public void Start()
     {
@@ -28,32 +28,27 @@ public class Role : MonoBehaviour
     public void Move()
     {
         //判断是否到达终点
-        //通过action_manager获得下一个位置
-        //将vec2转换为vec3
-
-
-        if (path.Count != 0)
+        if (gameObject.GetComponent<Chess>().GetCurrentPosition() == destination)
         {
-            Vector3 nextPos = path.Peek();
-            MoveToPosition(nextPos);
-            path.Pop();
+            Debug.Log("到达目的地");
+            if(isAttack)
+            {
+                //如果是攻击状态在移动结束后需要攻击
+                float hurt = gameObject.GetComponent<Chess>().GetHurt();
+                action_manager.Attack(gameObject, victim, hurt);
+                isAttack = false;
+            }
         }
-        else if(isAttack)
+        else 
         {
-            //如果是攻击状态在移动结束后需要攻击
-            float hurt = gameObject.GetComponent<Chess>().GetHurt();
-            action_manager.Attack(gameObject, victim, hurt);
-            isAttack = false;
+            Debug.Log("Role move"+destination);
+            //得到下一个位置
+            nextDestination = mapController.GetNextStep(gameObject.GetComponent<Chess>().GetCurrentPosition(), destination);
+            Vector3 pos = mapController.GetWorldPosition(nextDestination);
+            Debug.Log(nextDestination);
+            //移动到该位置
+            MoveToPosition(pos);
         }
-    }
-    /*
-     * 设置兵马俑移动路线
-     * 传入路径的容器pos
-     * 无返回值
-     */
-    public void SetPath(Stack<Vector3> pos)
-    {
-        path = pos;
     }
 
     /*
@@ -81,17 +76,6 @@ public class Role : MonoBehaviour
             child.gameObject.GetComponent<Animator>().SetBool("move", false);
             break;
         }
-    }
-
-    /*
-     * 根据位置去移动兵马俑
-     * 传入移动的下一个位置pos
-     * 无返回值
-     * 调用运动管理器方法
-     */
-    private void MoveToPosition(Vector3 pos)
-    {
-        action_manager.Move(gameObject, pos);
     }
 
     /*
@@ -133,8 +117,32 @@ public class Role : MonoBehaviour
         }
     }
 
-    public void SetDestination(Vector2 pos)
+    /*
+     * 设置兵马俑的目的地
+     * 传入目的地pos
+     * 无返回值
+     */
+    public void SetDestination(Vector2Int pos)
     {
         destination = pos;
+    }
+    /*
+     * 得到兵马俑的下一个位置
+     * 返回nextDestination
+     */
+    public Vector2Int GetNextDestination()
+    {
+        return nextDestination;
+    }
+
+    /*
+     * 根据位置去移动兵马俑
+     * 传入移动的下一个位置pos
+     * 无返回值
+     * 调用运动管理器方法
+     */
+    private void MoveToPosition(Vector3 pos)
+    {
+        action_manager.Move(gameObject, pos);
     }
 }
