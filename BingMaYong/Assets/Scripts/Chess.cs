@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chess : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class Chess : MonoBehaviour {
     Vector2Int currentPosition;           //当前位于格子坐标
     public float hurt = 10;               //兵马俑的伤害
     public float blood = 100;             //兵马俑的血量
-
+    public Slider chessSlider; 
     /*
      * 得到兵马俑的当前位置
      * 返回Vector2Int类型的当前位置
@@ -42,8 +43,9 @@ public class Chess : MonoBehaviour {
      */
     public void SetBoold(float blo)
     {
-        Debug.Log(blo);
+        Debug.Log("set"+ blo);
         blood = blo;
+        chessSlider.value = blo;
     }
     /*
      * 返回当前兵马俑的血量

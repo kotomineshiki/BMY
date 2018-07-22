@@ -96,9 +96,11 @@ public class Role : MonoBehaviour
      */
     public void ReduceBoold(float hurt)
     {
+        Debug.Log("扣血" + hurt);
         float boold = gameObject.GetComponent<Chess>().GetBoold();
         if (boold - hurt >= 0)
         {
+            Debug.Log("剩余" + (boold - hurt));
             gameObject.GetComponent<Chess>().SetBoold(boold - hurt);
         }
     }
