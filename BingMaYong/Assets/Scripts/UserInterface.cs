@@ -7,6 +7,9 @@ public class UserInterface : MonoBehaviour {
     public GameObject clickedObjectB;
     private PlayerController playerController;    //玩家控制器
 
+
+    public GameObject selectPanel;//选兵板
+
     void Start ()
     {
         playerController = Singleton<PlayerController>.Instance;
