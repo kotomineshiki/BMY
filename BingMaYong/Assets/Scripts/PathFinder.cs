@@ -125,7 +125,7 @@ public class PathFinder: MonoBehaviour
         //    Debug.Log("Step");
             NextStep();
         }
-        if(result.Count!=0)result.RemoveAt(0);
+        if(result.Count>0)result.RemoveAt(0);
         result.Add(end);//去头加尾
         return result;
     }

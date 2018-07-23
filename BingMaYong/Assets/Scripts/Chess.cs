@@ -46,7 +46,9 @@ public class Chess : MonoBehaviour {
         MapController.instance.SetOccupied(currentPosition,chessSide);
 
     }
-
+    public void ReleaseCurrentPosition() {
+        MapController.instance.SetReleased(currentPosition);
+    }
     /*
      * 得到兵马俑的伤害
      * 返回float类型的hurt

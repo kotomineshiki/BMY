@@ -46,11 +46,10 @@ public class Role : MonoBehaviour
         }
         else 
         {
-            Debug.Log("Role move"+destination);
             //得到下一个位置
-
+            Debug.Log("当前位置" + gameObject.GetComponent<Chess>().GetCurrentPosition()+"目标位置" + destination);
             nextDestination = mapController.GetNextStep(gameObject.GetComponent<Chess>().GetCurrentPosition(), destination);
-            Debug.Log(nextDestination);
+            Debug.Log("下一个移动到的位置" + nextDestination);
             if (MapController.instance.CanWalk(nextDestination))//如果该位置是合法的，走向该位置
             {
                 Vector3 pos = mapController.GetWorldPosition(nextDestination);
@@ -60,7 +59,7 @@ public class Role : MonoBehaviour
             else
             {
                 Debug.Log("该位置不合法，应该停在当前位置");
-                destination = gameObject.GetComponent<Chess>().GetCurrentPosition();//令目的地为当前位置
+             //   destination = gameObject.GetComponent<Chess>().GetCurrentPosition();//令目的地为当前位置
                 isMoving = false;
                 isAttack = false;
                 gameObject.GetComponent<Role>().StopMoveAnimation();

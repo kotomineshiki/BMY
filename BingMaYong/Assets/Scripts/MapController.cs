@@ -71,10 +71,12 @@ public class MapController : MonoBehaviour {
             Debug.Log("未能找到路径");
             return new Vector2Int(-1, -1);//其他函数也要配合检验！！！！！！！！！！！！
         }
-        if (!CanWalk(answer[0]))
+    /*    if (!CanWalk(answer[0]))
         {
+            Debug.Log("asdf");
             return currentPosition;
-        }else
+
+        }else*/
         return pathFinder.GeneratePath(currentPosition, destination, currentObstacles)[0];
     }
     private void Initialize()//这个函数用来逐行逐列创建地图，创建后格子的父类为当前类
@@ -118,5 +120,11 @@ public class MapController : MonoBehaviour {
     {
         tiles[pos.x, pos.y].tileState = TileState.Occupied;//只适用于当前走在的格子上
         tiles[pos.x, pos.y].side = side;//设定当前格子的归属权
+        tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material.color =new  Color(0.5f, 0.5f, 0.5f);
+    }
+    public void SetReleased(Vector2Int pos)//释放一个格子的控制权，让它可以被走
+    {
+        tiles[pos.x, pos.y].tileState = TileState.Idle;
+        tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f);
     }
 }
