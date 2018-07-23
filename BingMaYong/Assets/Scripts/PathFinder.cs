@@ -110,16 +110,22 @@ public class PathFinder: MonoBehaviour
     // Use this for initialization
     public List<Vector2Int> GeneratePath(Vector2Int start, Vector2Int end,List<Vector2Int> ob)
     {
+        Init();
         StartPoint = start;
         EndPoint = end;
         Obstacles = ob;
-        Init();
+        foreach (var i in Obstacles)//设置障碍物
+        {
+            grids[i.x, i.y].type = GridType.Obstacle;
+        }
+        grids[StartPoint.x, StartPoint.y].type = GridType.Start;
+        grids[EndPoint.x, EndPoint.y].type = GridType.End;//强制让终点可以被找寻到
         while (find != true)
         {
         //    Debug.Log("Step");
             NextStep();
         }
-        result.Remove(start);
+        if(result.Count!=0)result.RemoveAt(0);
         result.Add(end);//去头加尾
         return result;
     }
