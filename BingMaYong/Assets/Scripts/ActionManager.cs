@@ -66,23 +66,23 @@ public class ActionManager : MonoBehaviour, IActionCallback
             //设置兵马俑当前的位置
 
             objectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition();//释放当前占领
-            objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Role>().GetNextDestination());
+            objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Chess>().GetNextDestination());
             objectParam.gameObject.GetComponent<Chess>().OccupyCurrentPosition();//占领新的
-            objectParam.gameObject.GetComponent<Role>().StopMoveAnimation();
+            objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
             //移动到下一个位置
-            objectParam.gameObject.GetComponent<Role>().Move();
+            objectParam.gameObject.GetComponent<Chess>().Move();
         }
         else if(intParam == 2)
         {
             //攻击动作结束后
-            if(nextObjectParam.gameObject.GetComponent<Chess>().GetBoold() <= 0)
+            if(nextObjectParam.gameObject.GetComponent<Chess>().GetBlood() <= 0)
             {
                 //血量少于0,摧毁对象
                 Destroy(nextObjectParam.gameObject);
                 //停止攻击状态
-                objectParam.gameObject.GetComponent<Role>().StopAttackStatus();
+                objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
             }
-            else if(objectParam.gameObject.GetComponent<Role>().GetAttackStatus())
+            else if(objectParam.gameObject.GetComponent<Chess>().GetAttackStatus())
             {
                 //如果正在攻击则1s后继续攻击
                 StartCoroutine(PlayerAttack(objectParam, nextObjectParam));
@@ -90,8 +90,13 @@ public class ActionManager : MonoBehaviour, IActionCallback
             else
             {
                 //查看有没有新的目的地然后去移动
-                objectParam.gameObject.GetComponent<Role>().Move();
+                objectParam.gameObject.GetComponent<Chess>().Move();
             }
+        }
+        else if(intParam == 3)
+        {
+            //停止攻击状态
+            objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
         }
     }
 
@@ -99,7 +104,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
     {
         yield return new WaitForSeconds(1.0f);
         //移动到被攻击者旁
-        objectParam.gameObject.GetComponent<Role>().Move();
+        objectParam.gameObject.GetComponent<Chess>().Move();
     }
 
     /*

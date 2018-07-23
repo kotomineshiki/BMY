@@ -41,7 +41,7 @@ public class RoleMoveAction : Action
     }
     public override void Start()
     {
-        //播放移动动画,调用了Role的方法
-        gameobject.GetComponent<Role>().PlayMoveAnimation();
+        //播放移动动画,调用了Chess的方法
+        gameobject.GetComponent<Chess>().PlayMoveAnimation();
     }
 }
