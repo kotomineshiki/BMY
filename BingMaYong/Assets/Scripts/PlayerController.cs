@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     {
         bool isAttacking = role.GetComponent<Role>().GetAttackStatus();
         //设置目的地
-        role.GetComponent<Role>().SetDestination(victim.GetComponent<Chess>().GetCurrentPosition()) ;
+        role.GetComponent<Role>().SetDestination(victim.GetComponent<Chess>().GetCurrentPosition() + new Vector2Int(0,-1)) ;
         //设置被攻击者
         role.GetComponent<Role>().SetAttack(victim);
         //之前没有在移动,没有在攻击则可移动到被攻击者旁
