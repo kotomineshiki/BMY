@@ -29,7 +29,8 @@ public class ChessController : MonoBehaviour {
 	void Start () {
         PlaceChessAt(new Vector2Int(3, 3),Side.playerA);
         PlaceChessAt(new Vector2Int(5, 8), Side.playerB);
-	}
+        PlaceChessAt(new Vector2Int(7, 3), Side.playerB);
+    }
 	
 	// Update is called once per frame
 	void Update () {
