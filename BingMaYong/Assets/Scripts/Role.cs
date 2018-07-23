@@ -7,6 +7,7 @@ public class Role : MonoBehaviour
     private RoleActionManager action_manager;                       //运动管理器
     private GameObject victim;                                      //被攻击者
     private bool isAttack;                                          //是否需要攻击
+    private bool isMoving;                                          //是否正在移动
     private Vector2Int destination;                                 //最终目的地
     private MapController mapController;                            //地图控制器
     private Vector2Int nextDestination;                             //下一个要到达的位置
@@ -17,6 +18,7 @@ public class Role : MonoBehaviour
         action_manager = Singleton<RoleActionManager>.Instance;
         mapController = Singleton<MapController>.Instance;
         isAttack = false;
+        isMoving = false;
     }
 
     /*
@@ -30,13 +32,15 @@ public class Role : MonoBehaviour
         //判断是否到达终点
         if (gameObject.GetComponent<Chess>().GetCurrentPosition() == destination)
         {
-            Debug.Log("到达目的地");
+            isMoving = false;
+            gameObject.GetComponent<Role>().StopMoveAnimation();
             if(isAttack)
             {
                 //如果是攻击状态在移动结束后需要攻击
+                //得到伤害
                 float hurt = gameObject.GetComponent<Chess>().GetHurt();
+                //攻击
                 action_manager.Attack(gameObject, victim, hurt);
-                isAttack = false;
             }
         }
         else 
@@ -100,7 +104,6 @@ public class Role : MonoBehaviour
         float boold = gameObject.GetComponent<Chess>().GetBoold();
         if (boold - hurt >= 0)
         {
-            Debug.Log("剩余" + (boold - hurt));
             gameObject.GetComponent<Chess>().SetBoold(boold - hurt);
         }
     }
@@ -113,7 +116,6 @@ public class Role : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            Debug.Log("Attack");
             child.gameObject.GetComponent<Animator>().SetTrigger("IsChessAttack");
             break;
         }
@@ -145,6 +147,31 @@ public class Role : MonoBehaviour
      */
     private void MoveToPosition(Vector3 pos)
     {
+        isMoving = true;
         action_manager.Move(gameObject, pos);
+    }
+
+    /*
+     * 得到兵马俑是否正在移动
+     * 返回bool类型
+     */
+    public bool GetMoving()
+    {
+        return isMoving;
+    }
+    /*
+     * 取消兵马俑的攻击状态
+     */
+    public void StopAttackStatus()
+    {
+        isAttack = false;
+    }
+    /*
+     * 得到兵马俑攻击状态
+     * 返回bool类型
+     */
+    public bool GetAttackStatus()
+    {
+        return isAttack;
     }
 }

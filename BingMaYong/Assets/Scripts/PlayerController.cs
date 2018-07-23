@@ -14,10 +14,14 @@ public class PlayerController : MonoBehaviour
      */ 
     public void Move(GameObject role, Vector2Int endPosition)
     {
+        bool isAttacking = role.GetComponent<Role>().GetAttackStatus();
         //设置目的地
         role.GetComponent<Role>().SetDestination(endPosition);
-        //移动
-        role.GetComponent<Role>().Move();
+        //停止攻击状态
+        role.GetComponent<Role>().StopAttackStatus();
+        //之前没有在移动,没有在攻击则可移动
+        if (!role.GetComponent<Role>().GetMoving() && !isAttacking)
+            role.GetComponent<Role>().Move();
     }
     /*
      * 攻击一个目标兵马俑
@@ -27,12 +31,14 @@ public class PlayerController : MonoBehaviour
      */
     public void Attack(GameObject role,GameObject victim)
     {
+        bool isAttacking = role.GetComponent<Role>().GetAttackStatus();
         //设置目的地
         role.GetComponent<Role>().SetDestination(victim.GetComponent<Chess>().GetCurrentPosition() + new Vector2Int(0,1));
         //设置被攻击者
         role.GetComponent<Role>().SetAttack(victim);
-        //移动
-        role.GetComponent<Role>().Move();
+        //之前没有在移动,没有在攻击则可移动到被攻击者旁
+        if (!role.GetComponent<Role>().GetMoving() && !isAttacking)
+            role.GetComponent<Role>().Move();
     }
 }
 

@@ -24,15 +24,17 @@ public class RoleAttackAction : Action
 
     public override void Update()
     {
+        //播放攻击动画,调用了Role的方法
+        gameobject.GetComponent<Role>().PlayAttackAnimation();
         //受害者扣血,调用了Role的方法
         victim.GetComponent<Role>().ReduceBoold(hurt);
+        Debug.Log("执行攻击");
         this.destroy = true;
         //回调函数
-        this.callback.SSActionEvent(this);
+        this.callback.SSActionEvent(this,2,this.gameobject,victim);
     }
     public override void Start()
     {
-        //播放攻击动画,调用了Role的方法
-        gameobject.GetComponent<Role>().PlayAttackAnimation();
+
     }
 }
