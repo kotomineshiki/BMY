@@ -44,10 +44,18 @@ public class Role : MonoBehaviour
             Debug.Log("Role move"+destination);
             //得到下一个位置
             nextDestination = mapController.GetNextStep(gameObject.GetComponent<Chess>().GetCurrentPosition(), destination);
-            Vector3 pos = mapController.GetWorldPosition(nextDestination);
-            Debug.Log(nextDestination);
-            //移动到该位置
-            MoveToPosition(pos);
+            if (MapController.instance.CanWalk(nextDestination))//如果该位置是合法的，走向该位置
+            {
+                Vector3 pos = mapController.GetWorldPosition(nextDestination);
+                Debug.Log(nextDestination);
+                //移动到该位置
+                MoveToPosition(pos);
+            }
+            else
+            {
+                Debug.Log("该位置不合法，应该停在当前位置");
+                destination = gameObject.GetComponent<Chess>().GetCurrentPosition();//令目的地为当前位置
+            }
         }
     }
 

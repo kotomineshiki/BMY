@@ -22,6 +22,7 @@ public class ChessController : MonoBehaviour {
         if (side == Side.playerB) playerB.Add(temp.GetComponent<Chess>());
         temp.GetComponent<Chess>().chessSide = side;
         temp.GetComponent<Chess>().SetCurrentPosition(placeAt);
+        temp.GetComponent<Chess>().OccupyCurrentPosition();//占领当前位置
     }
     
 	// Use this for initialization

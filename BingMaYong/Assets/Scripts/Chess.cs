@@ -27,7 +27,11 @@ public class Chess : MonoBehaviour {
     {
        currentPosition = pos;
     }
+    public void OccupyCurrentPosition()
+    {
+        MapController.instance.SetOccupied(currentPosition,chessSide);
 
+    }
 
     /*
      * 得到兵马俑的伤害

@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public void Attack(GameObject role,GameObject victim)
     {
         //设置目的地
-        role.GetComponent<Role>().SetDestination(victim.GetComponent<Chess>().GetCurrentPosition() + new Vector2Int(0,1));
+        role.GetComponent<Role>().SetDestination(victim.GetComponent<Chess>().GetCurrentPosition()) ;
         //设置被攻击者
         role.GetComponent<Role>().SetAttack(victim);
         //移动

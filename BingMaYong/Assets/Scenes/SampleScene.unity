@@ -384,60 +384,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1457768818
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4435945203758144, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 224077108062878158, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224077108062878158, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1490517841
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,9 +472,9 @@ MonoBehaviour:
   row: 14
   pathFinder: {fileID: 1797982571}
   testRoute: []
-  playerAMaterial: {fileID: 0}
-  playerBMaterial: {fileID: 0}
-  obstacleMateiral: {fileID: 0}
+  playerAMaterial: {fileID: 2100000, guid: 0abca9212e8faee43854e8dae16a7454, type: 2}
+  playerBMaterial: {fileID: 2100000, guid: f76f314d005ed7b4a88af07e674f43c8, type: 2}
+  obstacleMateiral: {fileID: 2100000, guid: 98a2c165602d0d0458eed428d30fec77, type: 2}
 --- !u!114 &1797982571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,5 +578,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerA: []
   playerB: []
-  chessPrefab: {fileID: 1714400421438804, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9,
+  chessPrefab: {fileID: 1539074721877186, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9,
     type: 2}
