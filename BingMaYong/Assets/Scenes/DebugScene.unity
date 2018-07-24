@@ -472,9 +472,9 @@ MonoBehaviour:
   row: 14
   pathFinder: {fileID: 1797982571}
   testRoute: []
-  playerAMaterial: {fileID: 0}
-  playerBMaterial: {fileID: 0}
-  obstacleMateiral: {fileID: 0}
+  playerAMaterial: {fileID: 2100000, guid: 0abca9212e8faee43854e8dae16a7454, type: 2}
+  playerBMaterial: {fileID: 2100000, guid: f76f314d005ed7b4a88af07e674f43c8, type: 2}
+  obstacleMateiral: {fileID: 2100000, guid: 98a2c165602d0d0458eed428d30fec77, type: 2}
 --- !u!114 &1797982571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,9 +579,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerA: []
   playerB: []
+<<<<<<< HEAD
   infantryChessPrefab: {fileID: 1726800209163978, guid: d3f9bf534c92c4f4e8387c3e94ec07b0,
     type: 2}
   carChessPrefab: {fileID: 1642853323668072, guid: 5cc896fbcbd44164db92bfa5a4fae1b3,
     type: 2}
   shootChessPrefab: {fileID: 1948576526992122, guid: f88da5bbcff443147a4b4412e7a84af1,
     type: 2}
+=======
+  infantryChessPrefab: {fileID: 0}
+  carChessPrefab: {fileID: 0}
+  shootChessPrefab: {fileID: 0}
+>>>>>>> 8d928ba8d4b7a3c7db99cf586d57293b7652789f
