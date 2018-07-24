@@ -24,8 +24,5 @@ public class CarChess : Chess
 
         attackRange = new List<Vector2Int>() {new Vector2Int(0,1)};
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
 }

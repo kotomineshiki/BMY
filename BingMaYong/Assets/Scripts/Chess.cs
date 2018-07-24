@@ -12,11 +12,9 @@ public enum ChessType
 public class Chess : MonoBehaviour
 {
     public Side chessSide;                //棋子的阵营
-<<<<<<< HEAD
-    Vector2Int currentPosition;           //当前位于格子坐标
-=======
+
     protected Vector2Int currentPosition;           //当前位于格子坐标
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
+
     public Slider chessSlider;            //血条
 
     private GameObject victim;                                        //被攻击者
@@ -57,21 +55,21 @@ public class Chess : MonoBehaviour
     }
 
     /*
-<<<<<<< HEAD
+
      * 占领当前位置
      * 无参数,无返回值
      */
     public void OccupyCurrentPosition()
     {
-        MapController.instance.SetOccupied(currentPosition,chessSide);
-=======
+        MapController.instance.SetOccupied(currentPosition, chessSide);
+    }
+    /*
      * 占领一个位置
      * 传入需要占领的位置pos
      */
     public void OccupyPosition(Vector2Int pos)
     {
         MapController.instance.SetOccupied(pos, chessSide);
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
 
     }
 
@@ -113,17 +111,9 @@ public class Chess : MonoBehaviour
      */
     public Vector2Int GetAttackTargetLocations(Vector2Int victimPos)
     {
-<<<<<<< HEAD
-        List<Vector2Int> targetLocations = new List<Vector2Int>();
-        foreach (Vector2Int vec in attackRange)
-        {
-            targetLocations.Add(victimPos - vec);
-        }
-        //随机一个位置,之后可以使用更智能方法指定攻击位置
-        int random = Random.Range(1, 8);
-        Vector2Int destination = targetLocations[(random % targetLocations.Count)];
-        return destination;
-=======
+
+
+
         Vector2Int targetLocations = currentPosition;
         int minPath = 9999;
         foreach (Vector2Int vec in attackRange)
@@ -150,7 +140,7 @@ public class Chess : MonoBehaviour
         return targetLocations;
         //在位置列表中排除那些已经有棋子的位置
         //在剩余位置中选出走过去最短的位置(更加智能)
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
+
     }
 
     /*
@@ -221,11 +211,10 @@ public class Chess : MonoBehaviour
             //如果该位置是合法的，走向该位置
             if (MapController.instance.CanWalk(nextDestination))
             {
-<<<<<<< HEAD
-=======
+
                 ReleaseCurrentPosition(); //释放当前占领
                 OccupyPosition(nextDestination);  //占领新的
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
+
                 Vector3 pos = mapController.GetWorldPosition(nextDestination);
                 //移动到该位置
                 MoveToPosition(pos);
@@ -361,9 +350,7 @@ public class Chess : MonoBehaviour
     {
         return isAttack;
     }
-<<<<<<< HEAD
 
-=======
     /*
     private void Update()
     {
@@ -399,5 +386,5 @@ public class Chess : MonoBehaviour
         }
     }
     */
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
+
 }

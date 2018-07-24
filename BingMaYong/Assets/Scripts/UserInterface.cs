@@ -13,10 +13,6 @@ public class UserInterface : MonoBehaviour {
     void Start ()
     {
         playerController = Singleton<PlayerController>.Instance;
-<<<<<<< HEAD
-=======
-
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
     }
 
     // Update is called once per frame
@@ -63,11 +59,7 @@ public class UserInterface : MonoBehaviour {
         }else
         if (clickedObjectA.tag == "Chess" && clickedObjectB.tag == "Tile")
         {
-<<<<<<< HEAD
             Debug.Log(clickedObjectA.GetComponent<Chess>().GetCurrentPosition()+"移动到"+clickedObjectB.GetComponent<Tile>().tilePosition);
-=======
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
-            //调用玩家控制器的Move方法
             playerController.Move(clickedObjectA,clickedObjectB.GetComponent<Tile>().tilePosition);
 
             clickedObjectA = null;
@@ -135,9 +127,5 @@ public class UserInterface : MonoBehaviour {
         }
 
     }
-<<<<<<< HEAD
-  
-=======
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
 
 }

@@ -3,14 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Chess
-  - Tile
-<<<<<<< HEAD
-  - CastleA
-  - CastleB
-=======
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -20,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
+  - 
   - 
   - 
   - 

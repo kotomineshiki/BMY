@@ -127,8 +127,7 @@ public class MapController : MonoBehaviour {
         tiles[pos.x, pos.y].tileState = TileState.Idle;
         tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f);
     }
-<<<<<<< HEAD
-=======
+
 
     /*
      * 传入位置得到该位置的Tile
@@ -155,5 +154,4 @@ public class MapController : MonoBehaviour {
         }
         return pathFinder.GeneratePath(currentPosition, destination, currentObstacles).Count;
     }
->>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
 }
