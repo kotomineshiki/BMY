@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
             bool isAttacking = role.GetComponent<Chess>().GetAttackStatus();
             Vector2Int victimPos = victim.GetComponent<Chess>().GetCurrentPosition();
             //设置目的地
+
             Vector2Int pos = role.GetComponent<Chess>().GetAttackTargetLocations(victimPos);
             if(pos != role.GetComponent<Chess>().GetCurrentPosition())
             {

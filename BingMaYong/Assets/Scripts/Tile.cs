@@ -13,14 +13,12 @@ public class Tile : MonoBehaviour {
     public TileState tileState=TileState.Idle;
     public Side side = Side.neutral;//初始是中立的状态
 
-    public GameObject occupyChess = null;  //格子上的棋子
-
 	// Use this for initialization
 	void Start () {
-    }
-	
-	// Update is called once per frame
-	void Update () {
 		
 	}
+
+    public GameObject occupyChess = null;  //格子上的棋子
+
+
 }

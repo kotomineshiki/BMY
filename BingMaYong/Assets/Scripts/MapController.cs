@@ -129,6 +129,7 @@ public class MapController : MonoBehaviour {
         tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material =( tiles[pos.x, pos.y].side == Side.playerA) ? playerAMaterial : playerBMaterial;
     }
 
+
     /*
      * 传入位置得到该位置的Tile
      */ 
