@@ -1,0 +1,5 @@
+﻿D:\单体模型\archmodels\VOL.64中国类装饰\Vray\t$m$p$$$\032.max
+D:\单体模型\archmodels\VOL.64中国类装饰\Vray\t$m$p$$$\MAXFILES.TXT
+D:\单体模型\archmodels\VOL.64中国类装饰\textures\Archmodels_64_032_color.jpg
+D:\单体模型\archmodels\VOL.64中国类装饰\textures\Archmodels_64_032_reflect.jpg
+D:\单体模型\archmodels\VOL.64中国类装饰\textures\Archmodels_64_032_normalbump.jpg
