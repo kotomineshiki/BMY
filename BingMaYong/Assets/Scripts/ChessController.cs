@@ -12,7 +12,7 @@ public class ChessController : MonoBehaviour {
     public GameObject infantryChessPrefab;
     public GameObject carChessPrefab;
     public GameObject shootChessPrefab;
-
+    public GameObject castleChessPrefab;
     /*todo 在某一格子上放置一个棋子*/
     public void PlaceChessAt(Vector2Int placeAt,Side side,ChessType chessType)
     {
@@ -23,8 +23,10 @@ public class ChessController : MonoBehaviour {
             temp = Instantiate(carChessPrefab);
         else if (ChessType.Infantry == chessType)
             temp = Instantiate(infantryChessPrefab);
-        else
+        else if(ChessType.Shoot==chessType)
             temp = Instantiate(shootChessPrefab);
+        else// if (ChessType.Castle == chessType)
+            temp = Instantiate(castleChessPrefab);
 
         temp.transform.position = pos;
         if(side==Side.playerA)playerA.Add(temp.GetComponent<Chess>());
@@ -53,6 +55,7 @@ public class ChessController : MonoBehaviour {
         PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);
         PlaceChessAt(new Vector2Int(1, 1), Side.playerB, ChessType.Shoot);
         PlaceChessAt(new Vector2Int(2, 4), Side.playerB, ChessType.Car);
+        PlaceChessAt(new Vector2Int(0, 3), Side.playerA, ChessType.Castle);
     }
 	
 	// Update is called once per frame
