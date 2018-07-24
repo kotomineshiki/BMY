@@ -536,6 +536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickedObjectA: {fileID: 0}
   clickedObjectB: {fileID: 0}
+  selectPanel: {fileID: 0}
 --- !u!1 &1932598216
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,5 +579,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerA: []
   playerB: []
-  chessPrefab: {fileID: 1539074721877186, guid: 4e6cb5b5cc02a3942acbc96e4f9ffdc9,
+  infantryChessPrefab: {fileID: 1726800209163978, guid: d3f9bf534c92c4f4e8387c3e94ec07b0,
+    type: 2}
+  carChessPrefab: {fileID: 1642853323668072, guid: 5cc896fbcbd44164db92bfa5a4fae1b3,
+    type: 2}
+  shootChessPrefab: {fileID: 1948576526992122, guid: f88da5bbcff443147a4b4412e7a84af1,
     type: 2}

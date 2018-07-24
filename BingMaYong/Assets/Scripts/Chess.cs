@@ -12,7 +12,7 @@ public enum ChessType
 public class Chess : MonoBehaviour
 {
     public Side chessSide;                //棋子的阵营
-    Vector2Int currentPosition;           //当前位于格子坐标
+    protected Vector2Int currentPosition;           //当前位于格子坐标
     public Slider chessSlider;            //血条
 
     private GameObject victim;                                        //被攻击者
@@ -53,12 +53,12 @@ public class Chess : MonoBehaviour
     }
 
     /*
-     * 占领当前位置
-     * 无参数,无返回值
+     * 占领一个位置
+     * 传入需要占领的位置pos
      */
-    public void OccupyCurrentPosition()
+    public void OccupyPosition(Vector2Int pos)
     {
-        MapController.instance.SetOccupied(currentPosition,chessSide);
+        MapController.instance.SetOccupied(pos, chessSide);
 
     }
 
@@ -100,15 +100,32 @@ public class Chess : MonoBehaviour
      */
     public Vector2Int GetAttackTargetLocations(Vector2Int victimPos)
     {
-        List<Vector2Int> targetLocations = new List<Vector2Int>();
+        Vector2Int targetLocations = currentPosition;
+        int minPath = 9999;
         foreach (Vector2Int vec in attackRange)
         {
-            targetLocations.Add(victimPos - vec);
+            if((victimPos - vec).x >= 0 && (victimPos - vec).y >= 0 && (victimPos - vec).x <= 9 && (victimPos - vec).y <= 13)
+            {
+                Tile targetTile = mapController.GetTileWithPosition(victimPos - vec);
+                if (targetTile.tileState != TileState.Occupied && targetTile.tileState != TileState.Obstacle)
+                {
+                    int count = mapController.GetPathListCount(currentPosition, victimPos - vec);
+                    if (count > 0 && count < minPath)
+                    {
+                        minPath = count;
+                        targetLocations = victimPos - vec;
+                        Debug.Log("步数" + count + "目的地" + targetLocations);
+                    }
+                }
+            }
         }
-        //随机一个位置,之后可以使用更智能方法指定攻击位置
-        int random = Random.Range(1, 8);
-        Vector2Int destination = targetLocations[(random % targetLocations.Count)];
-        return destination;
+        //随机一个位置
+        //int random = Random.Range(1, 8);
+        //Vector2Int destination = targetLocations[(random % targetLocations.Count)];
+
+        return targetLocations;
+        //在位置列表中排除那些已经有棋子的位置
+        //在剩余位置中选出走过去最短的位置(更加智能)
     }
 
     /*
@@ -179,6 +196,8 @@ public class Chess : MonoBehaviour
             //如果该位置是合法的，走向该位置
             if (MapController.instance.CanWalk(nextDestination))
             {
+                ReleaseCurrentPosition(); //释放当前占领
+                OccupyPosition(nextDestination);  //占领新的
                 Vector3 pos = mapController.GetWorldPosition(nextDestination);
                 //移动到该位置
                 MoveToPosition(pos);
@@ -314,5 +333,39 @@ public class Chess : MonoBehaviour
     {
         return isAttack;
     }
+    /*
+    private void Update()
+    {
+        if (!isMoving && !isAttack && chessType != ChessType.Castle)
+        {
+            float MinBlood = 9999;
+            //检测周围是否有棋子
+            GameObject victim = null;
+            foreach (Vector2Int pos in attackRange)
+            {
+                Vector2Int temp = currentPosition + pos;
+                if (temp.x >= 0 && temp.y >= 0 && temp.x <= 9 && temp.y <= 13)
+                {
+                    Tile tile = mapController.GetTileWithPosition(temp);
+                    if (tile.tileState == TileState.Occupied && tile.side == Side.playerB)
+                    {
+                        Debug.Log("可以自动攻击");
+                        GameObject tempGo = tile.occupyChess ?? null;
+                        if (tempGo == null) { return; }
 
+                        if (MinBlood > tile.occupyChess.GetComponent<Chess>().GetBlood())
+                        {
+                            victim = tile.occupyChess;
+                            MinBlood = tile.occupyChess.GetComponent<Chess>().GetBlood();
+                        }
+                    }
+                }
+            }
+            if (victim != null)
+            {
+                Singleton<PlayerController>.Instance.Attack(gameObject, victim);
+            }
+        }
+    }
+    */
 }

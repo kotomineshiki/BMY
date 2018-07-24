@@ -65,9 +65,9 @@ public class ActionManager : MonoBehaviour, IActionCallback
             //移动动作结束后
             //设置兵马俑当前的位置
 
-            objectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition();//释放当前占领
+
             objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Chess>().GetNextDestination());
-            objectParam.gameObject.GetComponent<Chess>().OccupyCurrentPosition();//占领新的
+
             objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
             //移动到下一个位置
             objectParam.gameObject.GetComponent<Chess>().Move();
@@ -77,6 +77,9 @@ public class ActionManager : MonoBehaviour, IActionCallback
             //攻击动作结束后
             if(nextObjectParam.gameObject.GetComponent<Chess>().GetBlood() <= 0)
             {
+                Tile tempTile = Singleton<MapController>.Instance.GetTileWithPosition(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
+                Singleton<MapController>.Instance.SetReleased(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
+                tempTile.occupyChess = null;
                 //血量少于0,摧毁对象
                 Destroy(nextObjectParam.gameObject);
                 //停止攻击状态

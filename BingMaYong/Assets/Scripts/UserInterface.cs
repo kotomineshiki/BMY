@@ -60,7 +60,6 @@ public class UserInterface : MonoBehaviour {
         }else
         if (clickedObjectA.tag == "Chess" && clickedObjectB.tag == "Tile")
         {
-            Debug.Log(clickedObjectA.GetComponent<Chess>().GetCurrentPosition()+"移动到"+clickedObjectB.GetComponent<Tile>().tilePosition);
             //调用玩家控制器的Move方法
             playerController.Move(clickedObjectA,clickedObjectB.GetComponent<Tile>().tilePosition);
 
