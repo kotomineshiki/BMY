@@ -110,11 +110,11 @@ public class Chess : MonoBehaviour
                 if (targetTile.tileState != TileState.Occupied && targetTile.tileState != TileState.Obstacle)
                 {
                     int count = mapController.GetPathListCount(currentPosition, victimPos - vec);
+                    Debug.Log("步数" + count + "目的地" + (victimPos - vec));
                     if (count > 0 && count < minPath)
                     {
                         minPath = count;
                         targetLocations = victimPos - vec;
-                        Debug.Log("步数" + count + "目的地" + targetLocations);
                     }
                 }
             }
@@ -161,7 +161,8 @@ public class Chess : MonoBehaviour
             return normalAttackHurt;
         }
     }
-
+    public delegate void OnWalkFinished(Vector2Int currentPosition);
+    public event OnWalkFinished OnWalk;
     /*
       * 兵马俑移动
       * 无参数
@@ -196,8 +197,10 @@ public class Chess : MonoBehaviour
             //如果该位置是合法的，走向该位置
             if (MapController.instance.CanWalk(nextDestination))
             {
-                ReleaseCurrentPosition(); //释放当前占领
-                OccupyPosition(nextDestination);  //占领新的
+                if (this.OnWalk != null)
+                {
+                    this.OnWalk(currentPosition);//表示占领当前position
+                }
                 Vector3 pos = mapController.GetWorldPosition(nextDestination);
                 //移动到该位置
                 MoveToPosition(pos);

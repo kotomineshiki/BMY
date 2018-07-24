@@ -121,11 +121,12 @@ public class MapController : MonoBehaviour {
         tiles[pos.x, pos.y].tileState = TileState.Occupied;//只适用于当前走在的格子上
         tiles[pos.x, pos.y].side = side;//设定当前格子的归属权
         tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material.color =new  Color(0.5f, 0.5f, 0.5f);
+        SetOwner(pos, side);
     }
     public void SetReleased(Vector2Int pos)//释放一个格子的控制权，让它可以被走
     {
         tiles[pos.x, pos.y].tileState = TileState.Idle;
-        tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f);
+        tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material =( tiles[pos.x, pos.y].side == Side.playerA) ? playerAMaterial : playerBMaterial;
     }
 
     /*
