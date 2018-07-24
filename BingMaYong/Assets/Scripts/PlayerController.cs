@@ -39,12 +39,25 @@ public class PlayerController : MonoBehaviour
             bool isAttacking = role.GetComponent<Chess>().GetAttackStatus();
             Vector2Int victimPos = victim.GetComponent<Chess>().GetCurrentPosition();
             //设置目的地
+<<<<<<< HEAD
             role.GetComponent<Chess>().SetDestination(role.GetComponent<Chess>().GetAttackTargetLocations(victimPos));
             //设置被攻击者
             role.GetComponent<Chess>().SetAttack(victim);
             //之前没有在移动,没有在攻击则可移动到被攻击者旁
             if (!role.GetComponent<Chess>().GetMoving() && !isAttacking)
                 role.GetComponent<Chess>().Move();
+=======
+            Vector2Int pos = role.GetComponent<Chess>().GetAttackTargetLocations(victimPos);
+            if(pos != role.GetComponent<Chess>().GetCurrentPosition())
+            {
+                role.GetComponent<Chess>().SetDestination(pos);
+                //设置被攻击者
+                role.GetComponent<Chess>().SetAttack(victim);
+                //之前没有在移动,没有在攻击则可移动到被攻击者旁
+                if (!role.GetComponent<Chess>().GetMoving() && !isAttacking)
+                    role.GetComponent<Chess>().Move();
+            }
+>>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
         }
     }
 }

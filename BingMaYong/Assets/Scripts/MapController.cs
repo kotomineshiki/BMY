@@ -127,4 +127,33 @@ public class MapController : MonoBehaviour {
         tiles[pos.x, pos.y].tileState = TileState.Idle;
         tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material.color = new Color(1f, 1f, 1f);
     }
+<<<<<<< HEAD
+=======
+
+    /*
+     * 传入位置得到该位置的Tile
+     */ 
+    public Tile GetTileWithPosition(Vector2Int pos)
+    {
+        return tiles[pos.x,pos.y];
+    }
+
+
+    public int GetPathListCount(Vector2Int currentPosition, Vector2Int destination)
+    {
+
+        List<Vector2Int> currentObstacles = new List<Vector2Int>();//目前的障碍格子列表
+        for (int i = 0; i < column; i++)
+        {
+            for (int j = 0; j < row; j++)
+            {
+                if (!CanWalk(new Vector2Int(i, j)))//如果不能走
+                {
+                    currentObstacles.Add(new Vector2Int(i, j));
+                }
+            }
+        }
+        return pathFinder.GeneratePath(currentPosition, destination, currentObstacles).Count;
+    }
+>>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
 }
