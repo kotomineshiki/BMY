@@ -212,17 +212,14 @@ public class Chess : MonoBehaviour
             //如果该位置是合法的，走向该位置
             if (MapController.instance.CanWalk(nextDestination))
             {
-<<<<<<< HEAD
                 if (this.OnWalk != null)
                 {
                     this.OnWalk(currentPosition);//表示占领当前position
                 }
-=======
 
                 ReleaseCurrentPosition(); //释放当前占领
                 OccupyPosition(nextDestination);  //占领新的
 
->>>>>>> f9ac3c6c52999fb04839fab17eb17ea032c1cf45
                 Vector3 pos = mapController.GetWorldPosition(nextDestination);
                 //移动到该位置
                 MoveToPosition(pos);
