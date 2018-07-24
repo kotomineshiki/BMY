@@ -36,4 +36,8 @@ sysinfo.txt
 *.unitypackage
 
 DebugScene.unity
+<<<<<<< HEAD
 DebugScene.unity.meta
+=======
+DebugScene.unity.meta
+>>>>>>> 90b174afedd190de36852bea4948bd8a652859ce
