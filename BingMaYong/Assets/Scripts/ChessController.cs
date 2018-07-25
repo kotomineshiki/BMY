@@ -37,15 +37,15 @@ public class ChessController : MonoBehaviour {
 
         Tile tempTile = Singleton<MapController>.Instance.GetTileWithPosition(placeAt);
         tempTile.occupyChess = temp;
-<<<<<<< HEAD
+
         temp.GetComponent<Chess>().OnWalk += HandleOnWalk;
     }
     void HandleOnWalk(Vector2Int pos)
     {
         Debug.Log("Yes");
-=======
 
->>>>>>> f9ac3c6c52999fb04839fab17eb17ea032c1cf45
+
+
     }
 	// Use this for initialization
 	void Start () {

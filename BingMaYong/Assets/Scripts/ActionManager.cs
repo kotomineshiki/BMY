@@ -65,16 +65,16 @@ public class ActionManager : MonoBehaviour, IActionCallback
             //移动动作结束后
             //设置兵马俑当前的位置
 
-<<<<<<< HEAD
+
             objectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
-=======
+
 /*
             objectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition();//释放当前占领
             objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Chess>().GetNextDestination());
             objectParam.gameObject.GetComponent<Chess>().OccupyCurrentPosition();//占领新的
 =======*/
 
->>>>>>> f9ac3c6c52999fb04839fab17eb17ea032c1cf45
+
             objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Chess>().GetNextDestination());
             objectParam.gameObject.GetComponent<Chess>().OccupyPosition(objectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());  //占领新的
 
