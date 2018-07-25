@@ -5,6 +5,7 @@ using UnityEngine;
 //步兵佣
 public class InfantryChess : Chess
 {
+
     // Use this for initialization
     void Start ()
     {
@@ -25,5 +26,7 @@ public class InfantryChess : Chess
         new Vector2Int(0,1),
         new Vector2Int(-1,0),  new Vector2Int(1,0),
         new Vector2Int(0,-1)};
+
+        direction = Direction.North;
     }
 }

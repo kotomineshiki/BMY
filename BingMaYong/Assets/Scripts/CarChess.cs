@@ -60,9 +60,8 @@ public class CarChess : Chess
                 ReleaseCurrentPosition(); //释放当前占领
                 OccupyPosition(nextDestination);  //占领新的
 
-                Vector3 pos = mapController.GetWorldPosition(nextDestination);
                 //移动到该位置
-                MoveToPosition(pos);
+                MoveToPosition(nextDestination);
             }
             else
             {

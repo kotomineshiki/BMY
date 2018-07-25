@@ -54,7 +54,7 @@ public class ChessController : MonoBehaviour {
         temp.transform.position = pos;
         if(side==Side.playerA)playerA.Add(temp.GetComponent<Chess>());
         if (side == Side.playerB) playerB.Add(temp.GetComponent<Chess>());
-        temp.GetComponent<Chess>().chessSide = side;
+        temp.GetComponent<Chess>().SetChessSide(side);
         temp.GetComponent<Chess>().SetCurrentPosition(placeAt);
 
 
@@ -72,12 +72,12 @@ public class ChessController : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-     //   PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
-     //   PlaceChessAt(new Vector2Int(5, 8), Side.playerA, ChessType.Infantry);
-     //   PlaceChessAt(new Vector2Int(6, 8), Side.playerA, ChessType.Shoot);
-     //   PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);
-     //   PlaceChessAt(new Vector2Int(1, 1), Side.playerB, ChessType.Shoot);
-     //   PlaceChessAt(new Vector2Int(2, 4), Side.playerB, ChessType.Car);
+    //   PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
+    //   PlaceChessAt(new Vector2Int(5, 8), Side.playerA, ChessType.Infantry);
+    //   PlaceChessAt(new Vector2Int(6, 8), Side.playerA, ChessType.Shoot);
+       PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);
+       PlaceChessAt(new Vector2Int(1, 1), Side.playerB, ChessType.Shoot);
+       PlaceChessAt(new Vector2Int(2, 4), Side.playerB, ChessType.Car);
         PlaceChessAt(new Vector2Int(0, 3), Side.playerA, ChessType.Castle);
         PlaceChessAt(new Vector2Int(0, 3), Side.playerB, ChessType.Castle);
     }

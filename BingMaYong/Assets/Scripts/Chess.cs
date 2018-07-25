@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+public enum Direction
+{//这个枚举设置棋子的方向
+    South,
+    West,
+    North,
+    East,
+}
+
 public enum ChessType
 {//这个枚举设置棋子的类型,立射俑,车俑,步兵佣,城堡
     Shoot,
@@ -36,6 +44,8 @@ public class Chess : MonoBehaviour
     public float forInfantryChessHurt;    //特殊情况下会给步兵俑伤害
     public float blood;                   //棋子的血量
 
+
+    public Direction direction;
     /*
      * 得到兵马俑的当前位置
      * 返回Vector2Int类型的当前位置
@@ -107,7 +117,7 @@ public class Chess : MonoBehaviour
      * 得到应该走到攻击目标的哪个位置
      * 传入被攻击者的当前位置
      * 返回单个Vector2Int坐标
-     * 通过遍历攻击范围将相对坐标变成绝对坐标,目前是使用一个随机数,随机选择一个攻击位置
+     * 通过遍历能攻击到的所有位置,然后通过每个位置都有一条路径长度通过mapController返回找到最近的道路去攻击
      */
     public Vector2Int GetAttackTargetLocations(Vector2Int victimPos)
     {
@@ -118,9 +128,11 @@ public class Chess : MonoBehaviour
         int minPath = 9999;
         foreach (Vector2Int vec in attackRange)
         {
+            //坐标合法
             if((victimPos - vec).x >= 0 && (victimPos - vec).y >= 0 && (victimPos - vec).x <= 9 && (victimPos - vec).y <= 13)
             {
                 Tile targetTile = mapController.GetTileWithPosition(victimPos - vec);
+                //能攻击的点没有被占领
                 if (targetTile.tileState != TileState.Occupied && targetTile.tileState != TileState.Obstacle)
                 {
                     int count = mapController.GetPathListCount(currentPosition, victimPos - vec);
@@ -133,13 +145,8 @@ public class Chess : MonoBehaviour
                 }
             }
         }
-        //随机一个位置
-        //int random = Random.Range(1, 8);
-        //Vector2Int destination = targetLocations[(random % targetLocations.Count)];
 
         return targetLocations;
-        //在位置列表中排除那些已经有棋子的位置
-        //在剩余位置中选出走过去最短的位置(更加智能)
 
     }
 
@@ -202,11 +209,15 @@ public class Chess : MonoBehaviour
                 //攻击
                 action_manager.Attack(gameObject, victim, hurt);
             }
+            else
+            {
+                //自动攻击
+                AutoAttacks();
+            }
         }
         else
         {
             //得到下一个位置
-            Debug.Log("当前位置" + GetCurrentPosition() + "目标位置" + destination);
             nextDestination = mapController.GetNextStep(GetCurrentPosition(), destination);
             Debug.Log("下一个移动到的位置" + nextDestination);
             //如果该位置是合法的，走向该位置
@@ -217,12 +228,8 @@ public class Chess : MonoBehaviour
                     this.OnWalk(currentPosition);//表示占领当前position
                 }
 
-                ReleaseCurrentPosition(); //释放当前占领
-                OccupyPosition(nextDestination);  //占领新的
-
-                Vector3 pos = mapController.GetWorldPosition(nextDestination);
                 //移动到该位置
-                MoveToPosition(pos);
+                MoveToPosition(nextDestination);
             }
             else
             {
@@ -324,7 +331,7 @@ public class Chess : MonoBehaviour
      * 无返回值
      * 调用运动管理器方法
      */
-    public void MoveToPosition(Vector3 pos)
+    public void MoveToPosition(Vector2Int pos)
     {
         isMoving = true;
         action_manager.Move(gameObject, pos);
@@ -357,7 +364,29 @@ public class Chess : MonoBehaviour
     }
 
     /*
-    private void Update()
+     * 设置棋子的阵营
+     * 传入棋子设置的阵营
+     * 同时设置血条颜色,这里使用find函数查找血条所以有修改父子关系可能会报错
+     */ 
+    public void SetChessSide(Side side)
+    {
+        chessSide = side;
+        Transform fill = gameObject.transform.Find("Canvas/Slider/Fill Area/Fill");
+        if (side == Side.playerA)
+        {
+            fill.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            fill.GetComponent<Image>().color = Color.red;
+        }
+    }
+
+    /*
+     * 自动攻击函数
+     * 没有设置自动攻击宫殿,自动攻击攻击范围内血最少的棋子
+     */ 
+    public void AutoAttacks()
     {
         if (!isMoving && !isAttack && chessType != ChessType.Castle)
         {
@@ -372,7 +401,6 @@ public class Chess : MonoBehaviour
                     Tile tile = mapController.GetTileWithPosition(temp);
                     if (tile.tileState == TileState.Occupied && tile.side == Side.playerB)
                     {
-                        Debug.Log("可以自动攻击");
                         GameObject tempGo = tile.occupyChess ?? null;
                         if (tempGo == null) { return; }
 
@@ -390,6 +418,4 @@ public class Chess : MonoBehaviour
             }
         }
     }
-    */
-
 }

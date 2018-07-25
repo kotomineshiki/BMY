@@ -13,7 +13,7 @@ public class RoleActionManager : ActionManager
      * 无返回值
      * 初始化动作然后开始这个动作
      */
-    public void Move(GameObject role,Vector3 pos)
+    public void Move(GameObject role,Vector2Int pos)
     {
         roleMove = RoleMoveAction.GetSSAction(pos);
         this.RunAction(role, roleMove, this);

@@ -41,15 +41,13 @@ public class PlayerController : MonoBehaviour
             //设置目的地
 
             Vector2Int pos = role.GetComponent<Chess>().GetAttackTargetLocations(victimPos);
-            if(pos != role.GetComponent<Chess>().GetCurrentPosition())
-            {
-                role.GetComponent<Chess>().SetDestination(pos);
-                //设置被攻击者
-                role.GetComponent<Chess>().SetAttack(victim);
-                //之前没有在移动,没有在攻击则可移动到被攻击者旁
-                if (!role.GetComponent<Chess>().GetMoving() && !isAttacking)
-                    role.GetComponent<Chess>().Move();
-            }
+
+            role.GetComponent<Chess>().SetDestination(pos);
+            //设置被攻击者
+            role.GetComponent<Chess>().SetAttack(victim);
+            //之前没有在移动,没有在攻击则可移动到被攻击者旁
+            if (!role.GetComponent<Chess>().GetMoving() && !isAttacking)
+                role.GetComponent<Chess>().Move();
         }
     }
 }
