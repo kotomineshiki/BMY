@@ -50,6 +50,10 @@ public class SetPrefab : MonoBehaviour
             selected = 0;
         }
     }
+    public void SetPrefabInt(int number)
+    {
+        selected = number;//被选中的标码设置
+    }
     //选择卡牌的种类
     public void SetKindOfBoardA()
     {

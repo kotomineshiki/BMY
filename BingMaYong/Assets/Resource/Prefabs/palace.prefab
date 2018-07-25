@@ -1502,6 +1502,7 @@ GameObject:
   - component: {fileID: 4204087042094380}
   - component: {fileID: 95001216407825730}
   - component: {fileID: 114940230177536038}
+  - component: {fileID: 65706727307109930}
   m_Layer: 0
   m_Name: palace
   m_TagString: Untagged
@@ -6714,6 +6715,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1893238435431486}
   m_Mesh: {fileID: 4300016, guid: 42bfb9425c7bee74c9b24ee9bbd423af, type: 3}
+--- !u!65 &65706727307109930
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1739816676638242}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.96, y: 1.46, z: 1}
+  m_Center: {x: 0.13, y: 0.19, z: -1.9}
 --- !u!95 &95001216407825730
 Animator:
   serializedVersion: 3
