@@ -3784,10 +3784,17 @@ Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1175767897195314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.10649359, y: 0.10649359, z: 0.10649359}
+=======
+  m_GameObject: {fileID: 1360080887844804}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalScale: {x: 7, y: 7, z: 7}
+>>>>>>> 0da4b4d0978d763159512487df54ffcbddd5bd09
   m_Children:
   - {fileID: 4745851611882166}
   - {fileID: 4370054310482980}
@@ -6891,7 +6898,38 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD
   m_GameObject: {fileID: 1736066379593290}
+=======
+  m_GameObject: {fileID: 1739816676638242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 994d1eb292a781841afc8ab880fb3295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chessSide: 0
+  chessSlider: {fileID: 0}
+  victim: {fileID: 0}
+  destination: {x: 0, y: 0}
+  nextDestination: {x: 0, y: 0}
+  chessType: 3
+  isAttack: 0
+  isMoving: 0
+  mapController: {fileID: 0}
+  action_manager: {fileID: 0}
+  attackRange: []
+  normalAttackHurt: 0
+  forCarChessHurt: 0
+  forShootChessHurt: 0
+  forInfantryChessHurt: 0
+  blood: 0
+--- !u!114 &114974691415934392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847046312577480}
+>>>>>>> 0da4b4d0978d763159512487df54ffcbddd5bd09
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -7070,12 +7108,13 @@ RectTransform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1226297164313448}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 224644771889884748}
+  m_GameObject: {fileID: 1721894925634996}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_Children:
+  - {fileID: 224435391632840162}
+  m_Father: {fileID: 4204087042094380}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

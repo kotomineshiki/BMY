@@ -25,24 +25,24 @@ public class Chess : MonoBehaviour
 
     public Slider chessSlider;            //血条
 
-    private GameObject victim;                                        //被攻击者
-    private Vector2Int destination;                                   //最终目的地
-    private Vector2Int nextDestination;                              //下一个要到达的位置
+    public  GameObject victim;                                        //被攻击者
+    public  Vector2Int destination;                                   //最终目的地
+    public  Vector2Int nextDestination;                              //下一个要到达的位置
 
     //继承的子类可能需要初始化以下,城堡只用设置血量和棋子类型
     public ChessType chessType;           //棋子类型
 
-    protected bool isAttack;                                          //是否需要攻击
-    protected bool isMoving;                                          //是否正在移动
-    protected MapController mapController;                            //地图控制器
-    protected RoleActionManager action_manager;                       //运动管理器
+    public  bool isAttack;                                          //是否需要攻击
+    public  bool isMoving;                                          //是否正在移动
+    public  MapController mapController;                            //地图控制器
+    public  RoleActionManager action_manager;                       //运动管理器
 
-    protected List<Vector2Int> attackRange;  //攻击范围,使用相对Vector2Int坐标
-    protected float normalAttackHurt;        //在正常情况下应该给予的伤害
-    protected float forCarChessHurt;         //特殊情况下会给车的伤害
-    protected float forShootChessHurt;       //特殊情况下会给立射俑伤害
-    protected float forInfantryChessHurt;    //特殊情况下会给步兵俑伤害
-    protected float blood;                   //棋子的血量
+    public  List<Vector2Int> attackRange;  //攻击范围,使用相对Vector2Int坐标
+    public  float normalAttackHurt;        //在正常情况下应该给予的伤害
+    public  float forCarChessHurt;         //特殊情况下会给车的伤害
+    public  float forShootChessHurt;       //特殊情况下会给立射俑伤害
+    public float forInfantryChessHurt;    //特殊情况下会给步兵俑伤害
+    public float blood;                   //棋子的血量
 
 
     public Direction direction;
@@ -191,7 +191,7 @@ public class Chess : MonoBehaviour
       * 无返回值
       * 根据设置的移动路径,一次拿出一个位置去移动,当到达终点判断是否处于攻击状态,然后攻击
       */
-    public void Move()
+    public virtual void Move()
     {
         //判断是否到达终点
         if (GetCurrentPosition() == destination)
@@ -331,7 +331,7 @@ public class Chess : MonoBehaviour
      * 无返回值
      * 调用运动管理器方法
      */
-    private void MoveToPosition(Vector2Int pos)
+    public void MoveToPosition(Vector2Int pos)
     {
         isMoving = true;
         action_manager.Move(gameObject, pos);
