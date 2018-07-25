@@ -19,7 +19,7 @@ public class ChessController : MonoBehaviour {
         if (chessType == ChessType.Castle)//堡垒是独立的一个逻辑
         {
             GameObject cas = Instantiate(castleChessPrefab);
-            cas.GetComponent<Chess>().chessSide = side;
+
             if (side == Side.playerA)
             {
                 Vector3 pos1 = this.transform.parent.GetChild(0).GetComponent<MapController>().GetWorldPosition(new Vector2Int(4, 0));
@@ -27,6 +27,10 @@ public class ChessController : MonoBehaviour {
                 cas.transform.position = (pos1 + pos2) / 2;
                 MapController.instance.SetObstacle(new Vector2Int(4, 0));
                 MapController.instance.SetObstacle(new Vector2Int(5, 0));
+                cas.transform.GetChild(2).GetComponent<Chess>().SetCurrentPosition(new Vector2Int(4, 0));
+                cas.transform.GetChild(3).GetComponent<Chess>().SetCurrentPosition(new Vector2Int(5, 0));
+                cas.transform.GetChild(2).GetComponent<Chess>().chessSide = side;
+                cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
             }
             else if (side == Side.playerB)
             {
@@ -35,6 +39,10 @@ public class ChessController : MonoBehaviour {
                 cas.transform.position = (pos1 + pos2) / 2;
                 MapController.instance.SetObstacle(new Vector2Int(4, 13));
                 MapController.instance.SetObstacle(new Vector2Int(5, 13));
+                cas.transform.GetChild(2).GetComponent<Chess>().SetCurrentPosition(new Vector2Int(4, 13));
+                cas.transform.GetChild(3).GetComponent<Chess>().SetCurrentPosition(new Vector2Int(5, 13));
+                cas.transform.GetChild(2).GetComponent<Chess>().chessSide = side;
+                cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
             }
 
             return;

@@ -117,8 +117,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4153575532651022}
-  - component: {fileID: 136377874221263908}
   - component: {fileID: 114061223015650256}
+  - component: {fileID: 65395483384235716}
   m_Layer: 0
   m_Name: "\u6218\u8F66"
   m_TagString: Chess
@@ -168,7 +168,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1564845559306938}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 13.405715, y: 6.0660267, z: -6.0179005}
+  m_LocalPosition: {x: -8.353664, y: -5.603205, z: -0.35501355}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4954897472902462}
@@ -181,25 +181,15 @@ Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-<<<<<<< HEAD
   m_GameObject: {fileID: 1079983907923696}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-=======
-  m_GameObject: {fileID: 1459365956030240}
-  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
->>>>>>> 0da4b4d0978d763159512487df54ffcbddd5bd09
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.0005, y: 0.0005, z: 0.0005}
   m_Children: []
   m_Father: {fileID: 4153575532651022}
   m_RootOrder: 0
-<<<<<<< HEAD
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23579414125396126
-=======
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
---- !u!23 &23964142173110536
->>>>>>> 0da4b4d0978d763159512487df54ffcbddd5bd09
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -241,6 +231,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1079983907923696}
   m_Mesh: {fileID: 4300000, guid: 40622b0ec5cded745bf8cfa8c03fb840, type: 3}
+--- !u!65 &65395483384235716
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1564845559306938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95198140403077348
 Animator:
   serializedVersion: 3
@@ -272,7 +274,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chessSide: 0
   chessSlider: {fileID: 114582506068783614}
+  victim: {fileID: 0}
+  destination: {x: 0, y: 0}
+  nextDestination: {x: 0, y: 0}
   chessType: 1
+  isAttack: 0
+  isMoving: 0
+  mapController: {fileID: 0}
+  action_manager: {fileID: 0}
+  attackRange: []
+  normalAttackHurt: 0
+  forCarChessHurt: 0
+  forShootChessHurt: 0
+  forInfantryChessHurt: 0
+  blood: 0
+  direction: 0
+  currentDirection: {x: 0, y: 1}
 --- !u!114 &114582506068783614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -444,7 +461,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1067101620642120}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9be2a0c503b19d4aaa755dab916d245, type: 3}
@@ -466,20 +483,8 @@ MonoBehaviour:
   forShootChessHurt: 0
   forInfantryChessHurt: 0
   blood: 0
+  direction: 0
   currentDirection: {x: 0, y: 1}
---- !u!136 &136345112306473372
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1564845559306938}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 2
-  m_Height: 5
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!222 &222068382092895212
 CanvasRenderer:
   m_ObjectHideFlags: 1

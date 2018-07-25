@@ -37,8 +37,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4760338071883606}
-  - component: {fileID: 136618955691930952}
   - component: {fileID: 114719334093457908}
+  - component: {fileID: 65863351396607162}
   m_Layer: 0
   m_Name: "\u6B65\u5175\u4FD1"
   m_TagString: Chess
@@ -181,7 +181,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1076460543012422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.480314, y: 6.2388506, z: -4.9976516}
+  m_LocalPosition: {x: -2.226836, y: -5.326554, z: 0.43470955}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4359327303331148}
@@ -231,6 +231,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1472028365568870}
   m_Mesh: {fileID: 4300000, guid: 920fd2dc7f46c9b459ef990cf793e573, type: 3}
+--- !u!65 &65863351396607162
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1076460543012422}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 3}
+  m_Center: {x: 0, y: 0, z: -1.51}
 --- !u!95 &95872274001831060
 Animator:
   serializedVersion: 3
@@ -428,21 +440,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chessSide: 0
   chessSlider: {fileID: 114053845938037200}
+  victim: {fileID: 0}
+  destination: {x: 0, y: 0}
+  nextDestination: {x: 0, y: 0}
   chessType: 2
+  isAttack: 0
+  isMoving: 0
+  mapController: {fileID: 0}
+  action_manager: {fileID: 0}
+  attackRange: []
+  normalAttackHurt: 0
+  forCarChessHurt: 0
+  forShootChessHurt: 0
+  forInfantryChessHurt: 0
+  blood: 0
   direction: 0
---- !u!136 &136618955691930952
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1076460543012422}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 4
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.36, z: 0}
 --- !u!222 &222057160038916204
 CanvasRenderer:
   m_ObjectHideFlags: 1

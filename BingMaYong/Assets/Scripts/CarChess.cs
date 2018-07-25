@@ -74,22 +74,62 @@ public class CarChess : Chess
     }
     Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
     {//车兵特殊的寻路函数，需要了解其当前朝向才能寻路
-        Vector2Int delta = destination - currentPos;//其delta值
-        if((delta-currentDirection).sqrMagnitude<delta.sqrMagnitude)//应该优先沿着当前方向前行，然后当前方向如果再走就会距离目标更远的时候，转向，然后继续走
-            return currentPos += currentDirection;//返回当前面向的下一格
-        else
-        {//设置新的方向
-            currentDirection.x = 0;
-            currentDirection.y = 0;
-            if (delta.x > 0) currentDirection.x = 1;
-            if (delta.x < 0) currentDirection.x = -1;
-            if (delta.y > 0) currentDirection.y = 1;
-            if (delta.y < 0) currentDirection.y = -1;
-            
-            //todo :转向函数
-            Debug.Log(currentDirection);
-            return currentPos += currentDirection;
+     /*   Vector2Int delta = destination - currentPos;
+        Vector2Int test = currentPos;
+        List<Vector2Int> result = new List<Vector2Int>();
+        int westCount=0;
+        int eastCount=0;
+        int southCount = 0;
+        int northCount = 0;
+        if (delta.x > 0)
+            eastCount = delta.x;
+        if (delta.x < 0)
+            westCount = -delta.x;
+        if (delta.y > 0)
+            northCount = delta.y;
+        if (delta.y < 0)
+            southCount = -delta.y;
+        if (currentDirection == Direction.East)
+        {
+            for(int i = 0; i < eastCount; ++i)
+            {
+                if(mapController.CanWalk(test+new Vector2Int(1, 0)) == false)//如果该方位不可走，则应该结束当前方向的行走，
+                {
+                    break;
+                }
+                else//如果可走，则加入到寻路队列中
+                {
+                    test += new Vector2Int(1, 0);
+                    result.Add(test);
+                }
+            }
+            for (int i = 0; i < northCount; ++i)
+            {
+                if (mapController.CanWalk(test + new Vector2Int(0, 1)) == false)//如果该方位不可走，则应该结束当前方向的行走，
+                {
+                    break;
+                }
+                else//如果可走，则加入到寻路队列中
+                {
+                    test += new Vector2Int(0, 1);
+                    result.Add(test);
+                }
+            }
+            for (int i = 0; i < southCount; ++i)
+            {
+                if (mapController.CanWalk(test + new Vector2Int(0, 1)) == false)//如果该方位不可走，则应该结束当前方向的行走，
+                {
+                    break;
+                }
+                else//如果可走，则加入到寻路队列中
+                {
+                    test += new Vector2Int(0, 1);
+                    result.Add(test);
+                }
+            }
         }
+     */
+        return new Vector2Int(0, 0);
     }
 
 }
