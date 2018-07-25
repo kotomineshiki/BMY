@@ -82,6 +82,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 Singleton<MapController>.Instance.SetReleased(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
                 tempTile.occupyChess = null;
 
+                nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
                 //血量少于0,摧毁对象
                 Destroy(nextObjectParam.gameObject);
                 //停止攻击状态
