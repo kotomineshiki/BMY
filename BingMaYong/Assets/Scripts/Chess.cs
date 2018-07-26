@@ -5,9 +5,13 @@ using UnityEngine.UI;
 public enum Direction
 {//这个枚举设置棋子的方向
     South,
+    Southwest,
     West,
+    Northwest,
     North,
+    Northeast,
     East,
+    Southeast
 }
 
 public enum ChessType
@@ -128,7 +132,8 @@ public class Chess : MonoBehaviour
         List<Vector2Int> chioceRange = attackRange;
         List<Vector2Int> temp = new List<Vector2Int>();
         int minPath = 9999;
-        if(chessType == ChessType.Car)
+        //对战车进行特殊处理,攻击目标只能是方向的正前方
+        if (chessType == ChessType.Car)
         {
             if (direction == Direction.North)
                 temp.Add(new Vector2Int(0, 1));
@@ -415,6 +420,7 @@ public class Chess : MonoBehaviour
 
             List<Vector2Int> chioceRange = attackRange;
             List<Vector2Int> tempList = new List<Vector2Int>();
+            //对战车进行特殊处理,攻击目标只能是方向的正前方
             if (chessType == ChessType.Car)
             {
                 if (direction == Direction.North)
@@ -436,6 +442,7 @@ public class Chess : MonoBehaviour
                     Tile tile = mapController.GetTileWithPosition(temp);
                     if (tile.tileState == TileState.Occupied && tile.side == Side.playerB)
                     {
+                        //检测可以攻击的棋子是否已经死亡
                         GameObject tempGo = tile.occupyChess ?? null;
                         if (tempGo == null) { return; }
 
@@ -453,10 +460,25 @@ public class Chess : MonoBehaviour
             }
         }
     }
-
+    /*
+     * 战车重写该方法,找寻下一个移动的位置
+     */ 
     public virtual Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
     {
         return currentPos;
     }
 
+    /*
+     * 跪射俑如果是斜角攻击完之后转向到北方
+     */
+    public void RotateToNorth()
+    {
+        if (direction == Direction.Northeast || direction == Direction.Northwest
+    || direction == Direction.Southeast ||direction == Direction.Southwest)
+        {
+            int value = -(direction - Direction.North) * 45;
+            transform.Rotate(new Vector3(0, 0, 1), value);//旋转角色
+            direction = Direction.North;
+        }
+    }
 }

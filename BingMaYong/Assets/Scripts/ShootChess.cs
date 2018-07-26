@@ -30,67 +30,29 @@ public class ShootChess : Chess
         direction = Direction.North;
     }
     public GameObject arrowPrefab;
-    void shooteffect(Vector2Int toAttackPos)
+    public void Shooteffect()
     {//这个类将发射一个弓箭射向攻击目标
         GameObject temp = Instantiate(arrowPrefab);
-        temp.transform.position = this.transform.position;
-        temp.transform.Rotate(new Vector3(0,0,0));//direction
-        temp.AddComponent<Rigidbody>();//添加刚体属性
-        temp.GetComponent<Rigidbody>().velocity=new Vector3(0,1,0);//添加初始速度
-        temp.GetComponent<Rigidbody>().AddForce(new Vector3(0,0,1));//添加重力
+        temp.transform.position = this.transform.position + new Vector3(0,0,-5);
 
-    }
-
-    public override void Move()
-    {
-        //判断是否到达终点
-        if (GetCurrentPosition() == destination)
+        if(direction <= Direction.North)
         {
-            Debug.Log("到达终点");
-            isMoving = false;
-            StopMoveAnimation();
-
-            //之后可以智能判断周边是否需要攻击
-            if (isAttack)
-            {
-                //如果是攻击状态在移动结束后需要攻击
-                //得到伤害
-                float hurt = GetChessHurt(victim);
-                //攻击
-                shooteffect(new Vector2Int(1,1));
-                action_manager.Attack(gameObject, victim, hurt);
-            }
-            else
-            {
-                //自动攻击
-                AutoAttacks();
-            }
+            int rotateValue = ((int)Direction.North + (int)direction) * 45;
+            temp.transform.Rotate(new Vector3(0, 0, 1), rotateValue);
         }
         else
         {
-            //得到下一个位置
-            if (chessType == ChessType.Car)
-            {
-                nextDestination = gameObject.GetComponent<CarChess>().GetNextStep(GetCurrentPosition(), destination);
-            }
-            else
-                nextDestination = mapController.GetNextStep(GetCurrentPosition(), destination);
-            Debug.Log("下一个移动到的位置" + nextDestination);
-            //如果该位置是合法的，走向该位置
-            if (MapController.instance.CanWalk(nextDestination))
-            {
-                
-
-                //移动到该位置
-                MoveToPosition(nextDestination);
-            }
-            else
-            {
-                Debug.Log("该位置不合法，应该停在当前位置");
-                isMoving = false;
-                isAttack = false;
-                StopMoveAnimation();
-            }
+            int rotateValue = (direction - Direction.North) * 45;
+            temp.transform.Rotate(new Vector3(0, 0, 1), rotateValue);
         }
+
+
+        temp.AddComponent<Rigidbody>();//添加刚体属性
+
+        Vector3 velocity = victim.transform.position - gameObject.transform.position;
+
+        temp.GetComponent<Rigidbody>().velocity = velocity.normalized;//添加初始速度
+       // temp.GetComponent<Rigidbody>().AddForce(new Vector3(0,0,1));//添加重力
+
     }
 }

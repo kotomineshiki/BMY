@@ -84,6 +84,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 tempTile.occupyChess = null;
 
                 nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
+                objectParam.GetComponent<Chess>().RotateToNorth();
                 //血量少于0,摧毁对象
                 Destroy(nextObjectParam.gameObject);
                 //停止攻击状态
@@ -96,6 +97,8 @@ public class ActionManager : MonoBehaviour, IActionCallback
             }
             else
             {
+                //攻击结束后检测是45度角全部转为北方
+                objectParam.GetComponent<Chess>().RotateToNorth();
                 //查看有没有新的目的地然后去移动
                 objectParam.gameObject.GetComponent<Chess>().Move();
             }
@@ -104,6 +107,8 @@ public class ActionManager : MonoBehaviour, IActionCallback
         {
             //攻击对象已经销毁后
             //停止攻击状态
+            //攻击结束后检测是45度角全部转为北方
+            objectParam.GetComponent<Chess>().RotateToNorth();
             objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
         }
     }

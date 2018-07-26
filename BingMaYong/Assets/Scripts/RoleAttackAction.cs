@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RoleAttackAction : Action
 {
-    private GameObject victim;
-    private float hurt;
+    private GameObject victim;         //被攻击者
+    private float hurt;               //被攻击者受到的伤害,是初始化传入的值
     private RoleAttackAction() { }
 
     /* 
@@ -34,11 +34,17 @@ public class RoleAttackAction : Action
         }
         else
         {
+            //转向被攻击者
+            RotateToVictim();
+            if (gameobject.GetComponent<Chess>().chessType == ChessType.Shoot)
+                gameobject.GetComponent<ShootChess>().Shooteffect();
             //播放攻击动画,调用了Chess的方法
             gameobject.GetComponent<Chess>().PlayAttackAnimation();
             //受害者扣血,调用了Chess的方法
             victim.GetComponent<Chess>().ReduceBoold(hurt);
             Debug.Log("执行攻击");
+
+
             this.destroy = true;
             //回调函数
             this.callback.SSActionEvent(this, 2, this.gameobject, victim);
@@ -46,44 +52,62 @@ public class RoleAttackAction : Action
     }
     public override void Start()
     {
-        RotateToVictim();
     }
 
-    //攻击时朝向对方
+    //攻击时朝向对方，攻击旋转可能选择八个方向
     public void RotateToVictim()
     {
 
         Vector2Int victimPos = victim.GetComponent<Chess>().GetCurrentPosition();
         Vector2Int myPos = gameobject.GetComponent<Chess>().GetCurrentPosition();
-        if (victimPos - myPos == new Vector2Int(0,1))
+        if (victimPos - myPos == new Vector2Int(0, 1))
         {
-            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.North) * 90;
+            int rotateValue = -((gameobject.GetComponent<Chess>().direction - Direction.North) / 2) * 90;
             transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
             gameobject.GetComponent<Chess>().direction = Direction.North;
         }
-        else if(victimPos - myPos == new Vector2Int(0, -1))
+        else if (victimPos - myPos == new Vector2Int(0, -1))
         {
-            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.South) * 90;
+            int rotateValue = -((gameobject.GetComponent<Chess>().direction - Direction.South) / 2) * 90;
             transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
             gameobject.GetComponent<Chess>().direction = Direction.South;
         }
-        else if(victimPos - myPos == new Vector2Int(-1, 0))
+        else if (victimPos - myPos == new Vector2Int(-1, 0))
         {
-            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.East) * 90;
+            int rotateValue = -((gameobject.GetComponent<Chess>().direction - Direction.East) / 2) * 90;
             transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
             gameobject.GetComponent<Chess>().direction = Direction.East;
         }
-        else if(victimPos - myPos == new Vector2Int(1, 0))
+        else if (victimPos - myPos == new Vector2Int(1, 0))
         {
-            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.West) * 90;
+            int rotateValue = -((gameobject.GetComponent<Chess>().direction - Direction.West) / 2) * 90;
             transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
             gameobject.GetComponent<Chess>().direction = Direction.West;
         }
-       
-    }
-    //攻击结束转回
-    public void ReturnRotate()
-    {
+        else if (victimPos - myPos == new Vector2Int(-1, 1))
+        {
+            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.Northeast) * 45;
+            transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
+            gameobject.GetComponent<Chess>().direction = Direction.Northeast;
+        }
+        else if (victimPos - myPos == new Vector2Int(1, -1))
+        {
+            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.Southwest) * 45;
+            transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
+            gameobject.GetComponent<Chess>().direction = Direction.Southwest;
+        }
+        else if (victimPos - myPos == new Vector2Int(-1, -1))
+        {
+            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.Southeast) * 45;
+            transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
+            gameobject.GetComponent<Chess>().direction = Direction.Southeast;
+        }
+        else if (victimPos - myPos == new Vector2Int(1, 1))
+        {
+            int rotateValue = -(gameobject.GetComponent<Chess>().direction - Direction.Northwest) * 45;
+            transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
+            gameobject.GetComponent<Chess>().direction = Direction.Northwest;
+        }
 
     }
 }
