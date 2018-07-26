@@ -262,10 +262,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessSide: 0
-  chessType: 1
-  hurt: 10
-  blood: 100
   chessSlider: {fileID: 114407283996195120}
+  victim: {fileID: 0}
+  destination: {x: 0, y: 0}
+  nextDestination: {x: 0, y: 0}
+  chessType: 1
+  isAttack: 0
+  isMoving: 0
+  mapController: {fileID: 0}
+  action_manager: {fileID: 0}
+  attackRange: []
+  normalAttackHurt: 0
+  forCarChessHurt: 0
+  forShootChessHurt: 0
+  forInfantryChessHurt: 0
+  blood: 100
+  direction: 2
+  currentDirection: {x: 0, y: 1}
 --- !u!114 &114342436596763210
 MonoBehaviour:
   m_ObjectHideFlags: 1

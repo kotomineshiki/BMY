@@ -73,6 +73,7 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void OnEndDrag(PointerEventData eventData)
     {
         if (canUse == false) return;//如果不可用，直接截断
+        if (currentTile == new Vector2Int(-1, -1)) return;//
         Debug.Log("DragEnd");
         FragmentCounter.instance.SubCount(3);
         setController.PlaceAt(currentTile,chessType);

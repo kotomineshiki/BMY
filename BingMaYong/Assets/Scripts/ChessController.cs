@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public enum Side{//这个枚举类用来表明棋子的阵营，也用来标识格子所属的阵营
     playerA,
     playerB,
@@ -50,6 +51,8 @@ public class ChessController : MonoBehaviour {
                 cas.transform.GetChild(3).GetComponent<Chess>().SetCurrentPosition(new Vector2Int(5, 0));
                 cas.transform.GetChild(2).GetComponent<Chess>().chessSide = side;
                 cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
+                Transform fill = cas.transform.Find("Canvas/Slider/Fill Area/Fill");
+                fill.GetComponent<Image>().color = Color.green;
             }
             else if (side == Side.playerB)
             {

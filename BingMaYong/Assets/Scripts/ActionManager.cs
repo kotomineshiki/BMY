@@ -70,6 +70,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
 
             objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
             //移动到下一个位置
+
             objectParam.gameObject.GetComponent<Chess>().Move();
         }
         else if(intParam == 2)

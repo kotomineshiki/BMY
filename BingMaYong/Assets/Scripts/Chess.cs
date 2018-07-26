@@ -125,8 +125,22 @@ public class Chess : MonoBehaviour
 
 
         Vector2Int targetLocations = currentPosition;
+        List<Vector2Int> chioceRange = attackRange;
+        List<Vector2Int> temp = new List<Vector2Int>();
         int minPath = 9999;
-        foreach (Vector2Int vec in attackRange)
+        if(chessType == ChessType.Car)
+        {
+            if (direction == Direction.North)
+                temp.Add(new Vector2Int(0, 1));
+            else if (direction == Direction.South)
+                temp.Add(new Vector2Int(0, -1));
+            else if (direction == Direction.East)
+                temp.Add(new Vector2Int(-1, 0));
+            else
+                temp.Add(new Vector2Int(1, 0));
+            chioceRange = temp;
+        }
+        foreach (Vector2Int vec in chioceRange)
         {
             //坐标合法
             if((victimPos - vec).x >= 0 && (victimPos - vec).y >= 0 && (victimPos - vec).x <= 9 && (victimPos - vec).y <= 13)
@@ -398,7 +412,23 @@ public class Chess : MonoBehaviour
             float MinBlood = 9999;
             //检测周围是否有棋子
             GameObject victim = null;
-            foreach (Vector2Int pos in attackRange)
+
+            List<Vector2Int> chioceRange = attackRange;
+            List<Vector2Int> tempList = new List<Vector2Int>();
+            if (chessType == ChessType.Car)
+            {
+                if (direction == Direction.North)
+                    tempList.Add(new Vector2Int(0, 1));
+                else if (direction == Direction.South)
+                    tempList.Add(new Vector2Int(0, -1));
+                else if (direction == Direction.East)
+                    tempList.Add(new Vector2Int(-1, 0));
+                else
+                    tempList.Add(new Vector2Int(1, 0));
+                chioceRange = tempList;
+            }
+
+            foreach (Vector2Int pos in chioceRange)
             {
                 Vector2Int temp = currentPosition + pos;
                 if (temp.x >= 0 && temp.y >= 0 && temp.x <= 9 && temp.y <= 13)
