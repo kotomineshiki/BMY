@@ -258,6 +258,7 @@ GameObject:
   - component: {fileID: 611359754}
   - component: {fileID: 611359755}
   - component: {fileID: 611359756}
+  - component: {fileID: 611359757}
   m_Layer: 0
   m_Name: UserInterface
   m_TagString: Untagged
@@ -303,10 +304,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6608a1f3632df7439ad186a5bd7767a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: 0
+  chessType: 0
   tile: {fileID: 1249142003744454, guid: 747c15dd8701d0e4c9008b3089b1872a, type: 2}
   newSprite: {fileID: 1712731946}
+  previewChess: {fileID: 0}
   chessController: {fileID: 1077644838}
+--- !u!114 &611359757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 611359753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e7d7acb0fa9fd42b6330cd7d8c4eaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentCount: 10
 --- !u!1 &1077644836
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,13 +363,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerA: []
   playerB: []
-  infantryChessPrefab: {fileID: 1313108536043586, guid: 8c7c6f8466987a44dadf61180ef44466,
+  infantryChessPrefab: {fileID: 1076460543012422, guid: 726896444f5b61147b46bc8eb2e50c20,
     type: 2}
-  carChessPrefab: {fileID: 1067101620642120, guid: e7c100e1f70f41943b73a2dd60379e9b,
+  carChessPrefab: {fileID: 1564845559306938, guid: e7c100e1f70f41943b73a2dd60379e9b,
     type: 2}
-  shootChessPrefab: {fileID: 1687076123302378, guid: 726896444f5b61147b46bc8eb2e50c20,
+  shootChessPrefab: {fileID: 1076460543012422, guid: 726896444f5b61147b46bc8eb2e50c20,
     type: 2}
-  castleChessPrefab: {fileID: 1739816676638242, guid: 6cf76d207bef2e543b67b371da195938,
+  castleChessPrefab: {fileID: 1902056022652778, guid: 6cf76d207bef2e543b67b371da195938,
     type: 2}
 --- !u!1001 &1183335818
 Prefab:
@@ -467,7 +481,7 @@ Prefab:
     - target: {fileID: 114476163806218382, guid: a661f62b3ba44a147b573849d9549801,
         type: 2}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114476163806218382, guid: a661f62b3ba44a147b573849d9549801,
         type: 2}
@@ -606,7 +620,14 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114961727204037420, guid: a661f62b3ba44a147b573849d9549801,
+        type: 2}
+      propertyPath: setController
+      value: 
+      objectReference: {fileID: 611359756}
+    m_RemovedComponents:
+    - {fileID: 61147683136226510, guid: a661f62b3ba44a147b573849d9549801, type: 2}
+    - {fileID: 114476163806218382, guid: a661f62b3ba44a147b573849d9549801, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: a661f62b3ba44a147b573849d9549801, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1234096344
@@ -687,56 +708,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1627290754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: a8fbead7bfce6234da8b1403ab692a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1692320136}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 611359756}
-        m_MethodName: SetKindOfBoardC
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
---- !u!114 &1692320136 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114333374228631098, guid: a661f62b3ba44a147b573849d9549801,
-    type: 2}
-  m_PrefabInternal: {fileID: 1183335818}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  canUse: 0
+  cost: 3
+  setController: {fileID: 0}
+  chessType: 0
+  currentTile: {x: -1, y: -1}
 --- !u!1 &1712731946 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1533165774896380, guid: a661f62b3ba44a147b573849d9549801,
@@ -750,50 +729,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1712731946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: a8fbead7bfce6234da8b1403ab692a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1951795929}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 611359756}
-        m_MethodName: SetKindOfBoardB
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  canUse: 0
+  cost: 3
+  setController: {fileID: 0}
+  chessType: 0
+  currentTile: {x: -1, y: -1}
 --- !u!1 &1772524577
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,9 +920,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1951795929 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114435482254404088, guid: a661f62b3ba44a147b573849d9549801,
-    type: 2}
-  m_PrefabInternal: {fileID: 1183335818}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}

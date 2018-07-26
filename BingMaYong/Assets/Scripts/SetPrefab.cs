@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class SetPrefab : MonoBehaviour
-{
-    public int selected;//选择的卡牌种类
+{//这个类是放置兵种的中央控制器
+    public ChessType chessType;
     public GameObject tile;//选中的格子
     public GameObject newSprite;//新生成的棋子
-
+    public GameObject previewChess;//预览的棋子
     public ChessController chessController;
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         chessController = Singleton<ChessController>.Instance;
     }
@@ -17,56 +17,50 @@ public class SetPrefab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //主要方法是一直判断鼠标所指的是tile还是其他东西，以便后面的判断
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        
+    }
+    public void SetChessType(ChessType input)
+    {
+        chessType = input;
+    }
+    //选择卡牌的种类
+
+    public GameObject testPlaceAt(Vector2Int position,ChessType input)
+    {
+        if (MapController.instance.CanWalk(position)&&MapController.instance.IsSide(position,Side.playerA))//既可以走，也属于该阵营
         {
-            if (hit.transform.tag == "Tile")
-            {
-                this.tile = hit.transform.gameObject;
-            }
-            else
-            {
-                this.tile = null;
-            }
+            previewChess = chessController.testPlaceAt(position,input);
         }
         else
         {
-            this.tile = null;
+            Debug.Log("该位置无法放置");
+            return null;
         }
-        if (Input.GetMouseButtonDown(0) && this.tile != null && selected != 0)
+        return previewChess;
+    }
+    public GameObject PlaceAt(Vector2Int position,ChessType input)
+    {
+        DestroyPreviewChess();
+        GameObject temp;
+        if (MapController.instance.CanWalk(position) && MapController.instance.IsSide(position, Side.playerA))
         {
-            Tile tileTakenScript = this.tile.GetComponent<Tile>();
-            if (tileTakenScript.tileState == TileState.Idle)
-            {
-                Debug.Log("放置");
-                chessController.PlaceChessAt(tileTakenScript.tilePosition, Side.playerA,ChessType.Infantry);
-                selected = 0;
-            }
+            temp=chessController.PlaceChessAt(position,Side.playerA, input);
         }
-        if(Input.GetMouseButtonDown(0) && this.tile == null)//点击地图之外的取消选择卡牌
+        else
         {
-            selected = 0;
+            Debug.Log("该位置无法放置");
+            return null;
         }
+        return temp;
     }
-    public void SetPrefabInt(int number)
+    public void DestroyPreviewChess()
     {
-        selected = number;//被选中的标码设置
-    }
-    //选择卡牌的种类
-    public void SetKindOfBoardA()
-    {
-        selected = 1;
-        Debug.Log("selected1");
-    }
-
-    public void SetKindOfBoardB()
-    {
-        selected = 2;
-    }
-    public void SetKindOfBoardC()
-    {
-        selected = 3;
+        if (previewChess != null)
+        {
+            chessController.playerA.Remove(previewChess.GetComponent<Chess>());
+            Destroy(previewChess);
+            previewChess = null;
+        }
+       
     }
 }
