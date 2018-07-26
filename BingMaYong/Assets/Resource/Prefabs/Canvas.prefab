@@ -38,6 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224418304418667512}
   - component: {fileID: 114426619985071646}
+  - component: {fileID: 114005613064814250}
   m_Layer: 5
   m_Name: "\u5C04\u51FB\u4FD1"
   m_TagString: Untagged
@@ -73,7 +74,7 @@ GameObject:
   - component: {fileID: 222540231505745180}
   - component: {fileID: 114435482254404088}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Imagese
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -88,6 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224727837924760738}
   - component: {fileID: 114395850787599688}
+  - component: {fileID: 114921166904172734}
   m_Layer: 5
   m_Name: "\u8F66\u4FD1"
   m_TagString: Untagged
@@ -106,7 +108,7 @@ GameObject:
   - component: {fileID: 222029226779206394}
   - component: {fileID: 114333374228631098}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Imagece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,7 +143,7 @@ GameObject:
   - component: {fileID: 222479942439354092}
   - component: {fileID: 114658998044228786}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Imageli
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,9 +158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224114931629156002}
   - component: {fileID: 114744547426440286}
-  - component: {fileID: 114476163806218382}
   - component: {fileID: 114961727204037420}
-  - component: {fileID: 61147683136226510}
   m_Layer: 5
   m_Name: "\u7ACB\u4F63"
   m_TagString: Untagged
@@ -200,31 +200,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &61147683136226510
-BoxCollider2D:
+--- !u!114 &114005613064814250
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1845198821659958}
+  m_GameObject: {fileID: 1533165774896380}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0.5}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 200, y: 300}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fbead7bfce6234da8b1403ab692a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canUse: 0
+  cost: 3
+  setController: {fileID: 0}
+  chessType: 0
+  currentTile: {x: -1, y: -1}
 --- !u!114 &114276616903515088
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,47 +362,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114476163806218382
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1845198821659958}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114560315577637392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -590,6 +540,22 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\u8F66"
+--- !u!114 &114921166904172734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1740550720135020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fbead7bfce6234da8b1403ab692a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canUse: 0
+  cost: 3
+  setController: {fileID: 0}
+  chessType: 1
+  currentTile: {x: -1, y: -1}
 --- !u!114 &114961727204037420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -601,6 +567,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fbead7bfce6234da8b1403ab692a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canUse: 0
+  cost: 3
+  setController: {fileID: 0}
+  chessType: 2
+  currentTile: {x: -1, y: -1}
 --- !u!222 &222029226779206394
 CanvasRenderer:
   m_ObjectHideFlags: 1

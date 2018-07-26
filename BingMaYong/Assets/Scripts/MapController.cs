@@ -155,4 +155,9 @@ public class MapController : MonoBehaviour {
         }
         return pathFinder.GeneratePath(currentPosition, destination, currentObstacles).Count;
     }
+    public bool IsSide(Vector2Int pos,Side testSide)
+    {//传入一个位置和测试的边，返回该格子是否属于该阵营
+        if (tiles[pos.x, pos.y].side == testSide) return true;
+        else return false;
+    }
 }

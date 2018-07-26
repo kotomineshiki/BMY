@@ -13,8 +13,27 @@ public class ChessController : MonoBehaviour {
     public GameObject carChessPrefab;
     public GameObject shootChessPrefab;
     public GameObject castleChessPrefab;
+
+    public GameObject testPlaceAt(Vector2Int placeAt,ChessType chessType)//这个类是用来预览放置效果的，不会影响场上局面
+    {
+        GameObject temp;
+        if (chessType == ChessType.Infantry)
+        {
+            temp= Instantiate(infantryChessPrefab);
+        }
+        else if(chessType==ChessType.Shoot)
+        {
+            temp = Instantiate(shootChessPrefab);
+        }
+        else
+        {
+            temp = Instantiate(carChessPrefab);
+        }
+        temp.transform.position = MapController.instance.GetWorldPosition(placeAt);
+        return temp;
+    }
     /*todo 在某一格子上放置一个棋子*/
-    public void PlaceChessAt(Vector2Int placeAt,Side side,ChessType chessType)
+    public GameObject PlaceChessAt(Vector2Int placeAt,Side side,ChessType chessType)
     {
         if (chessType == ChessType.Castle)//堡垒是独立的一个逻辑
         {
@@ -45,7 +64,7 @@ public class ChessController : MonoBehaviour {
                 cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
             }
 
-            return;
+            return cas;
         }
         GameObject temp;
         Vector3 pos = this.transform.parent.GetChild(0).GetComponent<MapController>().GetWorldPosition(placeAt);
@@ -72,6 +91,7 @@ public class ChessController : MonoBehaviour {
         tempTile.occupyChess = temp;
 
         temp.GetComponent<Chess>().OnWalk += HandleOnWalk;
+        return temp;
     }
     void HandleOnWalk(Vector2Int pos)
     {

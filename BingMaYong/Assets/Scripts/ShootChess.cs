@@ -29,5 +29,14 @@ public class ShootChess : Chess
 
         direction = Direction.North;
     }
+    public GameObject arrowPrefab;
+    void shooteffect(Vector2Int toAttackPos)
+    {//这个类将发射一个弓箭射向攻击目标
+        GameObject temp = Instantiate(arrowPrefab);
+        temp.transform.Rotate(new Vector3(0,0,0));//direction
+        temp.AddComponent<Rigidbody>();//添加刚体属性
+        temp.GetComponent<Rigidbody>().velocity=new Vector3(0,0,0);//添加初始速度
+        temp.GetComponent<Rigidbody>().AddForce(new Vector3());//添加重力
 
+    }
 }
