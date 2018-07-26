@@ -24,112 +24,96 @@ public class CarChess : Chess
 
         attackRange = new List<Vector2Int>() {new Vector2Int(0,1)};
     }
-    public override  void Move()
-    {
-        //判断是否到达终点
-        if (GetCurrentPosition() == destination)
-        {
-            Debug.Log("到达终点");
-            isMoving = false;
-            StopMoveAnimation();
 
-            //之后可以智能判断周边是否需要攻击
-            if (isAttack)
-            {
-                //如果是攻击状态在移动结束后需要攻击
-                //得到伤害
-                float hurt = GetChessHurt(victim);
-                //攻击
-                action_manager.Attack(gameObject, victim, hurt);
-            }
+    /*
+     * 车寻找下一个寻路的位置
+     * 传入当前位置和目的地
+     * 返回下一个到达的位置
+     */ 
+    public override Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
+    {//车兵特殊的寻路函数，需要了解其当前朝向才能寻路
+        if (currentPos == destination)
+            return currentPos;
+        List<Vector2Int> range;
+        //根据方向不同放入List中的顺序不同(从而达到同方向优先目的)
+        if(direction == Direction.North)
+        {
+            range = new List<Vector2Int>(){
+            new Vector2Int(0,1),
+            new Vector2Int(-1,0),  new Vector2Int(1,0),
+            new Vector2Int(0,-1)};
+        }
+        else if(direction == Direction.East)
+        {
+            //对于车来说是东，但正常方向应该是西才对
+            range = new List<Vector2Int>(){
+            new Vector2Int(-1,0),  new Vector2Int(0,1), new Vector2Int(0,-1),new Vector2Int(1,0)
+            };
+        }
+        else if (direction == Direction.West)
+        {
+            //对于车来说是西，但正常方向应该是东才对
+            range = new List<Vector2Int>(){
+            new Vector2Int(1,0), new Vector2Int(0,1),new Vector2Int(0,-1),new Vector2Int(-1,0)
+            };
         }
         else
         {
-            //得到下一个位置
-            Debug.Log("当前位置" + GetCurrentPosition() + "目标位置" + destination);
-            nextDestination = GetNextStep(GetCurrentPosition(), destination);
-            Debug.Log("下一个移动到的位置" + nextDestination);
-            //如果该位置是合法的，走向该位置
-            if (MapController.instance.CanWalk(nextDestination))
-            {
-                /*if (this.OnWalk != null)
-                {
-                    this.OnWalk(currentPosition);//表示占领当前position
-                }*/
-
-                ReleaseCurrentPosition(); //释放当前占领
-                OccupyPosition(nextDestination);  //占领新的
-
-                //移动到该位置
-                MoveToPosition(nextDestination);
-            }
-            else
-            {
-                Debug.Log("该位置不合法，应该停在当前位置");
-                isMoving = false;
-                isAttack = false;
-                StopMoveAnimation();
-            }
+            range = new List<Vector2Int>(){
+           new Vector2Int(0,-1), new Vector2Int(-1,0), new Vector2Int(1,0) , new Vector2Int(0,1)};
         }
-    }
-    Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
-    {//车兵特殊的寻路函数，需要了解其当前朝向才能寻路
-     /*   Vector2Int delta = destination - currentPos;
-        Vector2Int test = currentPos;
-        List<Vector2Int> result = new List<Vector2Int>();
-        int westCount=0;
-        int eastCount=0;
-        int southCount = 0;
-        int northCount = 0;
-        if (delta.x > 0)
-            eastCount = delta.x;
-        if (delta.x < 0)
-            westCount = -delta.x;
-        if (delta.y > 0)
-            northCount = delta.y;
-        if (delta.y < 0)
-            southCount = -delta.y;
-        if (currentDirection == Direction.East)
+        //排除了不可到达和超出范围的格子
+        List<Vector2Int> mayMoveTo = new List<Vector2Int>();
+        foreach (Vector2Int vec in range)
         {
-            for(int i = 0; i < eastCount; ++i)
+            Vector2Int tempPos = currentPos + vec;
+            if (tempPos.x >= 0 && tempPos.y >= 0 && tempPos.x <= 9 && tempPos.y <= 13 &&
+                MapController.instance.tiles[tempPos.x, tempPos.y].tileState != TileState.Occupied && MapController.instance.tiles[tempPos.x, tempPos.y].tileState != TileState.Obstacle)
             {
-                if(mapController.CanWalk(test+new Vector2Int(1, 0)) == false)//如果该方位不可走，则应该结束当前方向的行走，
-                {
-                    break;
-                }
-                else//如果可走，则加入到寻路队列中
-                {
-                    test += new Vector2Int(1, 0);
-                    result.Add(test);
-                }
-            }
-            for (int i = 0; i < northCount; ++i)
-            {
-                if (mapController.CanWalk(test + new Vector2Int(0, 1)) == false)//如果该方位不可走，则应该结束当前方向的行走，
-                {
-                    break;
-                }
-                else//如果可走，则加入到寻路队列中
-                {
-                    test += new Vector2Int(0, 1);
-                    result.Add(test);
-                }
-            }
-            for (int i = 0; i < southCount; ++i)
-            {
-                if (mapController.CanWalk(test + new Vector2Int(0, 1)) == false)//如果该方位不可走，则应该结束当前方向的行走，
-                {
-                    break;
-                }
-                else//如果可走，则加入到寻路队列中
-                {
-                    test += new Vector2Int(0, 1);
-                    result.Add(test);
-                }
+                mayMoveTo.Add(tempPos);
             }
         }
-     */
-        return new Vector2Int(0, 0);
+        //找寻最佳到达的位置
+        Vector2Int temp = destination - currentPos;
+        foreach (Vector2Int vec in mayMoveTo)
+        {
+            if(temp.x == 0 && temp.y > 0 && vec == currentPos + new Vector2Int(0, 1))
+            {
+                return vec;
+            }
+            else if(temp.x == 0 && temp.y < 0 && vec == currentPos + new Vector2Int(0, -1))
+            {
+                return vec;
+            }
+            else if(temp.x > 0 && temp.y == 0 && vec == currentPos + new Vector2Int(1, 0))
+            {
+                return vec;
+            }
+            else if(temp.x < 0 && temp.y == 0 && vec == currentPos + new Vector2Int(-1, 0))
+            {
+                return vec;
+            }
+            else if(temp.x>0 && temp.y>0 && (vec == currentPos + new Vector2Int(0,1) || vec == currentPos + new Vector2Int(1, 0)))
+            {
+                return vec;
+            }
+            else if(temp.x > 0 && temp.y < 0 && (vec == currentPos + new Vector2Int(1, 0) || vec == currentPos + new Vector2Int(0, -1)))
+            {
+                return vec;
+            }
+            else if(temp.x < 0 && temp.y < 0 && (vec == currentPos + new Vector2Int(0, -1) || vec == currentPos + new Vector2Int(-1, 0)))
+            {
+                return vec;
+            }
+            else if(temp.x < 0 && temp.y > 0 && (vec == currentPos + new Vector2Int(-1, 0) || vec == currentPos + new Vector2Int(0, 1)))
+            {
+                return vec;
+            }
+        }
+        if (mayMoveTo.Count == 0)
+            return currentPos;
+        else
+            return mayMoveTo[0];
     }
 
 }

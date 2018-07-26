@@ -80,7 +80,7 @@ public class ChessController : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-    //   PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
+     PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
     //   PlaceChessAt(new Vector2Int(5, 8), Side.playerA, ChessType.Infantry);
     //   PlaceChessAt(new Vector2Int(6, 8), Side.playerA, ChessType.Shoot);
        PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);

@@ -218,7 +218,12 @@ public class Chess : MonoBehaviour
         else
         {
             //得到下一个位置
-            nextDestination = mapController.GetNextStep(GetCurrentPosition(), destination);
+            if(chessType == ChessType.Car)
+            {
+                nextDestination = gameObject.GetComponent<CarChess>().GetNextStep(GetCurrentPosition(), destination);
+            }
+            else
+                nextDestination = mapController.GetNextStep(GetCurrentPosition(), destination);
             Debug.Log("下一个移动到的位置" + nextDestination);
             //如果该位置是合法的，走向该位置
             if (MapController.instance.CanWalk(nextDestination))
@@ -418,4 +423,10 @@ public class Chess : MonoBehaviour
             }
         }
     }
+
+    public virtual Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
+    {
+        return currentPos;
+    }
+
 }

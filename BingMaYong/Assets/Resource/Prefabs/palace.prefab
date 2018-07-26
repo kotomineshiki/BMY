@@ -6893,6 +6893,8 @@ MonoBehaviour:
   forInfantryChessHurt: 0
   blood: 0
   direction: 0
+  leftCastle: {fileID: 1820381430541720}
+  rightCastle: {fileID: 1830002118191064}
 --- !u!114 &114185041924645484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6958,6 +6960,8 @@ MonoBehaviour:
   forInfantryChessHurt: 0
   blood: 0
   direction: 0
+  leftCastle: {fileID: 1820381430541720}
+  rightCastle: {fileID: 1830002118191064}
 --- !u!114 &114499472444303672
 MonoBehaviour:
   m_ObjectHideFlags: 1

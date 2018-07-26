@@ -53,13 +53,13 @@ public class RoleMoveAction : Action
         //播放移动动画,调用了Chess的方法
         gameobject.GetComponent<Chess>().PlayMoveAnimation();
         //旋转
-        if (gameobject.GetComponent<Chess>().chessType != ChessType.Car && gameobject.GetComponent<Chess>().chessType != ChessType.Castle)
+        if ( gameobject.GetComponent<Chess>().chessType != ChessType.Castle)
             Rotate(gameobject.GetComponent<Chess>().GetCurrentPosition(),destination);
         lastPosition = gameobject.GetComponent<Chess>().GetCurrentPosition();
     }
 
     //旋转
-    private void Rotate(Vector2Int currentPosition,Vector2Int nextPos)
+    public void Rotate(Vector2Int currentPosition,Vector2Int nextPos)
     {
         Vector2Int vec = currentPosition - nextPos;
         goalDirection = gameobject.GetComponent<Chess>().direction;
