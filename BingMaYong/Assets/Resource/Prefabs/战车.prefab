@@ -168,7 +168,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1564845559306938}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -8.353664, y: -5.603205, z: -0.35501355}
+  m_LocalPosition: {x: -6.125196, y: -6.0365434, z: -0.35501355}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4954897472902462}
@@ -241,7 +241,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 3}
+  m_Size: {x: 1.5, y: 1.5, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95198140403077348
 Animator:
@@ -289,6 +289,7 @@ MonoBehaviour:
   forInfantryChessHurt: 0
   blood: 0
   direction: 0
+  runningAccumulate: 0
   currentDirection: {x: 0, y: 1}
 --- !u!114 &114582506068783614
 MonoBehaviour:
@@ -484,6 +485,7 @@ MonoBehaviour:
   forInfantryChessHurt: 0
   blood: 0
   direction: 0
+  runningAccumulate: 0
   currentDirection: {x: 0, y: 1}
 --- !u!222 &222068382092895212
 CanvasRenderer:

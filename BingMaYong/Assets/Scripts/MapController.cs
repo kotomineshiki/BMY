@@ -86,7 +86,7 @@ public class MapController : MonoBehaviour {
         {
             for (int j = 0; j < row; j++)
             {
-                GameObject obj = MonoBehaviour.Instantiate(tilePrefab, new Vector3((i - (column / 2)) * 1.1f, (j - (row / 2))*1.1f,0), Quaternion.identity) as GameObject;
+                GameObject obj = MonoBehaviour.Instantiate(tilePrefab, new Vector3((i - (column / 2)) * 1.6f, (j - (row / 2))*1.6f,0), Quaternion.identity) as GameObject;
 
                 tiles[i, j] = obj.GetComponent<Tile>();
                 tiles[i, j].tilePosition = new Vector2Int(i, j);

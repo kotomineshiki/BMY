@@ -5,6 +5,7 @@ using UnityEngine;
 //车佣
 public class CarChess : Chess
 {
+    public float runningAccumulate;//冲锋加成
     public Vector2Int currentDirection=new Vector2Int(0,1);//当前朝向
     // Use this for initialization
     void Start ()
@@ -29,8 +30,24 @@ public class CarChess : Chess
      * 车寻找下一个寻路的位置
      * 传入当前位置和目的地
      * 返回下一个到达的位置
-     */ 
-    public override Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
+     */
+    public override Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)//全新版本:寻路只能走直线
+    {
+        Vector2Int nextPosition = new Vector2Int();
+        Vector2Int delta = destination - currentPos;//当前距离
+        if (delta.x > 0) nextPosition.x = 1;
+        if (delta.y > 0) nextPosition.y = 1;
+        if (delta.x < 0) nextPosition.x = -1;
+        if (delta.y < 0) nextPosition.y = -1;
+        if (nextPosition.magnitude != 1)
+        {
+
+            Debug.Log("不应该，要走斜线了");
+            nextPosition.x = 0;
+        }
+        return nextPosition+currentPos;
+    }
+    /*public override Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
     {//车兵特殊的寻路函数，需要了解其当前朝向才能寻路
         if (currentPos == destination)
             return currentPos;
@@ -114,6 +131,6 @@ public class CarChess : Chess
             return currentPos;
         else
             return mayMoveTo[0];
-    }
+    }*/
 
 }
