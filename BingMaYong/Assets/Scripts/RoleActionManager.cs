@@ -27,6 +27,10 @@ public class RoleActionManager : ActionManager
      */
     public void Attack(GameObject role, GameObject victim, float hurt)
     {
+        if (role.GetComponent<Chess>().chessType == ChessType.Infantry)
+        {
+            role.transform.GetChild(2).GetComponent<Animation>().Play();
+        }
         roleAttack = RoleAttackAction.GetSSAction(victim,hurt);
         this.RunAction(role, roleAttack, this);
     }
