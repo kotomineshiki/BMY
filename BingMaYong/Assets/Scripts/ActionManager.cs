@@ -85,6 +85,10 @@ public class ActionManager : MonoBehaviour, IActionCallback
 
                 nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
                 objectParam.GetComponent<Chess>().RotateToNorth();
+
+                //!!!!!!!!!!!!!!!!被攻击者死亡不再监听!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!怎样释放所有监听而不是只释放一个
+                nextObjectParam.GetComponent<Chess>().OnWalk -= objectParam.GetComponent<Chess>().HandleOnWalk;
+
                 //血量少于0,摧毁对象
                 Destroy(nextObjectParam.gameObject);
                 //停止攻击状态

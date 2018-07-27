@@ -29,7 +29,7 @@ public class Chess : MonoBehaviour
 
     public Slider chessSlider;            //血条
 
-    public  GameObject victim;                                        //被攻击者
+    public  GameObject victim = null;                                        //被攻击者
     public  Vector2Int destination;                                   //最终目的地
     public  Vector2Int nextDestination;                              //下一个要到达的位置
 
@@ -251,13 +251,12 @@ public class Chess : MonoBehaviour
             //如果该位置是合法的，走向该位置
             if (MapController.instance.CanWalk(nextDestination))
             {
+                //移动到该位置
+                MoveToPosition(nextDestination);
                 if (this.OnWalk != null)
                 {
                     this.OnWalk(currentPosition);//表示占领当前position
                 }
-
-                //移动到该位置
-                MoveToPosition(nextDestination);
             }
             else
             {
@@ -305,7 +304,19 @@ public class Chess : MonoBehaviour
     public void SetAttack(GameObject vic)
     {
         victim = vic;
+        victim.GetComponent<Chess>().OnWalk += HandleOnWalk;           //监听被攻击者事件
         isAttack = true;
+    }
+    //如果攻击目标移动则重新选择攻击位置
+    public void HandleOnWalk(Vector2Int pos)
+    {
+        //判断对象是否已经被摧毁
+        //物体已经被销毁但依旧监听
+        GameObject tempGo = gameObject ?? null;
+        if (tempGo == null) { return ; }
+
+        Vector2Int vicPos = gameObject.GetComponent<Chess>().GetAttackTargetLocations(pos);
+        gameObject.GetComponent<Chess>().SetDestination(vicPos);
     }
     /*
      * 减少自身的血量
@@ -379,6 +390,9 @@ public class Chess : MonoBehaviour
      */
     public void StopAttackStatus()
     {
+        //不再监听!!!!!!!!
+        if(victim != null)
+            victim.GetComponent<Chess>().OnWalk -= HandleOnWalk;
         isAttack = false;
     }
 
