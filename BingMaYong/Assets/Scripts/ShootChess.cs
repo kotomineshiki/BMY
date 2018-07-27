@@ -6,7 +6,7 @@ using UnityEngine;
 public class ShootChess : Chess
 {
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         action_manager = gameObject.AddComponent<RoleActionManager>();
         mapController = Singleton<MapController>.Instance;

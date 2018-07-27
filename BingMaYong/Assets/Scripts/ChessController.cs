@@ -53,6 +53,8 @@ public class ChessController : MonoBehaviour {
                 cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
                 Transform fill = cas.transform.Find("Canvas/Slider/Fill Area/Fill");
                 fill.GetComponent<Image>().color = Color.green;
+
+                playerA.Add(cas.GetComponent<Castle>());
             }
             else if (side == Side.playerB)
             {
@@ -65,6 +67,8 @@ public class ChessController : MonoBehaviour {
                 cas.transform.GetChild(3).GetComponent<Chess>().SetCurrentPosition(new Vector2Int(5, 13));
                 cas.transform.GetChild(2).GetComponent<Chess>().chessSide = side;
                 cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
+
+                playerB.Add(cas.GetComponent<Castle>());
             }
 
             return cas;
@@ -103,12 +107,12 @@ public class ChessController : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-     PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
+     //PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
     //   PlaceChessAt(new Vector2Int(5, 8), Side.playerA, ChessType.Infantry);
     //   PlaceChessAt(new Vector2Int(6, 8), Side.playerA, ChessType.Shoot);
-       PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);
-       PlaceChessAt(new Vector2Int(1, 1), Side.playerB, ChessType.Shoot);
-       PlaceChessAt(new Vector2Int(2, 4), Side.playerB, ChessType.Car);
+      // PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);
+      // PlaceChessAt(new Vector2Int(1, 1), Side.playerB, ChessType.Shoot);
+     //  PlaceChessAt(new Vector2Int(2, 4), Side.playerB, ChessType.Car);
         PlaceChessAt(new Vector2Int(0, 3), Side.playerA, ChessType.Castle);
         PlaceChessAt(new Vector2Int(0, 3), Side.playerB, ChessType.Castle);
     }

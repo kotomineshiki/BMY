@@ -11,7 +11,7 @@ public class CarChess : Chess
     //public Vector2Int currentDirection=new Vector2Int(0,1);//当前朝向
 
     // Use this for initialization
-    void Start ()
+    void Awake()
     {
         action_manager = gameObject.AddComponent<RoleActionManager>();
         mapController = Singleton<MapController>.Instance;

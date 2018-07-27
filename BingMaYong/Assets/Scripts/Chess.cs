@@ -48,7 +48,6 @@ public class Chess : MonoBehaviour
     public float forInfantryChessHurt;    //特殊情况下会给步兵俑伤害
     public float blood;                   //棋子的血量
 
-
     public Direction direction;
     /*
      * 得到兵马俑的当前位置
@@ -150,11 +149,11 @@ public class Chess : MonoBehaviour
             //坐标合法
             if((victimPos - vec).x >= 0 && (victimPos - vec).y >= 0 && (victimPos - vec).x <= 9 && (victimPos - vec).y <= 13)
             {
-                Tile targetTile = mapController.GetTileWithPosition(victimPos - vec);
+                Tile targetTile = Singleton<MapController>.Instance.GetTileWithPosition(victimPos - vec);
                 //能攻击的点没有被占领
                 if (targetTile.tileState != TileState.Occupied && targetTile.tileState != TileState.Obstacle)
                 {
-                    int count = mapController.GetPathListCount(currentPosition, victimPos - vec);
+                    int count = Singleton<MapController>.Instance.GetPathListCount(currentPosition, victimPos - vec);
                     Debug.Log("步数" + count + "目的地" + (victimPos - vec));
                     if (count > 0 && count < minPath)
                     {
@@ -226,6 +225,11 @@ public class Chess : MonoBehaviour
                 //得到伤害
                 float hurt = GetChessHurt(victim);
                 //攻击
+                if (action_manager == null)
+                {
+                    Debug.Log("actionManager NULL");
+                    action_manager = gameObject.AddComponent<RoleActionManager>();
+                }
                 action_manager.Attack(gameObject, victim, hurt);
             }
             else
