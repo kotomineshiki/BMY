@@ -11,8 +11,11 @@ public class Castle : Chess {
     public GameObject rightCastle;
 
 	// Use this for initialization
-	void Start () {
-		SetBlood(100f);
+	void Awake () {
+        action_manager = gameObject.AddComponent<RoleActionManager>();
+        mapController = Singleton<MapController>.Instance;
+        chessType = ChessType.Castle;
+        SetBlood(100f);
 		if(chessSide == Side.playerA)
 			winState = 2;
 		else
