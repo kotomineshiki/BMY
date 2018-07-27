@@ -11,11 +11,12 @@ public class RoleMoveAction : Action
     private RoleMoveAction() { }
 
     private bool isCar = false;
-    private float carRotateSpeed = 2f;
+    private float carRotateSpeed = 2f;                     //车的转向速度
     Vector3 goal;
 
     private Vector2Int lastPosition;
-    int rotateValue;
+    int rotateValue;                                     //相对当前需要旋转的角度
+    Quaternion targetRotation;
     /* 
      * 创建一个动作
      * 传入需要移动到的位置pos
@@ -33,31 +34,18 @@ public class RoleMoveAction : Action
     {
         if(isCar)
         {
-            // 目标Rotation
-            //Quaternion t = Quaternion.LookRotation(goal, new Vector3(0,0,-1));
-
-            // 进行旋转
-            //transform.rotation = Quaternion.Slerp(gameobject.transform.rotation, t, Time.deltaTime * carRotateSpeed);
+            //车的移动,车先转向再移动
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * carRotateSpeed);
+            if (Quaternion.Angle(targetRotation, transform.rotation) < 1)
+            {
+                transform.rotation = targetRotation;                      
+                move();
+            }
 
         }
-        //移动到某个位置
-        transform.position = Vector3.MoveTowards(this.transform.position, MapController.instance.GetWorldPosition(destination), speed * Time.deltaTime);
-        
-        //前面的路被堵
-        if (!MapController.instance.CanWalk(destination))
+        else
         {
-            //转身回到之前的位置
-            Rotate(destination, lastPosition);
-            destination = lastPosition;
-        }
-
-        //判断是否到达目的地
-        float distance = Vector3.Distance(transform.position, MapController.instance.GetWorldPosition(destination));
-        if (distance < THE_TARGET_RADIUS)
-        {
-            this.destroy = true;
-            //回调函数
-            this.callback.SSActionEvent(this, 1, this.gameobject);
+            move();
         }
     }
     public override void Start()
@@ -69,6 +57,7 @@ public class RoleMoveAction : Action
         //旋转
         if ( gameobject.GetComponent<Chess>().chessType != ChessType.Castle)
             Rotate(gameobject.GetComponent<Chess>().GetCurrentPosition(),destination);
+
         lastPosition = gameobject.GetComponent<Chess>().GetCurrentPosition();
     }
 
@@ -100,12 +89,39 @@ public class RoleMoveAction : Action
 
         rotateValue = -((gameobject.GetComponent<Chess>().direction - goalDirection) / 2) * 90;
         Debug.Log("旋转"+ rotateValue);
-       // if (gameobject.GetComponent<Chess>().chessType == ChessType.Car)
-           // isCar = true;
-       // else
+
+        if (gameobject.GetComponent<Chess>().chessType == ChessType.Car)
+        {
+            isCar = true;
+            targetRotation = Quaternion.Euler(0, 0, transform.localEulerAngles.z + rotateValue) * Quaternion.identity;
+        }
+        else
         {
             transform.Rotate(new Vector3(0, 0, 1), rotateValue);//旋转角色
         }
         gameobject.GetComponent<Chess>().direction = goalDirection;
+    }
+
+    public void move()
+    {
+        //移动到某个位置
+        transform.position = Vector3.MoveTowards(this.transform.position, MapController.instance.GetWorldPosition(destination), speed * Time.deltaTime);
+
+        //前面的路被堵
+        if (!MapController.instance.CanWalk(destination))
+        {
+            //转身回到之前的位置
+            Rotate(destination, lastPosition);
+            destination = lastPosition;
+        }
+
+        //判断是否到达目的地
+        float distance = Vector3.Distance(transform.position, MapController.instance.GetWorldPosition(destination));
+        if (distance < THE_TARGET_RADIUS)
+        {
+            this.destroy = true;
+            //回调函数
+            this.callback.SSActionEvent(this, 1, this.gameobject);
+        }
     }
 }

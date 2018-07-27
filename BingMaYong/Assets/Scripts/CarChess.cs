@@ -5,8 +5,10 @@ using UnityEngine;
 //车佣
 public class CarChess : Chess
 {
+
     public float runningAccumulate;//冲锋加成
     public Vector2Int currentDirection=new Vector2Int(0,1);//当前朝向
+
     // Use this for initialization
     void Start ()
     {
@@ -24,6 +26,8 @@ public class CarChess : Chess
         normalAttackHurt = 10;
 
         attackRange = new List<Vector2Int>() {new Vector2Int(0,1)};
+
+        direction = Direction.North;
     }
 
     /*
