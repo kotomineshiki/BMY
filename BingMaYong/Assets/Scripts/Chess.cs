@@ -122,7 +122,7 @@ public class Chess : MonoBehaviour
      * 返回单个Vector2Int坐标
      * 通过遍历能攻击到的所有位置,然后通过每个位置都有一条路径长度通过mapController返回找到最近的道路去攻击
      */
-    public Vector2Int GetAttackTargetLocations(Vector2Int victimPos)
+    public Vector2Int GetAttackTargetLocations(Vector2Int victimPos)//!!!!!!!!!!!!!!!!!!!bug！！！！！！！！！！！！！！！！
     {
 
 
@@ -173,7 +173,7 @@ public class Chess : MonoBehaviour
      * 返回被攻击者的伤害
      * 根据被攻击者类型判断伤害值
      */
-    public float GetChessHurt(GameObject victim)
+    public float GetChessHurt(GameObject victim)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!数值部分！！！！！！！！！！！！！！！！！！！！！
     {
         //判断攻击时候对象是否已经被摧毁
         GameObject tempGo = victim ?? null;
