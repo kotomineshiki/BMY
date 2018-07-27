@@ -410,7 +410,7 @@ public class Chess : MonoBehaviour
      * 自动攻击函数
      * 没有设置自动攻击宫殿,自动攻击攻击范围内血最少的棋子
      */ 
-    public void AutoAttacks()
+    public virtual void AutoAttacks()
     {
         if (!isMoving && !isAttack && chessType != ChessType.Castle)
         {

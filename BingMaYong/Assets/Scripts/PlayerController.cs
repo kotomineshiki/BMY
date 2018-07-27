@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviour
     {
         if(role.GetComponent<Chess>().chessType != ChessType.Castle)
         {
+            Vector2Int delta = endPosition - role.GetComponent<Chess>().GetCurrentPosition();
+
+            if ((delta.x != 0 && delta.y != 0) && role.GetComponent<Chess>().chessType == ChessType.Car)//特殊逻辑
+            {
+                return;
+            }
             bool isAttacking = role.GetComponent<Chess>().GetAttackStatus();
             //设置目的地
             role.GetComponent<Chess>().SetDestination(endPosition);

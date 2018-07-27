@@ -6,8 +6,9 @@ using UnityEngine;
 public class CarChess : Chess
 {
 
-    public float runningAccumulate;//冲锋加成
-    public Vector2Int currentDirection=new Vector2Int(0,1);//当前朝向
+    public float runningAccumulate=0;//冲锋加成 用来标识自从上次走之后连续走了多少格，转向和暂停都会清空这个值
+
+    //public Vector2Int currentDirection=new Vector2Int(0,1);//当前朝向
 
     // Use this for initialization
     void Start ()
@@ -37,20 +38,155 @@ public class CarChess : Chess
      */
     public override Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)//全新版本:寻路只能走直线
     {
-        Vector2Int nextPosition = new Vector2Int();
+        Vector2Int nextPosition = new Vector2Int(0,0);
         Vector2Int delta = destination - currentPos;//当前距离
         if (delta.x > 0) nextPosition.x = 1;
         if (delta.y > 0) nextPosition.y = 1;
         if (delta.x < 0) nextPosition.x = -1;
         if (delta.y < 0) nextPosition.y = -1;
-        if (nextPosition.magnitude != 1)
+        if (nextPosition.magnitude >= 1)
         {
 
             Debug.Log("不应该，要走斜线了");
-            nextPosition.x = 0;
+            /*   if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
+                   nextPosition.y = 0;//此处随意了
+               else
+                   nextPosition.x = 0;*/
+            if (delta.x != 0) nextPosition.y = 0;
         }
+        
+        //如果下一个方向等价于当前方向
+        if(nextPosition==new Vector2Int(0, 1) && direction == Direction.North)
+        {
+            Debug.Log("y");
+            runningAccumulate++;
+        }else
+        if (nextPosition == new Vector2Int(0, -1) && direction == Direction.South)
+        {
+            Debug.Log("y");
+            runningAccumulate++;
+        }else
+        if (nextPosition == new Vector2Int(1, 0) && direction == Direction.East)
+        {
+            Debug.Log("y");
+            runningAccumulate++;
+        }else
+        if (nextPosition == new Vector2Int(-1, 0) && direction == Direction.West)
+        {
+            Debug.Log("y");
+            runningAccumulate++;
+        }
+        else
+        {
+            Debug.Log("C");
+            runningAccumulate = 0;//否则清零
+        }
+
         return nextPosition+currentPos;
     }
+    public override void AutoAttacks()
+    {
+        if (!isMoving && !isAttack && chessType != ChessType.Castle)
+        {
+            float MinBlood = 9999;
+            //检测周围是否有棋子
+            GameObject victim = null;
+
+            List<Vector2Int> chioceRange = attackRange;
+            List<Vector2Int> tempList = new List<Vector2Int>();
+            //对战车进行特殊处理,攻击目标只能是方向的正前方
+            if (chessType == ChessType.Car)
+            {
+                if (direction == Direction.North)
+                    tempList.Add(new Vector2Int(0, 1));
+                else if (direction == Direction.South)
+                    tempList.Add(new Vector2Int(0, -1));
+                else if (direction == Direction.East)
+                    tempList.Add(new Vector2Int(-1, 0));
+                else
+                    tempList.Add(new Vector2Int(1, 0));
+                chioceRange = tempList;
+            }
+
+            foreach (Vector2Int pos in chioceRange)//?
+            {
+                Vector2Int temp = currentPosition + pos;
+                if (temp.x >= 0 && temp.y >= 0 && temp.x <= 9 && temp.y <= 13)
+                {
+                    Tile tile = mapController.GetTileWithPosition(temp);
+                    if (tile.tileState == TileState.Occupied && tile.side == Side.playerB)
+                    {
+                        //检测可以攻击的棋子是否已经死亡
+                        GameObject tempGo = tile.occupyChess ?? null;
+                        if (tempGo == null) { return; }
+
+                        if (MinBlood > tile.occupyChess.GetComponent<Chess>().GetBlood())
+                        {
+                            victim = tile.occupyChess;
+                            MinBlood = tile.occupyChess.GetComponent<Chess>().GetBlood();
+                        }
+                    }
+                }
+            }
+            if (victim != null)
+            {
+                Singleton<PlayerController>.Instance.Attack(gameObject, victim);
+                runningAccumulate = 0;//战车特有：重置冲锋加成
+            }
+        }
+    }
+
+    public override void Move()
+    {
+        //判断是否到达终点
+        if (GetCurrentPosition() == destination)
+        {
+            Debug.Log("到达终点");
+            isMoving = false;
+            StopMoveAnimation();
+
+            //之后可以智能判断周边是否需要攻击
+            if (isAttack)
+            {
+                //如果是攻击状态在移动结束后需要攻击
+                //得到伤害
+                float hurt = GetChessHurt(victim);
+                //攻击
+                action_manager.Attack(gameObject, victim, hurt);
+            }
+            else
+            {
+                //自动攻击
+                AutoAttacks();
+            }
+        }
+        else
+        {
+            //得到下一个位置
+            if (chessType == ChessType.Car)
+            {
+                nextDestination = gameObject.GetComponent<CarChess>().GetNextStep(GetCurrentPosition(), destination);
+            }
+            else
+                nextDestination = GetNextStep(GetCurrentPosition(), destination);
+            Debug.Log("下一个移动到的位置$$$$$$$$$$$$$$" + nextDestination);
+            //如果该位置是合法的，走向该位置
+            if (MapController.instance.CanWalk(nextDestination))
+            {
+                //移动到该位置
+                MoveToPosition(nextDestination);
+            }
+            else
+            {
+                Debug.Log("该位置不合法，应该停在当前位置");
+                isMoving = false;
+                isAttack = false;
+                StopMoveAnimation();
+            }
+        }
+    }
+
+
     /*public override Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
     {//车兵特殊的寻路函数，需要了解其当前朝向才能寻路
         if (currentPos == destination)
