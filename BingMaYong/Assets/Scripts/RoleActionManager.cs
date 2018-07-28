@@ -29,7 +29,7 @@ public class RoleActionManager : ActionManager
     {
         if (role.GetComponent<Chess>().chessType == ChessType.Infantry)
         {
-            role.transform.GetChild(2).GetComponent<Animation>().Play();
+            role.transform.GetChild(2).GetComponent<Animation>().Play();//挥剑的动画
         }
         roleAttack = RoleAttackAction.GetSSAction(victim,hurt);
         this.RunAction(role, roleAttack, this);

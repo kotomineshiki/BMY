@@ -4,6 +4,33 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour {
     public static MapController instance;
+    public List<Vector2Int> orderList=new List<Vector2Int>();//表示被预定的地点列表
+    public bool OrderPosition(Vector2Int orderpos)//预定一个位置，返回是否成功//可能会遇到敌我预定冲突的问题
+    {
+        foreach(var i in orderList)
+        {
+            if (orderpos == i) return false;
+        }
+        orderList.Add(orderpos);
+        return true;
+
+    }
+    public void RedoOrder(Vector2Int orderpos)//取消该位置的预定
+    {
+        if(orderList.Contains(orderpos))
+            orderList.Remove(orderpos);
+    }
+    public bool IsInOrder(Vector2Int orderpos)
+    {
+        foreach( var i in orderList)
+        {
+            if (i == orderpos)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public Tile[,] tiles;

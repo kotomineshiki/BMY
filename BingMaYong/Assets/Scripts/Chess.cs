@@ -30,6 +30,7 @@ public class Chess : MonoBehaviour
     public Slider chessSlider;            //血条
 
     public  GameObject victim = null;                                        //被攻击者
+    public List<GameObject> attacker = new List<GameObject>();//正在攻击自己的人的列表
     public  Vector2Int destination;                                   //最终目的地
     public  Vector2Int nextDestination;                              //下一个要到达的位置
 
@@ -53,6 +54,14 @@ public class Chess : MonoBehaviour
      * 得到兵马俑的当前位置
      * 返回Vector2Int类型的当前位置
      */
+    public void BeingAttackedBy(GameObject newAttacker)
+    {
+        foreach(var i in attacker)
+        {
+            if (i == newAttacker) return;//如果新物体已经在attcker列表里面了，则中断
+        }
+        attacker.Add(newAttacker);
+    } 
     public Vector2Int GetCurrentPosition()
     {
         return currentPosition;
@@ -151,7 +160,7 @@ public class Chess : MonoBehaviour
             {
                 Tile targetTile = Singleton<MapController>.Instance.GetTileWithPosition(victimPos - vec);
                 //能攻击的点没有被占领
-                if (targetTile.tileState != TileState.Occupied && targetTile.tileState != TileState.Obstacle)
+                if (MapController.instance.CanWalk(targetTile.tilePosition)&&!MapController.instance.IsInOrder(targetTile.tilePosition))//可以用函数
                 {
                     int count = Singleton<MapController>.Instance.GetPathListCount(currentPosition, victimPos - vec);
                     Debug.Log("步数" + count + "目的地" + (victimPos - vec));
@@ -219,6 +228,7 @@ public class Chess : MonoBehaviour
             StopMoveAnimation();
 
             //之后可以智能判断周边是否需要攻击
+            MapController.instance.RedoOrder(destination);//取消对目的地的锁
             if (isAttack)
             {
                 //如果是攻击状态在移动结束后需要攻击
@@ -305,6 +315,7 @@ public class Chess : MonoBehaviour
     {
         victim = vic;
         victim.GetComponent<Chess>().OnWalk += HandleOnWalk;           //监听被攻击者事件
+        victim.GetComponent<Chess>().BeingAttackedBy(this.gameObject);//被攻击者记录攻击者
         isAttack = true;
     }
     //如果攻击目标移动则重新选择攻击位置
@@ -316,6 +327,8 @@ public class Chess : MonoBehaviour
         if (tempGo == null) { return ; }
 
         Vector2Int vicPos = gameObject.GetComponent<Chess>().GetAttackTargetLocations(pos);
+        MapController.instance.RedoOrder(destination);
+        MapController.instance.OrderPosition(vicPos);//预定下一个位置
         gameObject.GetComponent<Chess>().SetDestination(vicPos);
     }
     /*

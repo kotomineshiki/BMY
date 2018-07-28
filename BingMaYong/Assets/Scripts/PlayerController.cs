@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
             //设置目的地
 
             Vector2Int pos = role.GetComponent<Chess>().GetAttackTargetLocations(victimPos);
-
+            MapController.instance.OrderPosition(pos);//预定位置
             role.GetComponent<Chess>().SetDestination(pos);
             //设置被攻击者
             role.GetComponent<Chess>().SetAttack(victim);
