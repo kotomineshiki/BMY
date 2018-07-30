@@ -31,6 +31,9 @@ public class Chess : MonoBehaviour
 
     public  GameObject victim = null;                                        //被攻击者
     public List<GameObject> attacker = new List<GameObject>();//正在攻击自己的人的列表
+    public int attackCapacity;                                          //攻击容量，用于AI
+    public int attackValue;//攻击权值，配合attackCapacity，只在AI中使用
+
     public  Vector2Int destination;                                   //最终目的地
     public  Vector2Int nextDestination;                              //下一个要到达的位置
 
@@ -61,7 +64,15 @@ public class Chess : MonoBehaviour
             if (i == newAttacker) return;//如果新物体已经在attcker列表里面了，则中断
         }
         attacker.Add(newAttacker);
-    } 
+    }
+    public void FreeAttacker()
+    {
+        foreach (var i in attacker)//对于所有攻击死亡者的人，解除攻击者对死亡者的关注
+        {
+            Debug.Log("取消关注");
+            OnWalk -= i.GetComponent<Chess>().HandleOnWalk;//取消关注
+        }
+    }
     public Vector2Int GetCurrentPosition()
     {
         return currentPosition;

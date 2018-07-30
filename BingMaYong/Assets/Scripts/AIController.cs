@@ -22,13 +22,42 @@ public class AIController : MonoBehaviour
     }
     void ThinkPlacing()//思考要不要放置棋子
     {
-        if (AIFragmentCounter.instance.currentCount >= 3)
+        if (WhetherPlacingOrNot())//先判断是否需要放置棋子
         {
             ChessType myType = SelectType(); //放入哪个类型棋子
-            Vector2Int myPos = SelectPosition();//放在哪里
+            Vector2Int myPos = SelectPlacingPosition();//放在哪里
             Singleton<ChessController>.Instance.PlaceChessAt(myPos, Side.playerB, myType);
             AIFragmentCounter.instance.SubCount(3);
         }
+    }
+
+    bool WhetherPlacingOrNot()
+    {
+        //判断思路1：如果当前场上我方的估值占劣势，则积极放入棋子
+        //判断思路2：看看场上是否已经满足容量了
+    //    int Capacity = 0;
+        List<Chess> playerA = Singleton<ChessController>.Instance.playerA;
+        List<Chess> playerB = Singleton<ChessController>.Instance.playerB;
+        if (AIFragmentCounter.instance.currentCount < 3) return false;
+        if (CountValue(playerA) > CountValue(playerB))//占劣势，应该放棋子？？但是怎么放要联动考虑
+        {
+            return true;
+        }
+        
+
+        return true;
+    }
+    int CountValue(List<Chess> player)
+    {
+        int count = 0;
+        
+        foreach(var i in player)
+        {
+            if (i.chessType == ChessType.Car) count += 5;
+            if (i.chessType == ChessType.Infantry) count += 3;
+            if (i.chessType == ChessType.Shoot) count += 3;
+        }
+        return count;
     }
     void ThinkAttacking()//思考要不要让棋子攻击
     {
@@ -51,33 +80,60 @@ public class AIController : MonoBehaviour
     }
 
     private Chess SelectAttackChess(Chess attacker)//返回被攻击的对象,给每一个潜在的攻击对象进行估价，然后攻击估价比较高的
-    {
+    {//三个维度来考量:血量最小、距离最短、兵种相克
+        //另外还需要一个条件
+        
         int rangeRadomNum = Random.Range(0, 100);   //随机数
         List<Chess> playerA = Singleton<ChessController>.Instance.playerA;
-        if (rangeRadomNum <= 40)//40%的几率随机攻击
-        {
-            if (playerA.Count == 0)//如果场面上不存在A的棋子，自然无法发动攻击
-                return null;
-            else
-                return playerA[rangeRadomNum % playerA.Count];
-        }
-        float minBlood = 9999;
+        List<int> rank = new List<int>();
+        rank.Capacity = playerA.Count;
+        int highestRank = 0;
         Chess finalChess = null;//血最少的
-        foreach (Chess chess in playerA)
+        for(int i = 0; i < playerA.Count; ++i)
         {
-            if (chess == null)
-                continue;
-            //选择血最少的攻击
-            if(chess.GetBlood() < minBlood)
+            int bloodRank = 3-(int)(playerA[i].GetComponent<Chess>().GetBlood() / 20);//血量越低评分越高
+            int distanceRank =- MapController.instance.GetPathListCount(attacker.GetCurrentPosition(),playerA[i].GetCurrentPosition())/2;//距离越短评分越高
+            int chessRank = -2+JudgeChess(attacker.GetComponent<Chess>().chessType, playerA[i].GetComponent<Chess>().chessType);//兵种相克时候评分高
+            rank[i] = bloodRank + distanceRank + chessRank;
+        }
+        for(int i = 0; i < playerA.Count; ++i)
+        {
+            if (rank[i] > highestRank && playerA[i].attackCapacity - attacker.attackValue >= 0)//筛选条件 估值大于0且有空闲的攻击容量
             {
-                minBlood = chess.GetBlood();
-                finalChess = chess;
+                finalChess = playerA[i];
             }
         }
         return finalChess;
     }
-
-    private Vector2Int SelectPosition()
+    int JudgeChess(ChessType attacker,ChessType attackee)//辅助函数，用来对攻击的棋子进行相克估值
+    {
+        if (attacker == ChessType.Infantry && attackee == ChessType.Shoot)
+            return 4;
+        if (attacker == ChessType.Infantry && attackee == ChessType.Infantry)
+            return 3;
+        if (attacker == ChessType.Infantry && attackee == ChessType.Car)
+            return 2;
+        if (attacker == ChessType.Infantry && attackee == ChessType.Castle)
+            return 3;
+        if (attacker == ChessType.Shoot && attackee == ChessType.Shoot)
+            return 3;
+        if (attacker == ChessType.Shoot && attackee == ChessType.Infantry)
+            return 3;
+        if (attacker == ChessType.Shoot && attackee == ChessType.Car)
+            return 4;
+        if (attacker == ChessType.Shoot && attackee == ChessType.Castle)
+            return 5;
+        if (attacker == ChessType.Car && attackee == ChessType.Shoot)
+            return 4;
+        if (attacker == ChessType.Car && attackee == ChessType.Infantry)
+            return 5;
+        if (attacker == ChessType.Car && attackee == ChessType.Car)
+            return 2;
+        if (attacker == ChessType.Car && attackee == ChessType.Castle)
+            return 2;
+        return 0;
+    }
+    Vector2Int SelectPlacingPosition()//返回放置棋子的位置
     {
         //尽量放在中间
         List<Vector2Int> playerBVectors = new List<Vector2Int>();

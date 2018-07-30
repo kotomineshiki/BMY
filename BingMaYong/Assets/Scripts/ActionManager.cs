@@ -87,12 +87,8 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 objectParam.GetComponent<Chess>().RotateToNorth();
 
                 //!!!!!!!!!!!!!!!!被攻击者死亡不再监听!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!怎样释放所有监听而不是只释放一个
-            //    nextObjectParam.GetComponent<Chess>().OnWalk -= objectParam.GetComponent<Chess>().HandleOnWalk;
-                foreach(var i in nextObjectParam.GetComponent<Chess>().attacker)//对于所有攻击死亡者的人，解除攻击者对死亡者的关注
-                {
-                    Debug.Log("取消关注");
-                    nextObjectParam.GetComponent<Chess>().OnWalk-=i.GetComponent<Chess>().HandleOnWalk;//取消关注
-                }
+                //    nextObjectParam.GetComponent<Chess>().OnWalk -= objectParam.GetComponent<Chess>().HandleOnWalk;
+                nextObjectParam.GetComponent<Chess>().FreeAttacker();
 
                 //血量少于0,摧毁对象
                 Destroy(nextObjectParam.gameObject);
