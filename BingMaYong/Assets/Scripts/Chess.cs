@@ -47,16 +47,20 @@ public class Chess : MonoBehaviour
 
     public  List<Vector2Int> attackRange;  //攻击范围,使用相对Vector2Int坐标
     public  float normalAttackHurt;        //在正常情况下应该给予的伤害
-    public  float forCarChessHurt;         //特殊情况下会给车的伤害
-    public  float forShootChessHurt;       //特殊情况下会给立射俑伤害
+    public float defence;                    //护甲值
     public float forInfantryChessHurt;    //特殊情况下会给步兵俑伤害
     public float blood;                   //棋子的血量
 
     public Direction direction;
+    public float speed;    //速度，action开始时会被获取
     /*
      * 得到兵马俑的当前位置
      * 返回Vector2Int类型的当前位置
      */
+     public float GetSpeed()
+    {
+        return speed;
+    }
     public void BeingAttackedBy(GameObject newAttacker)
     {
         foreach(var i in attacker)
@@ -193,33 +197,38 @@ public class Chess : MonoBehaviour
      * 返回被攻击者的伤害
      * 根据被攻击者类型判断伤害值
      */
-    public float GetChessHurt(GameObject victim)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!数值部分！！！！！！！！！！！！！！！！！！！！！
+    public float GetChessHurt(GameObject victim)//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!攻击数值部分！！！！！！！！！！！！！！！！！！！！！
     {
         //判断攻击时候对象是否已经被摧毁
         GameObject tempGo = victim ?? null;
-        if (tempGo == null) { return normalAttackHurt; }
+        if (tempGo == null) { Debug.Log("不要鞭尸了"); return normalAttackHurt; }
 
-        if (victim.gameObject.GetComponent<Chess>().chessType == ChessType.Shoot)
+        if (chessType == ChessType.Car)//车打人
         {
-            return forShootChessHurt;
+            if (this.GetComponent<CarChess>().IsFront(victim.GetComponent<Chess>().GetCurrentPosition()))
+            {
+                return normalAttackHurt;//很大量的伤害---无视防御
+            }
+            else
+            {
+                return 0;//只能对前方造成伤害
+            }
         }
-        else if (victim.gameObject.GetComponent<Chess>().chessType == ChessType.Infantry)
-        {
-            return forInfantryChessHurt;
+        if(victim.gameObject.GetComponent<Chess>().chessType == ChessType.Car)//“我”打车
+        {//步兵在侧面打车造成超量攻击
+            if (victim.gameObject.GetComponent<CarChess>().IsFront(GetCurrentPosition()))//此时造成伤害有限
+            {
+                return 0.5f * normalAttackHurt;
+            }
+            else
+            {
+                return 1.5f * normalAttackHurt;
+            }
+
         }
-        else if(victim.gameObject.GetComponent<Chess>().chessType == ChessType.Car)
-        {
-            Vector2Int victimPos = victim.gameObject.GetComponent<Chess>().currentPosition;
-            //步兵在侧面打车直接杀死车
-            if (chessType == ChessType.Infantry && (victimPos == currentPosition + new Vector2Int(-1, 0) || victimPos == currentPosition + new Vector2Int(1, 0)))
-                return forCarChessHurt;
-            return normalAttackHurt;
-        }
-        else
-        {
-            //对城堡攻击都是使用普通伤害
-            return normalAttackHurt;
-        }
+
+        return normalAttackHurt-victim.GetComponent<Chess>().defence;//返回攻击减去防御的值，注意如果是负数会报错的
+
     }
     public delegate void OnWalkFinished(Vector2Int currentPosition);
     public event OnWalkFinished OnWalk;

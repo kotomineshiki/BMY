@@ -50,6 +50,7 @@ public class RoleMoveAction : Action
     }
     public override void Start()
     {
+     //   speed = gameobject.GetComponent<Chess>().GetSpeed();
         //移动前检测是否是45度角的方向全部转为北方
         gameobject.GetComponent<Chess>().RotateToNorth();
         //播放移动动画,调用了Chess的方法

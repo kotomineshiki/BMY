@@ -21,8 +21,7 @@ public class CarChess : Chess
         chessType = ChessType.Car;
 
         blood = 100;
-        forCarChessHurt = 10;
-        forShootChessHurt = 100;
+
         forInfantryChessHurt = 100;
         normalAttackHurt = 10;
 
@@ -186,6 +185,31 @@ public class CarChess : Chess
         }
     }
 
+    public bool IsFront(Vector2Int pos)//传入一个位置，并判断这个位置是否是车正前方
+    {
+        if (direction == Direction.East)
+        {
+            if(pos==currentPosition+new Vector2Int(1, 0))
+                return true;
+        }
+
+        if (direction == Direction.West)
+        {
+            if (pos == currentPosition + new Vector2Int(-1, 0))
+                return true;
+        }
+        if (direction == Direction.North)
+        {
+            if (pos == currentPosition + new Vector2Int(0, 1))
+                return true;
+        }
+        if (direction == Direction.East)
+        {
+            if (pos == currentPosition + new Vector2Int(0, -1))
+                return true;
+        }
+        return false;
+    }
 
     /*public override Vector2Int GetNextStep(Vector2Int currentPos, Vector2Int destination)
     {//车兵特殊的寻路函数，需要了解其当前朝向才能寻路

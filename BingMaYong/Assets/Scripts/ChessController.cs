@@ -54,7 +54,7 @@ public class ChessController : MonoBehaviour {
                 Transform fill = cas.transform.Find("Canvas/Slider/Fill Area/Fill");
                 fill.GetComponent<Image>().color = Color.green;
 
-                playerA.Add(cas.GetComponent<Castle>());
+                playerA.Add(cas.transform.GetChild(2).GetComponent<Castle>());
             }
             else if (side == Side.playerB)
             {
@@ -68,7 +68,7 @@ public class ChessController : MonoBehaviour {
                 cas.transform.GetChild(2).GetComponent<Chess>().chessSide = side;
                 cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
 
-                playerB.Add(cas.GetComponent<Castle>());
+                playerB.Add(cas.transform.GetChild(2).GetComponent<Castle>());
             }
 
             return cas;

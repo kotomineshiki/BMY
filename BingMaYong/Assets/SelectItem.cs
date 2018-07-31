@@ -34,7 +34,6 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (canUse == false) return;//如果不可用，直接截断
-        Debug.Log("OnBeginDrag");
 
     }
 
@@ -50,19 +49,19 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             {
                 setController.DestroyPreviewChess();
                // this.tile = hit.transform.gameObject;
-                Debug.Log("放置物体于：" + hit.transform.gameObject.GetComponent<Tile>().tilePosition);
+         //       Debug.Log("放置物体于：" + hit.transform.gameObject.GetComponent<Tile>().tilePosition);
                 setController.testPlaceAt(hit.transform.gameObject.GetComponent<Tile>().tilePosition,chessType);
                 currentTile = hit.transform.gameObject.GetComponent<Tile>().tilePosition;
             }
             else
             {
-                Debug.Log("打到了不知道什么东西");
+            //    Debug.Log("打到了不知道什么东西");
                 //setController.DestroyPreviewChess();
             }
         }
         else
         {
-            Debug.Log("未曾打到");
+        //    Debug.Log("未曾打到");
            // setController.DestroyPreviewChess();
         }
 
@@ -74,7 +73,7 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         if (canUse == false) return;//如果不可用，直接截断
         if (currentTile == new Vector2Int(-1, -1)) return;//
-        Debug.Log("DragEnd");
+     //   Debug.Log("DragEnd");
         FragmentCounter.instance.SubCount(3);
         setController.PlaceAt(currentTile,chessType);
         currentTile = new Vector2Int(-1, -1);//恢复初始状态，方便下次使用

@@ -134,7 +134,7 @@ public class AIController : MonoBehaviour
         return 0;
     }
     Vector2Int SelectPlacingPosition()//返回放置棋子的位置
-    {
+    {//思路 划分区域，计算区域内兵力值，往兵力不足的区域放兵？or在尽可能前线放兵？or 在敌人比较多的地方放兵？
         //尽量放在中间
         List<Vector2Int> playerBVectors = new List<Vector2Int>();
         for(int j = 4; j < 14; j++)
@@ -157,7 +157,7 @@ public class AIController : MonoBehaviour
         return playerBVectors[0];
 
     }
-    private ChessType SelectType()
+    ChessType SelectType()
     {
         //出步兵：对面车数量>=3 跪射最多 
         //出车：  对面兵最多 跪射>=3

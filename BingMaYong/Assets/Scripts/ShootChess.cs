@@ -16,8 +16,7 @@ public class ShootChess : Chess
         chessType = ChessType.Shoot;
 
         blood = 100;
-        forCarChessHurt = 10;
-        forShootChessHurt = 10;
+
         forInfantryChessHurt = 10;
         normalAttackHurt = 10;
 
