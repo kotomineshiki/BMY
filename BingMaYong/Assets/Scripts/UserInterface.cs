@@ -52,7 +52,7 @@ public class UserInterface : MonoBehaviour {
             //看阵营决定是执行显示细节功能还是没有功能
         }else
         if (clickedObjectA.tag == "Chess" && clickedObjectB.tag == "Chess") {
-            Debug.Log("执行A攻击B");
+         //   Debug.Log("执行A攻击B");
             playerController.Attack(clickedObjectA, clickedObjectB);
             clickedObjectA = null;
             clickedObjectB = null;

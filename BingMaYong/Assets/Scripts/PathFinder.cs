@@ -67,6 +67,10 @@ public class PathFinder: MonoBehaviour
     public  Stack<Vector2Int> fatherNodeLocation;
     public List<Vector2Int> result;
     public List<Vector2Int> Obstacles;//传入障碍物的列表
+    void Start()
+    {
+        GeneratePath(new Vector2Int(0, 0), new Vector2Int(0, 1), new List<Vector2Int>());//刷新一下就好了
+    }
     void Init()
     {
         find = false;

@@ -180,6 +180,11 @@ public class MapController : MonoBehaviour {
                 }
             }
         }
+        var temptest = pathFinder.GeneratePath(currentPosition, destination, currentObstacles);
+        for(int i = 0; i < temptest.Count; ++i)
+        {
+            Debug.Log(temptest[i]);
+        }
         return pathFinder.GeneratePath(currentPosition, destination, currentObstacles).Count;
     }
     public bool IsSide(Vector2Int pos,Side testSide)

@@ -277,7 +277,7 @@ public class Chess : MonoBehaviour
             }
             else
                 nextDestination = mapController.GetNextStep(GetCurrentPosition(), destination);
-            Debug.Log("下一个移动到的位置" + nextDestination);
+            //Debug.Log("下一个移动到的位置" + nextDestination);
             //如果该位置是合法的，走向该位置
             if (MapController.instance.CanWalk(nextDestination))
             {
@@ -290,7 +290,7 @@ public class Chess : MonoBehaviour
             }
             else
             {
-                Debug.Log("该位置不合法，应该停在当前位置");
+         //       Debug.Log("该位置不合法，应该停在当前位置");
                 isMoving = false;
                 isAttack = false;
                 StopMoveAnimation();
@@ -461,7 +461,7 @@ public class Chess : MonoBehaviour
      * 自动攻击函数
      * 没有设置自动攻击宫殿,自动攻击攻击范围内血最少的棋子
      */ 
-    public virtual void AutoAttacks()
+    public virtual void AutoAttacks()//
     {
         if (!isMoving && !isAttack && chessType != ChessType.Castle)
         {

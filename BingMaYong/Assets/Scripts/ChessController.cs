@@ -102,7 +102,7 @@ public class ChessController : MonoBehaviour {
     }
     void HandleOnWalk(Vector2Int pos)
     {
-        Debug.Log("Yes");
+      //  Debug.Log("Yes");
 
     }
 	// Use this for initialization

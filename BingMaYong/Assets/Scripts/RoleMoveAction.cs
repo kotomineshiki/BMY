@@ -89,7 +89,7 @@ public class RoleMoveAction : Action
         }
 
         rotateValue = -((gameobject.GetComponent<Chess>().direction - goalDirection) / 2) * 90;
-        Debug.Log("旋转"+ rotateValue);
+     //   Debug.Log("旋转"+ rotateValue);
 
         if (gameobject.GetComponent<Chess>().chessType == ChessType.Car)
         {
