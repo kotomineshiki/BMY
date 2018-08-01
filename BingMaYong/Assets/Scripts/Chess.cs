@@ -326,11 +326,7 @@ public class Chess : MonoBehaviour
      */
     public void StopMoveAnimation()
     {
-        foreach (Transform child in transform)
-        {
-            child.gameObject.GetComponent<Animator>().SetBool("move", false);
-            break;
-        }
+       this.gameObject.transform.GetChild(0).gameObject.GetComponent<Animator>().SetBool("move", false);
     }
 
     /*
