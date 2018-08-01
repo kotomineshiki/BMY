@@ -428,7 +428,12 @@ public class Chess : MonoBehaviour
             victim.GetComponent<Chess>().OnWalk -= HandleOnWalk;
         isAttack = false;
     }
-
+    public GameObject dieParticle;//死亡的粒子效果
+    public void Die()
+    {
+        GameObject temp=Instantiate(dieParticle);
+        temp.transform.position = this.transform.position+new Vector3(0,0,-3);
+    }
     /*
      * 得到兵马俑攻击状态
      * 返回bool类型

@@ -78,7 +78,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
             //攻击动作结束后
             if(nextObjectParam.gameObject.GetComponent<Chess>().GetBlood() <= 0)
             {
-
+                nextObjectParam.GetComponent<Chess>().Die();
                 Tile tempTile = Singleton<MapController>.Instance.GetTileWithPosition(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
                 Singleton<MapController>.Instance.SetReleased(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
                 tempTile.occupyChess = null;
