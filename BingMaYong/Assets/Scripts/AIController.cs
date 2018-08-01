@@ -7,7 +7,7 @@ public class AIController : MonoBehaviour
     float thinkTime = 4f;
     void Start()
     {
-       // StartCoroutine(StartAI());
+        StartCoroutine(StartAI());
     }
     IEnumerator StartAI()//每隔一段时间思考一次
     {

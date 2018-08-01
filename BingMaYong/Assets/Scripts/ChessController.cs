@@ -128,9 +128,9 @@ public class ChessController : MonoBehaviour {
      //PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
     //   PlaceChessAt(new Vector2Int(5, 8), Side.playerA, ChessType.Infantry);
     //   PlaceChessAt(new Vector2Int(6, 8), Side.playerA, ChessType.Shoot);
-       PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);
-       PlaceChessAt(new Vector2Int(1, 1), Side.playerB, ChessType.Shoot);
-       PlaceChessAt(new Vector2Int(2, 4), Side.playerB, ChessType.Car);
+     // // PlaceChessAt(new Vector2Int(7, 3), Side.playerB, ChessType.Infantry);
+       //PlaceChessAt(new Vector2Int(1, 1), Side.playerB, ChessType.Shoot);
+       //PlaceChessAt(new Vector2Int(2, 4), Side.playerB, ChessType.Car);
         PlaceChessAt(new Vector2Int(0, 3), Side.playerA, ChessType.Castle);
         PlaceChessAt(new Vector2Int(0, 3), Side.playerB, ChessType.Castle);
     }

@@ -256,7 +256,6 @@ public class Chess : MonoBehaviour
             MapController.instance.RedoOrder(destination);//取消对目的地的锁
             if (willAttack)
             {
-                Singleton<PlayerController>.Instance.Attack(victim, this.gameObject);
                 //如果是攻击状态在移动结束后需要攻击
                 //得到伤害
                 float hurt = GetChessHurt(victim);
@@ -268,6 +267,10 @@ public class Chess : MonoBehaviour
                 }
                 isAttacking = true;
                 action_manager.Attack(gameObject, victim, hurt);
+                GameObject tempGo = victim ?? null;
+                if (tempGo == null) { return; }
+                if (victim.GetComponent<Chess>().willAttack == false)
+                    Singleton<PlayerController>.Instance.Attack(victim, this.gameObject);
             }
             else
             {
