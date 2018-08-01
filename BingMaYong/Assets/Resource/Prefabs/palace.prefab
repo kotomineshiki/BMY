@@ -6879,6 +6879,9 @@ MonoBehaviour:
   chessSide: 0
   chessSlider: {fileID: 114061275142388662}
   victim: {fileID: 0}
+  attacker: []
+  attackCapacity: 0
+  attackValue: 0
   destination: {x: 0, y: 0}
   nextDestination: {x: 0, y: 0}
   chessType: 0
@@ -6888,11 +6891,13 @@ MonoBehaviour:
   action_manager: {fileID: 0}
   attackRange: []
   normalAttackHurt: 0
-  forCarChessHurt: 0
-  forShootChessHurt: 0
+  defence: 0
   forInfantryChessHurt: 0
   blood: 0
   direction: 0
+  speed: 0
+  dieParticle: {fileID: 1598259660013802, guid: 4c526082d35b63b45901d28169b8e0f5,
+    type: 2}
   leftCastle: {fileID: 1820381430541720}
   rightCastle: {fileID: 1830002118191064}
 --- !u!114 &114185041924645484
@@ -6946,6 +6951,9 @@ MonoBehaviour:
   chessSide: 0
   chessSlider: {fileID: 114061275142388662}
   victim: {fileID: 0}
+  attacker: []
+  attackCapacity: 0
+  attackValue: 0
   destination: {x: 0, y: 0}
   nextDestination: {x: 0, y: 0}
   chessType: 0
@@ -6955,11 +6963,13 @@ MonoBehaviour:
   action_manager: {fileID: 0}
   attackRange: []
   normalAttackHurt: 0
-  forCarChessHurt: 0
-  forShootChessHurt: 0
+  defence: 0
   forInfantryChessHurt: 0
   blood: 0
   direction: 0
+  speed: 0
+  dieParticle: {fileID: 1598259660013802, guid: 4c526082d35b63b45901d28169b8e0f5,
+    type: 2}
   leftCastle: {fileID: 1820381430541720}
   rightCastle: {fileID: 1830002118191064}
 --- !u!114 &114499472444303672

@@ -530,6 +530,9 @@ MonoBehaviour:
   chessSide: 0
   chessSlider: {fileID: 114053845938037200}
   victim: {fileID: 0}
+  attacker: []
+  attackCapacity: 0
+  attackValue: 0
   destination: {x: 0, y: 0}
   nextDestination: {x: 0, y: 0}
   chessType: 2
@@ -539,11 +542,12 @@ MonoBehaviour:
   action_manager: {fileID: 0}
   attackRange: []
   normalAttackHurt: 0
-  forCarChessHurt: 0
-  forShootChessHurt: 0
+  defence: 0
   forInfantryChessHurt: 0
   blood: 0
   direction: 0
+  speed: 0
+  dieParticle: {fileID: 125726, guid: 28237332098b6a54a92d770e23648a92, type: 2}
 --- !u!222 &222057160038916204
 CanvasRenderer:
   m_ObjectHideFlags: 1
