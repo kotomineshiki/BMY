@@ -10,7 +10,7 @@ public class ShootChess : Chess
     {
         action_manager = gameObject.AddComponent<RoleActionManager>();
         mapController = Singleton<MapController>.Instance;
-        isAttack = false;
+        willAttack = false;
         isMoving = false;
 
         chessType = ChessType.Shoot;

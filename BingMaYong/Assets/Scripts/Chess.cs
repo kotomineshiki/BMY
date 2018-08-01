@@ -40,7 +40,8 @@ public class Chess : MonoBehaviour
     //继承的子类可能需要初始化以下,城堡只用设置血量和棋子类型
     public ChessType chessType;           //棋子类型
 
-    public  bool isAttack;                                          //是否需要攻击
+    public  bool willAttack;                                          //是否需要攻击
+    public  bool isAttacking = false;
     public  bool isMoving;                                          //是否正在移动
     public  MapController mapController;                            //地图控制器
     public  RoleActionManager action_manager;                       //运动管理器
@@ -253,7 +254,7 @@ public class Chess : MonoBehaviour
 
             //之后可以智能判断周边是否需要攻击
             MapController.instance.RedoOrder(destination);//取消对目的地的锁
-            if (isAttack)
+            if (willAttack)
             {
                 Singleton<PlayerController>.Instance.Attack(victim, this.gameObject);
                 //如果是攻击状态在移动结束后需要攻击
@@ -265,12 +266,12 @@ public class Chess : MonoBehaviour
                     //Debug.Log("actionManager NULL");
                     action_manager = gameObject.AddComponent<RoleActionManager>();
                 }
+                isAttacking = true;
                 action_manager.Attack(gameObject, victim, hurt);
             }
             else
             {
-                //自动攻击
-                //AutoAttacks();
+                isAttacking = false;
             }
         }
         else
@@ -297,7 +298,8 @@ public class Chess : MonoBehaviour
             {
          //       Debug.Log("该位置不合法，应该停在当前位置");
                 isMoving = false;
-                isAttack = false;
+                willAttack = false;
+                isAttacking = false;
                 StopMoveAnimation();
             }
         }
@@ -341,7 +343,7 @@ public class Chess : MonoBehaviour
         victim = vic;
         victim.GetComponent<Chess>().OnWalk += HandleOnWalk;           //监听被攻击者事件
         victim.GetComponent<Chess>().BeingAttackedBy(this.gameObject);//被攻击者记录攻击者
-        isAttack = true;
+        willAttack = true;
     }
     //如果攻击目标移动则重新选择攻击位置
     public void HandleOnWalk(Vector2Int pos)
@@ -431,7 +433,8 @@ public class Chess : MonoBehaviour
         //不再监听!!!!!!!!
         if(victim != null)
             victim.GetComponent<Chess>().OnWalk -= HandleOnWalk;
-        isAttack = false;
+        willAttack = false;
+        isAttacking = false;
     }
     public GameObject dieParticle;//死亡的粒子效果
     public  void Die()
@@ -451,7 +454,7 @@ public class Chess : MonoBehaviour
      */
     public bool GetAttackStatus()
     {
-        return isAttack;
+        return isAttacking;
     }
 
     /*
@@ -479,7 +482,7 @@ public class Chess : MonoBehaviour
      */ 
     public virtual void AutoAttacks()//
     {
-        if (!isMoving && !isAttack && chessType != ChessType.Castle)
+        if (!isMoving && !willAttack && chessType != ChessType.Castle)
         {
             float MinBlood = 9999;
             //检测周围是否有棋子

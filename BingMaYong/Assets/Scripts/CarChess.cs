@@ -15,7 +15,7 @@ public class CarChess : Chess
     {
         action_manager = gameObject.AddComponent<RoleActionManager>();
         mapController = Singleton<MapController>.Instance;
-        isAttack = false;
+        willAttack = false;
         isMoving = false;
 
         chessType = ChessType.Car;
@@ -85,7 +85,7 @@ public class CarChess : Chess
     }
     public override void AutoAttacks()
     {
-        if (!isMoving && !isAttack && chessType != ChessType.Castle)
+        if (!isMoving && !willAttack && chessType != ChessType.Castle)
         {
             float MinBlood = 9999;
             //检测周围是否有棋子
@@ -145,7 +145,7 @@ public class CarChess : Chess
             StopMoveAnimation();
 
             //之后可以智能判断周边是否需要攻击
-            if (isAttack)
+            if (willAttack)
             {
                 //如果是攻击状态在移动结束后需要攻击
                 //得到伤害
@@ -179,7 +179,7 @@ public class CarChess : Chess
             {
                 Debug.Log("该位置不合法，应该停在当前位置");
                 isMoving = false;
-                isAttack = false;
+                willAttack = false;
                 StopMoveAnimation();
             }
         }
