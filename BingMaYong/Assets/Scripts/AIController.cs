@@ -85,8 +85,8 @@ public class AIController : MonoBehaviour
         
         int rangeRadomNum = Random.Range(0, 100);   //随机数
         List<Chess> playerA = Singleton<ChessController>.Instance.playerA;
-        List<int> rank = new List<int>();
-        rank.Capacity = playerA.Count;
+        int[] rank = new int[playerA.Count];
+     //   rank.Capacity = playerA.Count;
         int highestRank = 0;
         Chess finalChess = null;//血最少的
         for(int i = 0; i < playerA.Count; ++i)
