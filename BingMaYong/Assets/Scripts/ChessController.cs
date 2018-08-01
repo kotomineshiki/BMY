@@ -55,7 +55,8 @@ public class ChessController : MonoBehaviour {
             {
                 Vector3 pos1 = this.transform.parent.GetChild(0).GetComponent<MapController>().GetWorldPosition(new Vector2Int(4, 0));
                 Vector3 pos2= this.transform.parent.GetChild(0).GetComponent<MapController>().GetWorldPosition(new Vector2Int(5, 0));
-                cas.transform.position = (pos1 + pos2) / 2;
+                cas.transform.position = (pos1 + pos2) / 2+new Vector3(0,0.5f,0);
+                cas.transform.rotation=Quaternion.Euler(new Vector3(0, 0, 180))  ;
                 MapController.instance.SetObstacle(new Vector2Int(4, 0));
                 MapController.instance.SetObstacle(new Vector2Int(5, 0));
                 cas.transform.GetChild(2).GetComponent<Chess>().SetCurrentPosition(new Vector2Int(4, 0));
@@ -66,6 +67,7 @@ public class ChessController : MonoBehaviour {
                 fill.GetComponent<Image>().color = Color.green;
 
                 playerA.Add(cas.transform.GetChild(2).GetComponent<Castle>());
+                playerA.Add(cas.transform.GetChild(3).GetComponent<Castle>());
             }
             else if (side == Side.playerB)
             {
@@ -80,6 +82,7 @@ public class ChessController : MonoBehaviour {
                 cas.transform.GetChild(3).GetComponent<Chess>().chessSide = side;
 
                 playerB.Add(cas.transform.GetChild(2).GetComponent<Castle>());
+                playerB.Add(cas.transform.GetChild(3).GetComponent<Castle>());
             }
 
             return cas;
