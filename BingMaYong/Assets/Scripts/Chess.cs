@@ -434,7 +434,7 @@ public class Chess : MonoBehaviour
         isAttack = false;
     }
     public GameObject dieParticle;//死亡的粒子效果
-    public void Die()
+    public  void Die()
     {
         GameObject temp=Instantiate(dieParticle);//播放死亡粒子效果
         temp.transform.position = this.transform.position+new Vector3(0,0,-3);
