@@ -153,6 +153,7 @@ public class MapController : MonoBehaviour {
     public void SetReleased(Vector2Int pos)//释放一个格子的控制权，让它可以被走
     {
         tiles[pos.x, pos.y].tileState = TileState.Idle;
+        tiles[pos.x, pos.y].occupyChess = null;
         tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material =( tiles[pos.x, pos.y].side == Side.playerA) ? playerAMaterial : playerBMaterial;
     }
 

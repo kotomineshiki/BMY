@@ -79,19 +79,19 @@ public class ActionManager : MonoBehaviour, IActionCallback
             if(nextObjectParam.gameObject.GetComponent<Chess>().GetBlood() <= 0)
             {
                 nextObjectParam.GetComponent<Chess>().Die();
-                Tile tempTile = Singleton<MapController>.Instance.GetTileWithPosition(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
-                Singleton<MapController>.Instance.SetReleased(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
-                tempTile.occupyChess = null;
+         //       Tile tempTile = Singleton<MapController>.Instance.GetTileWithPosition(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
+         //       Singleton<MapController>.Instance.SetReleased(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
+         //       tempTile.occupyChess = null;
 
-                nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
+         //       nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
                 objectParam.GetComponent<Chess>().RotateToNorth();
 
                 //!!!!!!!!!!!!!!!!被攻击者死亡不再监听!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!怎样释放所有监听而不是只释放一个
                 //    nextObjectParam.GetComponent<Chess>().OnWalk -= objectParam.GetComponent<Chess>().HandleOnWalk;
-                nextObjectParam.GetComponent<Chess>().FreeAttacker();
-                ChessController.instance.RemoveChess(nextObjectParam.GetComponent<Chess>());
+         //       nextObjectParam.GetComponent<Chess>().FreeAttacker();
+            //   ChessController.instance.RemoveChess(nextObjectParam.GetComponent<Chess>());
                 //血量少于0,摧毁对象
-                Destroy(nextObjectParam.gameObject);
+                Destroy(nextObjectParam.gameObject);//为何这个不能 放进Chess里
                 //停止攻击状态
                 objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
             }

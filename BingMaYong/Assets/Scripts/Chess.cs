@@ -436,8 +436,14 @@ public class Chess : MonoBehaviour
     public GameObject dieParticle;//死亡的粒子效果
     public void Die()
     {
-        GameObject temp=Instantiate(dieParticle);
+        GameObject temp=Instantiate(dieParticle);//播放死亡粒子效果
         temp.transform.position = this.transform.position+new Vector3(0,0,-3);
+
+        ReleaseCurrentPosition();//释放当前位置
+        FreeAttacker();//释放所有监听
+        ChessController.instance.RemoveChess(this.GetComponent<Chess>());//移除列表
+     //   Destroy(this);
+
     }
     /*
      * 得到兵马俑攻击状态
