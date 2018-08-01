@@ -156,7 +156,7 @@ public class CarChess : Chess
             else
             {
                 //自动攻击
-                AutoAttacks();
+                //AutoAttacks();
             }
         }
         else

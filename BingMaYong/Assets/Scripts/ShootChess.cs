@@ -46,7 +46,7 @@ public class ShootChess : Chess
         }
 
 
-        temp.AddComponent<Rigidbody>();//添加刚体属性
+       // temp.AddComponent<Rigidbody>();//添加刚体属性
 
         Vector3 velocity = victim.transform.position - gameObject.transform.position;
 

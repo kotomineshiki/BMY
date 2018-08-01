@@ -74,6 +74,8 @@ public class Chess : MonoBehaviour
         foreach (var i in attacker)//对于所有攻击死亡者的人，解除攻击者对死亡者的关注
         {
             Debug.Log("取消关注");
+            GameObject tempGo = i ?? null;
+            if (tempGo == null) { continue; }
             OnWalk -= i.GetComponent<Chess>().HandleOnWalk;//取消关注
         }
     }
@@ -174,11 +176,13 @@ public class Chess : MonoBehaviour
             if((victimPos - vec).x >= 0 && (victimPos - vec).y >= 0 && (victimPos - vec).x <= 9 && (victimPos - vec).y <= 13)
             {
                 Tile targetTile = Singleton<MapController>.Instance.GetTileWithPosition(victimPos - vec);
+                if(victimPos - vec == currentPosition)
+                    return currentPosition;
                 //能攻击的点没有被占领
                 if (MapController.instance.CanWalk(targetTile.tilePosition)&&!MapController.instance.IsInOrder(targetTile.tilePosition))//可以用函数
                 {
                     int count = Singleton<MapController>.Instance.GetPathListCount(currentPosition, victimPos - vec);
-                    Debug.Log("步数" + count + "目的地" + (victimPos - vec));
+                   // Debug.Log("步数" + count + "目的地" + (victimPos - vec));
                     if (count > 0 && count < minPath)
                     {
                         minPath = count;
@@ -243,7 +247,7 @@ public class Chess : MonoBehaviour
         //判断是否到达终点
         if (GetCurrentPosition() == destination)
         {
-            Debug.Log("到达终点");
+           // Debug.Log("到达终点");
             isMoving = false;
             StopMoveAnimation();
 
@@ -251,13 +255,14 @@ public class Chess : MonoBehaviour
             MapController.instance.RedoOrder(destination);//取消对目的地的锁
             if (isAttack)
             {
+                Singleton<PlayerController>.Instance.Attack(victim, this.gameObject);
                 //如果是攻击状态在移动结束后需要攻击
                 //得到伤害
                 float hurt = GetChessHurt(victim);
                 //攻击
                 if (action_manager == null)
                 {
-                    Debug.Log("actionManager NULL");
+                    //Debug.Log("actionManager NULL");
                     action_manager = gameObject.AddComponent<RoleActionManager>();
                 }
                 action_manager.Attack(gameObject, victim, hurt);
@@ -265,7 +270,7 @@ public class Chess : MonoBehaviour
             else
             {
                 //自动攻击
-                AutoAttacks();
+                //AutoAttacks();
             }
         }
         else
@@ -343,7 +348,7 @@ public class Chess : MonoBehaviour
     {
         //判断对象是否已经被摧毁
         //物体已经被销毁但依旧监听
-        GameObject tempGo = gameObject ?? null;
+        Chess tempGo = this ?? null;
         if (tempGo == null) { return ; }
 
         Vector2Int vicPos = gameObject.GetComponent<Chess>().GetAttackTargetLocations(pos);
@@ -359,7 +364,7 @@ public class Chess : MonoBehaviour
      */
     public void ReduceBoold(float hurt)
     {
-        Debug.Log("扣血" + hurt);
+      //  Debug.Log("扣血" + hurt);
         float blo = GetBlood();
         SetBlood(blo - hurt);
     }

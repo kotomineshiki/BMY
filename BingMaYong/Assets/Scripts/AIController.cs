@@ -7,7 +7,7 @@ public class AIController : MonoBehaviour
     float thinkTime = 4f;
     void Start()
     {
-        StartCoroutine(StartAI());
+       // StartCoroutine(StartAI());
     }
     IEnumerator StartAI()//每隔一段时间思考一次
     {
@@ -75,7 +75,7 @@ public class AIController : MonoBehaviour
             if (attackChess != null)
             {
                 Singleton<PlayerController>.Instance.Attack(chess.gameObject, attackChess.gameObject);
-                Debug.Log("自动！攻击");
+             //   Debug.Log("自动！攻击");
             }
         }
     }

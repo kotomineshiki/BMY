@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
                 return;
             }
             bool isAttacking = role.GetComponent<Chess>().GetAttackStatus();
+            if (isAttacking)
+                return;
             //设置目的地
             role.GetComponent<Chess>().SetDestination(endPosition);
             //停止攻击状态
@@ -40,9 +42,14 @@ public class PlayerController : MonoBehaviour
      */
     public void Attack(GameObject role,GameObject victim)
     {
+        GameObject tempGo = role ?? null;
+        if (tempGo == null) { return; }
+
         if (role.GetComponent<Chess>().chessType != ChessType.Castle)
         {
             bool isAttacking = role.GetComponent<Chess>().GetAttackStatus();
+            if (isAttacking)
+                return;
             Vector2Int victimPos = victim.GetComponent<Chess>().GetCurrentPosition();
             //设置目的地
 
