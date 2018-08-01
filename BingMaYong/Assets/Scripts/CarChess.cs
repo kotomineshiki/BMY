@@ -149,14 +149,14 @@ public class CarChess : Chess
             {
                 //如果是攻击状态在移动结束后需要攻击
                 //得到伤害
+                isAttacking = true;
                 float hurt = GetChessHurt(victim);
                 //攻击
                 action_manager.Attack(gameObject, victim, hurt);
             }
             else
             {
-                //自动攻击
-                //AutoAttacks();
+                isAttacking = false;
             }
         }
         else
@@ -180,6 +180,7 @@ public class CarChess : Chess
                 Debug.Log("该位置不合法，应该停在当前位置");
                 isMoving = false;
                 willAttack = false;
+                isAttacking = false;
                 StopMoveAnimation();
             }
         }
