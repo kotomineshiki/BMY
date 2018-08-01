@@ -42,7 +42,7 @@ public class RoleAttackAction : Action
             gameobject.GetComponent<Chess>().PlayAttackAnimation();
             //受害者扣血,调用了Chess的方法
             victim.GetComponent<Chess>().ReduceBoold(hurt);
-            Debug.Log("执行攻击");
+       //     Debug.Log("执行攻击");
 
 
             this.destroy = true;

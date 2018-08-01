@@ -8,13 +8,24 @@ public enum Side{//这个枚举类用来表明棋子的阵营，也用来标识�
     neutral
 }
 public class ChessController : MonoBehaviour {
+    public static ChessController instance;
     public List<Chess> playerA;
     public List<Chess> playerB;
     public GameObject infantryChessPrefab;
     public GameObject carChessPrefab;
     public GameObject shootChessPrefab;
     public GameObject castleChessPrefab;
-
+    public void RemoveChess(Chess input)//一个棋子死亡时应该移除这个棋子
+    {
+        if (input.chessSide == Side.playerA)
+        {
+            playerA.Remove(input);
+        }
+        else
+        {
+            playerB.Remove(input);
+        }
+    }
     public GameObject testPlaceAt(Vector2Int placeAt,ChessType chessType)//这个类是用来预览放置效果的，不会影响场上局面
     {
         GameObject temp;
@@ -105,8 +116,12 @@ public class ChessController : MonoBehaviour {
       //  Debug.Log("Yes");
 
     }
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
+        instance = this;
+    }
+    // Use this for initialization
+    void Start () {
      //PlaceChessAt(new Vector2Int(3, 3),Side.playerA,ChessType.Car);
     //   PlaceChessAt(new Vector2Int(5, 8), Side.playerA, ChessType.Infantry);
     //   PlaceChessAt(new Vector2Int(6, 8), Side.playerA, ChessType.Shoot);

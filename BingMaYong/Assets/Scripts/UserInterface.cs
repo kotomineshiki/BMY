@@ -26,7 +26,7 @@ public class UserInterface : MonoBehaviour {
             RaycastHit rayhit;
             if (Physics.Raycast(ray, out rayhit))//情况1两个都是空 情况2已经点了物体再点
             {
-                Debug.Log("HIt");
+        //        Debug.Log("HIt");
                 UIAdd(rayhit.transform.gameObject);//向列表中添加物体
             }
             else
@@ -43,12 +43,12 @@ public class UserInterface : MonoBehaviour {
     {
         if (clickedObjectA==null)
         {
-            Debug.Log("当前无操作");
+     //       Debug.Log("当前无操作");
             return;
         }
         if (clickedObjectA!=null && clickedObjectB ==null)
         {
-            Debug.Log("待定");
+    //        Debug.Log("待定");
             //看阵营决定是执行显示细节功能还是没有功能
         }else
         if (clickedObjectA.tag == "Chess" && clickedObjectB.tag == "Chess") {
@@ -59,7 +59,7 @@ public class UserInterface : MonoBehaviour {
         }else
         if (clickedObjectA.tag == "Chess" && clickedObjectB.tag == "Tile")
         {
-            Debug.Log(clickedObjectA.GetComponent<Chess>().GetCurrentPosition()+"移动到"+clickedObjectB.GetComponent<Tile>().tilePosition);
+    //        Debug.Log(clickedObjectA.GetComponent<Chess>().GetCurrentPosition()+"移动到"+clickedObjectB.GetComponent<Tile>().tilePosition);
             playerController.Move(clickedObjectA,clickedObjectB.GetComponent<Tile>().tilePosition);
 
             clickedObjectA = null;

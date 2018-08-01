@@ -75,6 +75,7 @@ public class AIController : MonoBehaviour
             if (attackChess != null)
             {
                 Singleton<PlayerController>.Instance.Attack(chess.gameObject, attackChess.gameObject);
+                Debug.Log("自动！攻击");
             }
         }
     }
@@ -91,8 +92,8 @@ public class AIController : MonoBehaviour
         Chess finalChess = null;//血最少的
         for(int i = 0; i < playerA.Count; ++i)
         {
-            int bloodRank = 3-(int)(playerA[i].GetComponent<Chess>().GetBlood() / 20);//血量越低评分越高
-            int distanceRank =- MapController.instance.GetPathListCount(attacker.GetCurrentPosition(),playerA[i].GetCurrentPosition())/2;//距离越短评分越高
+            int bloodRank = 7-(int)(playerA[i].GetComponent<Chess>().GetBlood() / 20);//血量越低评分越高
+            int distanceRank =- MapController.instance.GetPathListCount(attacker.GetCurrentPosition(),playerA[i].GetCurrentPosition())/3;//距离越短评分越高
             int chessRank = -2+JudgeChess(attacker.GetComponent<Chess>().chessType, playerA[i].GetComponent<Chess>().chessType);//兵种相克时候评分高
             rank[i] = bloodRank + distanceRank + chessRank;
         }
