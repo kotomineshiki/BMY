@@ -57,27 +57,27 @@ public class CarChess : Chess
         //如果下一个方向等价于当前方向
         if(nextPosition==new Vector2Int(0, 1) && direction == Direction.North)
         {
-            Debug.Log("y");
+     //       Debug.Log("y");
             runningAccumulate++;
         }else
         if (nextPosition == new Vector2Int(0, -1) && direction == Direction.South)
         {
-            Debug.Log("y");
+    //        Debug.Log("y");
             runningAccumulate++;
         }else
         if (nextPosition == new Vector2Int(1, 0) && direction == Direction.East)
         {
-            Debug.Log("y");
+    //        Debug.Log("y");
             runningAccumulate++;
         }else
         if (nextPosition == new Vector2Int(-1, 0) && direction == Direction.West)
         {
-            Debug.Log("y");
+     //       Debug.Log("y");
             runningAccumulate++;
         }
         else
         {
-            Debug.Log("C");
+     //       Debug.Log("C");
             runningAccumulate = 0;//否则清零
         }
 
