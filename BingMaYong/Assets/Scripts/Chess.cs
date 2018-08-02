@@ -54,6 +54,9 @@ public class Chess : MonoBehaviour
 
     public Direction direction;
     public float speed;    //速度，action开始时会被获取
+
+    public bool attackBy = false;
+
     /*
      * 得到兵马俑的当前位置
      * 返回Vector2Int类型的当前位置
@@ -248,7 +251,7 @@ public class Chess : MonoBehaviour
         //判断是否到达终点
         if (GetCurrentPosition() == destination)
         {
-           // Debug.Log("到达终点");
+            Debug.Log("到达终点"+destination);
             isMoving = false;
             StopMoveAnimation();
 
@@ -266,11 +269,18 @@ public class Chess : MonoBehaviour
                     action_manager = gameObject.AddComponent<RoleActionManager>();
                 }
                 isAttacking = true;
+
                 action_manager.Attack(gameObject, victim, hurt);
                 GameObject tempGo = victim ?? null;
                 if (tempGo == null) { return; }
+                if(victim.GetComponent<Chess>().isMoving)
+                    victim.GetComponent<Chess>().attackBy = true;
+
                 if (victim.GetComponent<Chess>().willAttack == false)
+                {
                     Singleton<PlayerController>.Instance.Attack(victim, this.gameObject);
+                }
+                    
             }
             else
             {

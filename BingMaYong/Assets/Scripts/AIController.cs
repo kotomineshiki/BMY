@@ -83,7 +83,8 @@ public class AIController : MonoBehaviour
     private Chess SelectAttackChess(Chess attacker)//返回被攻击的对象,给每一个潜在的攻击对象进行估价，然后攻击估价比较高的
     {//三个维度来考量:血量最小、距离最短、兵种相克
         //另外还需要一个条件
-        
+        if (attacker.GetComponent<Chess>().attackBy || attacker.GetComponent<Chess>().isMoving || attacker.GetComponent<Chess>().willAttack)
+            return null;
         int rangeRadomNum = Random.Range(0, 100);   //随机数
         List<Chess> playerA = Singleton<ChessController>.Instance.playerA;
         int[] rank = new int[playerA.Count];

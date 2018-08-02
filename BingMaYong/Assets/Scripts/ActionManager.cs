@@ -70,21 +70,22 @@ public class ActionManager : MonoBehaviour, IActionCallback
 
             objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
             //移动到下一个位置
+            objectParam.gameObject.GetComponent<Chess>().attackBy = false;
 
             objectParam.gameObject.GetComponent<Chess>().Move();
         }
         else if(intParam == 2)
         {
             //攻击动作结束后
-            if(nextObjectParam.gameObject.GetComponent<Chess>().GetBlood() <= 0)
+            if (nextObjectParam.gameObject.GetComponent<Chess>().GetBlood() <= 0)
             {
-
+                nextObjectParam.gameObject.GetComponent<Chess>().attackBy = false;
                 nextObjectParam.GetComponent<Chess>().Die();
-         //       Tile tempTile = Singleton<MapController>.Instance.GetTileWithPosition(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
-         //       Singleton<MapController>.Instance.SetReleased(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
-         //       tempTile.occupyChess = null;
+                //       Tile tempTile = Singleton<MapController>.Instance.GetTileWithPosition(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
+                //       Singleton<MapController>.Instance.SetReleased(nextObjectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());
+                //       tempTile.occupyChess = null;
 
-         //       nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
+                //       nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
                 objectParam.GetComponent<Chess>().RotateToNorth();
 
                 //!!!!!!!!!!!!!!!!被攻击者死亡不再监听!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!怎样释放所有监听而不是只释放一个
@@ -95,18 +96,20 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 if (nextObjectParam.GetComponent<Chess>().chessType == ChessType.Castle)
                 {
                     Destroy(nextObjectParam.transform.parent.gameObject);//城堡被打爆了
-                }else
+                }
+                else
                     Destroy(nextObjectParam.gameObject);//为何这个不能 放进Chess里
                 //停止攻击状态
                 objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
             }
-            else if(objectParam.gameObject.GetComponent<Chess>().GetAttackStatus())
+            else if (objectParam.gameObject.GetComponent<Chess>().GetAttackStatus())
             {
                 //如果正在攻击则1s后继续攻击
                 StartCoroutine(PlayerAttack(objectParam, nextObjectParam));
             }
             else
             {
+                nextObjectParam.gameObject.GetComponent<Chess>().attackBy = false;
                 //攻击结束后检测是45度角全部转为北方
                 objectParam.GetComponent<Chess>().RotateToNorth();
                 //查看有没有新的目的地然后去移动
@@ -120,6 +123,17 @@ public class ActionManager : MonoBehaviour, IActionCallback
             //攻击结束后检测是45度角全部转为北方
             objectParam.GetComponent<Chess>().RotateToNorth();
             objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
+        }
+        else if(intParam == 4)
+        {
+            //移动动作结束后
+            //设置兵马俑当前的位置
+            objectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
+            objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Chess>().GetNextDestination());
+            objectParam.gameObject.GetComponent<Chess>().OccupyPosition(objectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());  //占领新的
+            objectParam.gameObject.GetComponent<Chess>().attackBy = false;
+            objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
+      
         }
     }
 

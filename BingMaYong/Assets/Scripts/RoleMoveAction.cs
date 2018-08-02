@@ -109,7 +109,7 @@ public class RoleMoveAction : Action
         transform.position = Vector3.MoveTowards(this.transform.position, MapController.instance.GetWorldPosition(destination), speed * Time.deltaTime);
 
         //前面的路被堵
-        if (!MapController.instance.CanWalk(destination))
+        if (!MapController.instance.CanWalk(destination) || gameobject.GetComponent<Chess>().attackBy)
         {
             //转身回到之前的位置
             Rotate(destination, lastPosition);
@@ -121,6 +121,8 @@ public class RoleMoveAction : Action
         if (distance < THE_TARGET_RADIUS)
         {
             this.destroy = true;
+            if(gameobject.GetComponent<Chess>().attackBy)
+                this.callback.SSActionEvent(this, 4, this.gameobject);
             //回调函数
             this.callback.SSActionEvent(this, 1, this.gameobject);
         }
