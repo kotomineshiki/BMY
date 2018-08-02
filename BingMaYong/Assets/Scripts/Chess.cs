@@ -157,7 +157,7 @@ public class Chess : MonoBehaviour
 
 
 
-        Vector2Int targetLocations = currentPosition;
+        Vector2Int targetLocations = new Vector2Int(-99,-99);
         List<Vector2Int> chioceRange = attackRange;
         List<Vector2Int> temp = new List<Vector2Int>();
         int minPath = 9999;
@@ -366,8 +366,15 @@ public class Chess : MonoBehaviour
         if (tempGo == null) { return ; }
 
         Vector2Int vicPos = gameObject.GetComponent<Chess>().GetAttackTargetLocations(pos);
+
         MapController.instance.RedoOrder(destination);
+        if (vicPos == new Vector2Int(-99, -99))
+        {
+            StopAllAction();
+            return;
+        }
         MapController.instance.OrderPosition(vicPos);//预定下一个位置
+        Debug.Log("对象移走重新选择目的地");
         gameObject.GetComponent<Chess>().SetDestination(vicPos);
     }
     /*
@@ -404,6 +411,7 @@ public class Chess : MonoBehaviour
      */
     public void SetDestination(Vector2Int pos)
     {
+        Debug.Log("目的地是" + pos);
         destination = pos;
     }
 
