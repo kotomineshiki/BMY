@@ -79,7 +79,7 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            if (hit.transform.tag == "Tile" )//&&后面是一点点小优化，避免频繁的删除
+            if (hit.transform.tag == "Tile"&&hit.transform.gameObject.GetComponent<Tile>().side==Side.playerA )//&&后面是一点点小优化，避免频繁的删除
             {
 
                 // this.tile = hit.transform.gameObject;
