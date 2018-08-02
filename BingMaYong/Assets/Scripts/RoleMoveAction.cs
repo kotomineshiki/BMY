@@ -114,6 +114,7 @@ public class RoleMoveAction : Action
             //转身回到之前的位置
             Rotate(destination, lastPosition);
             destination = lastPosition;
+            gameobject.GetComponent<Chess>().nextDestination = destination;
         }
 
         //判断是否到达目的地
