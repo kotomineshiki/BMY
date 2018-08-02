@@ -128,7 +128,11 @@ public class PathFinder: MonoBehaviour
         while (find != true)
         {
         //    Debug.Log("Step");
-            if (openList.Count == 0) { Debug.Log("AHHHH");break; }//如果已经无路可走
+            if (openList.Count == 0)
+            {
+               // Debug.Log("AHHHH");
+                break;
+            }//如果已经无路可走
             NextStep();
         }
         if(result.Count>0)result.RemoveAt(0);

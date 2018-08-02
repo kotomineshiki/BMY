@@ -143,8 +143,9 @@ public class MapController : MonoBehaviour {
         if (side == Side.playerB) tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material = playerBMaterial;
         tiles[pos.x, pos.y].side = side;
     }
-    public void SetOccupied(Vector2Int pos,Side side)
+    public void SetOccupied(Vector2Int pos,Side side,GameObject chess)
     {
+        tiles[pos.x, pos.y].occupyChess = chess;
         tiles[pos.x, pos.y].tileState = TileState.Occupied;//只适用于当前走在的格子上
         tiles[pos.x, pos.y].side = side;//设定当前格子的归属权
         tiles[pos.x, pos.y].GetComponent<MeshRenderer>().material.color =new  Color(0.5f, 0.5f, 0.5f);
