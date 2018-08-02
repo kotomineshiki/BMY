@@ -109,7 +109,7 @@ public class RoleMoveAction : Action
         transform.position = Vector3.MoveTowards(this.transform.position, MapController.instance.GetWorldPosition(destination), speed * Time.deltaTime);
 
         //前面的路被堵
-        if (!MapController.instance.CanWalk(destination) || gameobject.GetComponent<Chess>().attackBy)
+        if (!MapController.instance.CanWalk(destination))
         {
             //转身回到之前的位置
             Rotate(destination, lastPosition);

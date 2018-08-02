@@ -56,7 +56,7 @@ public class CarChess : Chess
         }
 
         Debug.Log("有妖孽");
-        return new Vector2Int(-1, -1);
+        return new Vector2Int(-99, -99);
     }
     /*
      * 车寻找下一个寻路的位置

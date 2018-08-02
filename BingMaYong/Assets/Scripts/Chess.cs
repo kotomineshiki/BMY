@@ -161,19 +161,7 @@ public class Chess : MonoBehaviour
         List<Vector2Int> chioceRange = attackRange;
         List<Vector2Int> temp = new List<Vector2Int>();
         int minPath = 9999;
-        //对战车进行特殊处理,攻击目标只能是方向的正前方
-        if (chessType == ChessType.Car)
-        {
-            if (direction == Direction.North)
-                temp.Add(new Vector2Int(0, 1));
-            else if (direction == Direction.South)
-                temp.Add(new Vector2Int(0, -1));
-            else if (direction == Direction.East)
-                temp.Add(new Vector2Int(-1, 0));
-            else
-                temp.Add(new Vector2Int(1, 0));
-            chioceRange = temp;
-        }
+
         foreach (Vector2Int vec in chioceRange)
         {
             //坐标合法
@@ -368,7 +356,7 @@ public class Chess : MonoBehaviour
         Vector2Int vicPos = gameObject.GetComponent<Chess>().GetAttackTargetLocations(pos);
 
         MapController.instance.RedoOrder(destination);
-        if (vicPos == new Vector2Int(-99, -99))
+        if (vicPos == new Vector2Int(-99, -99) || isAttacking)
         {
             StopAllAction();
             return;
@@ -571,8 +559,9 @@ public class Chess : MonoBehaviour
         if (direction == Direction.Northeast || direction == Direction.Northwest
     || direction == Direction.Southeast ||direction == Direction.Southwest)
         {
-            int value = -(direction - Direction.North) * 45;
-            transform.Rotate(new Vector3(0, 0, 1), value);//旋转角色
+            //int value = -(direction - Direction.North) * 45;
+            //transform.Rotate(new Vector3(0, 0, 1), value);//旋转角色
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
             direction = Direction.North;
         }
     }
