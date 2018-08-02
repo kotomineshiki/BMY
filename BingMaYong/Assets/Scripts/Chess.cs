@@ -492,6 +492,7 @@ public class Chess : MonoBehaviour
      * 自动攻击函数
      * 没有设置自动攻击宫殿,自动攻击攻击范围内血最少的棋子
      */ 
+     /*
     public virtual void AutoAttacks()//
     {
         if (!isMoving && !willAttack && chessType != ChessType.Castle)
@@ -542,6 +543,7 @@ public class Chess : MonoBehaviour
             }
         }
     }
+    */
     /*
      * 战车重写该方法,找寻下一个移动的位置
      */ 
@@ -562,5 +564,37 @@ public class Chess : MonoBehaviour
             transform.Rotate(new Vector3(0, 0, 1), value);//旋转角色
             direction = Direction.North;
         }
+    }
+
+    //停止所有的运动
+    public void StopAllAction()
+    {
+        isMoving = false;
+        willAttack = false;
+        isAttacking = false;
+        StopMoveAnimation();
+        StopAttackStatus();
+    }
+    //检测周围是否有对面的棋子
+    public bool DetectSurround()
+    {
+        //得到周围的格子
+
+        List<Vector2Int>  detectRange = new List<Vector2Int>() {
+        new Vector2Int(-1,1), new Vector2Int(0,1), new Vector2Int(1,1),
+        new Vector2Int(-1,0),  new Vector2Int(1,0),
+        new Vector2Int(-1,-1),new Vector2Int(0,-1), new Vector2Int(1,-1)};
+        //检测格子上的物体
+        foreach (Vector2Int pos in detectRange)
+        {
+            Vector2Int tempPos = pos + currentPosition;
+            if(tempPos.x >= 0 && tempPos.y >= 0 && tempPos.x <= 9 && tempPos.y <= 13 &&
+                MapController.instance.tiles[tempPos.x, tempPos.y].occupyChess != null 
+                && MapController.instance.tiles[tempPos.x,tempPos.y].occupyChess.GetComponent<Chess>().chessSide == Side.playerA)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

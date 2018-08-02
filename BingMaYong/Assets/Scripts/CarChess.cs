@@ -83,6 +83,7 @@ public class CarChess : Chess
 
         return nextPosition+currentPos;
     }
+    /*
     public override void AutoAttacks()
     {
         if (!isMoving && !willAttack && chessType != ChessType.Castle)
@@ -134,7 +135,8 @@ public class CarChess : Chess
             }
         }
     }
-
+    */
+    /*
     public override void Move()
     {
         //判断是否到达终点
@@ -185,7 +187,7 @@ public class CarChess : Chess
             }
         }
     }
-
+    */
     public bool IsFront(Vector2Int pos)//传入一个位置，并判断这个位置是否是车正前方
     {
         if (direction == Direction.East)

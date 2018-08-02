@@ -68,9 +68,18 @@ public class ActionManager : MonoBehaviour, IActionCallback
             objectParam.gameObject.GetComponent<Chess>().OccupyPosition(objectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());  //占领新的
 
             objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
-            //移动到下一个位置
-            objectParam.gameObject.GetComponent<Chess>().attackBy = false;
 
+            objectParam.gameObject.GetComponent<Chess>().attackBy = false;
+            //检测AI周围是否有对面的棋子
+            if(objectParam.gameObject.GetComponent<Chess>().chessSide == Side.playerB)
+            {
+                if(objectParam.gameObject.GetComponent<Chess>().DetectSurround())
+                {
+                    objectParam.gameObject.GetComponent<Chess>().StopAllAction();
+                    return;
+                }
+            }
+            //移动到下一个位置
             objectParam.gameObject.GetComponent<Chess>().Move();
         }
         else if(intParam == 2)

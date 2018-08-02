@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessSide: 0
-  chessSlider: {fileID: 0}
+  chessSlider: {fileID: 114110248067653404}
   victim: {fileID: 0}
   attacker: []
   attackCapacity: 0
@@ -490,6 +490,7 @@ MonoBehaviour:
   blood: 0
   direction: 0
   speed: 0
+  attackBy: 0
   dieParticle: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 2}
   runningAccumulate: 0
 --- !u!198 &198199350895327972

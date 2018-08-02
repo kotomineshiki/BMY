@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
      */
     public void Attack(GameObject role,GameObject victim)
     {
+
         GameObject tempGo = role ?? null;
         if (tempGo == null) { return; }
 
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
             if (!role.GetComponent<Chess>().GetMoving() && !isAttacking)
                 role.GetComponent<Chess>().Move();
         }
+     
     }
 }
 
