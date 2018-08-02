@@ -18,8 +18,6 @@ public class InfantryChess : Chess
 
         blood = 100;
 
-        forInfantryChessHurt = 10;
-        normalAttackHurt = 10;
 
         attackRange = new List<Vector2Int>(){
         new Vector2Int(0,1),

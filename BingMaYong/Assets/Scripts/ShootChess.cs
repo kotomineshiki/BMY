@@ -17,9 +17,6 @@ public class ShootChess : Chess
 
         blood = 100;
 
-        forInfantryChessHurt = 10;
-        normalAttackHurt = 10;
-
         attackRange = new List<Vector2Int>() {
         new Vector2Int(-1,1), new Vector2Int(0,1), new Vector2Int(1,1),
         new Vector2Int(-1,0),  new Vector2Int(1,0),

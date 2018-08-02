@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class FragmentCounter : MonoBehaviour {
-    public int currentCount=10;//当前碎片的个数
+    public int currentCount=5;//当前碎片的个数
     public float addTime = 3f;
     public static FragmentCounter instance;
     public Text ShowLayer;

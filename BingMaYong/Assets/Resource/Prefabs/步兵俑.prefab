@@ -559,6 +559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessSide: 0
+  currentPosition: {x: 0, y: 0}
   chessSlider: {fileID: 114053845938037200}
   victim: {fileID: 0}
   attacker: []
@@ -573,12 +574,12 @@ MonoBehaviour:
   mapController: {fileID: 0}
   action_manager: {fileID: 0}
   attackRange: []
-  normalAttackHurt: 0
-  defence: 0
-  forInfantryChessHurt: 0
+  normalAttackHurt: 15
+  defence: 5
   blood: 0
   direction: 0
-  speed: 0
+  speed: 1
+  attackBy: 0
   dieParticle: {fileID: 125726, guid: 28237332098b6a54a92d770e23648a92, type: 2}
 --- !u!198 &198764316481935480
 ParticleSystem:

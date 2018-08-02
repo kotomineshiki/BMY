@@ -331,6 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessSide: 0
+  currentPosition: {x: 0, y: 0}
   chessSlider: {fileID: 114259904693083270}
   victim: {fileID: 0}
   attacker: []
@@ -345,12 +346,12 @@ MonoBehaviour:
   mapController: {fileID: 0}
   action_manager: {fileID: 0}
   attackRange: []
-  normalAttackHurt: 0
-  defence: 0
-  forInfantryChessHurt: 0
+  normalAttackHurt: 15
+  defence: 5
   blood: 0
   direction: 0
   speed: 0
+  attackBy: 0
   dieParticle: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 2}
   arrowPrefab: {fileID: 1413287088251782, guid: 3ee6c61a94998e148969fe05c2ac0f55,
     type: 2}

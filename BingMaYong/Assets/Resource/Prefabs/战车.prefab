@@ -470,6 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessSide: 0
+  currentPosition: {x: 0, y: 0}
   chessSlider: {fileID: 114110248067653404}
   victim: {fileID: 0}
   attacker: []
@@ -484,12 +485,11 @@ MonoBehaviour:
   mapController: {fileID: 0}
   action_manager: {fileID: 0}
   attackRange: []
-  normalAttackHurt: 0
-  defence: 0
-  forInfantryChessHurt: 0
+  normalAttackHurt: 15
+  defence: 5
   blood: 0
   direction: 0
-  speed: 0
+  speed: 1.5
   attackBy: 0
   dieParticle: {fileID: 153256, guid: fe394d041df1a0547990f49cf653249f, type: 2}
   runningAccumulate: 0

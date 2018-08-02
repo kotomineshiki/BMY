@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AIFragmentCounter : MonoBehaviour {
-    public int currentCount = 10;//当前碎片的个数
+    public int currentCount = 5;//当前碎片的个数
     public float addTime = 3f;
     public static AIFragmentCounter instance;
     // Use this for initialization

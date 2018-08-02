@@ -49,7 +49,7 @@ public class Chess : MonoBehaviour
     public  List<Vector2Int> attackRange;  //攻击范围,使用相对Vector2Int坐标
     public  float normalAttackHurt;        //在正常情况下应该给予的伤害
     public float defence;                    //护甲值
-    public float forInfantryChessHurt;    //特殊情况下会给步兵俑伤害
+
     public float blood;                   //棋子的血量
 
     public Direction direction;
@@ -207,7 +207,7 @@ public class Chess : MonoBehaviour
         {
             if (this.GetComponent<CarChess>().IsFront(victim.GetComponent<Chess>().GetCurrentPosition()))//如果在前面
             {
-                float returnValue = normalAttackHurt * (1 + 0.08f*MapController.instance.GetSideAdjacentCount(currentPosition, chessSide)+0.07f*this.GetComponent<CarChess>().runningAccumulate);//计算冲锋加成
+                float returnValue = normalAttackHurt * (1 + 0.08f*MapController.instance.GetSideAdjacentCount(currentPosition, chessSide)+0.07f*this.GetComponent<CarChess>().runningAccumulate) -0.8f* victim.GetComponent<Chess>().defence;//计算冲锋加成
                 return returnValue;//很大量的伤害---无视防御
             }
             else
