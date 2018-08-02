@@ -29,7 +29,23 @@ public class CarChess : Chess
 
         direction = Direction.North;
     }
-
+    public override Vector2Int GetAttackTargetLocations(Vector2Int victimPos)
+    {
+        Vector2Int delta = victimPos - currentPosition;
+        Vector2Int toward = GetNextStep(currentPosition, victimPos)-currentPosition;
+        if (toward.x == 0)//此时要么在上要么在下
+        {
+            if (delta.x > 0) return new Vector2Int(-1, 0) + victimPos;
+            if (delta.x <0 ) return new Vector2Int(1, 0) + victimPos;
+        }
+        if (toward.y == 0)//此时要么在左要么在右
+        {
+            if (delta.y > 0) return new Vector2Int(0, -1) + victimPos;
+            if (delta.y < 0) return new Vector2Int(0, 1) + victimPos;
+        }
+        Debug.Log("有妖孽");
+        return new Vector2Int(-1, -1);
+    }
     /*
      * 车寻找下一个寻路的位置
      * 传入当前位置和目的地
@@ -81,6 +97,7 @@ public class CarChess : Chess
             runningAccumulate = 0;//否则清零
         }
 
+        Debug.Log(nextPosition + currentPos);
         return nextPosition+currentPos;
     }
     /*
