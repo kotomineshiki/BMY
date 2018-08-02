@@ -66,7 +66,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
             objectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
             objectParam.gameObject.GetComponent<Chess>().SetCurrentPosition(objectParam.gameObject.GetComponent<Chess>().GetNextDestination());
             objectParam.gameObject.GetComponent<Chess>().OccupyPosition(objectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());  //占领新的
-
+            objectParam.gameObject.GetComponent<Chess>().SendWalk();//发送移动的消息
             objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
 
             objectParam.gameObject.GetComponent<Chess>().attackBy = false;
@@ -145,6 +145,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
             objectParam.gameObject.GetComponent<Chess>().attackBy = false;
             objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
             objectParam.gameObject.GetComponent<Chess>().StopAllAction();
+            objectParam.gameObject.GetComponent<Chess>().SendWalk();//发送移动的消息
         }
     }
 
