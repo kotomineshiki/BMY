@@ -293,10 +293,6 @@ public class Chess : MonoBehaviour
             {
                 //移动到该位置
                 MoveToPosition(nextDestination);
-                if (this.OnWalk != null)
-                {
-                    this.OnWalk(currentPosition);//表示占领当前position
-                }
             }
             else
             {
@@ -596,5 +592,12 @@ public class Chess : MonoBehaviour
             }
         }
         return false;
+    }
+    public void SendWalk()
+    {
+        if (this.OnWalk != null)
+        {
+            this.OnWalk(currentPosition);//表示占领当前position
+        }
     }
 }
