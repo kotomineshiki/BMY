@@ -92,16 +92,17 @@ public class PathFinder: MonoBehaviour
                 grids[i, j].h = 0;
             }
         }
+        foreach (var i in Obstacles)//设置障碍物
+        {
+            grids[i.x, i.y].type = GridType.Obstacle;
+        }
         grids[StartPoint.x, StartPoint.y].type = GridType.Start;
         grids[StartPoint.x, StartPoint.y].h = Manhattan(StartPoint.x, StartPoint.y);    //起点的 h 值
 
         grids[EndPoint.x, EndPoint.y].type = GridType.End;                    //结束点
 
 
-        foreach(var i in Obstacles)//设置障碍物
-        {
-            grids[i.x, i.y].type = GridType.Obstacle;
-        }
+
         openList.Add(grids[StartPoint.x, StartPoint.y]);
     }
 
@@ -127,6 +128,7 @@ public class PathFinder: MonoBehaviour
         while (find != true)
         {
         //    Debug.Log("Step");
+            if (openList.Count == 0) { Debug.Log("AHHHH");break; }//如果已经无路可走
             NextStep();
         }
         if(result.Count>0)result.RemoveAt(0);
