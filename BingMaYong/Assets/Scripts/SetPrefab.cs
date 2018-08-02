@@ -33,7 +33,7 @@ public class SetPrefab : MonoBehaviour
         }
         else
         {
-            Debug.Log("该位置无法放置");
+            //Debug.Log("该位置无法放置");
             return null;
         }
         return previewChess;

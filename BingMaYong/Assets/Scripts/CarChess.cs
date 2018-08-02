@@ -74,7 +74,7 @@ public class CarChess : Chess
         if (nextPosition.magnitude > 1)
         {
 
-            Debug.Log("不应该，要走斜线了"+nextPosition+delta+currentPos+destination);
+
             /*   if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
                    nextPosition.y = 0;//此处随意了
                else

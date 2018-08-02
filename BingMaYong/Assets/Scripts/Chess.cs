@@ -77,7 +77,7 @@ public class Chess : MonoBehaviour
     {
         foreach (var i in attacker)//对于所有攻击死亡者的人，解除攻击者对死亡者的关注
         {
-            Debug.Log("取消关注");
+           // Debug.Log("取消关注");
             GameObject tempGo = i ?? null;
             if (tempGo == null) { continue; }
             OnWalk -= i.GetComponent<Chess>().HandleOnWalk;//取消关注
@@ -104,7 +104,7 @@ public class Chess : MonoBehaviour
      */
     public void OccupyCurrentPosition()
     {
-        MapController.instance.SetOccupied(currentPosition, chessSide);
+        MapController.instance.SetOccupied(currentPosition, chessSide,this.gameObject);
     }
     /*
      * 占领一个位置
@@ -112,7 +112,7 @@ public class Chess : MonoBehaviour
      */
     public void OccupyPosition(Vector2Int pos)
     {
-        MapController.instance.SetOccupied(pos, chessSide);
+        MapController.instance.SetOccupied(pos, chessSide,this.gameObject);
 
     }
 
@@ -157,7 +157,7 @@ public class Chess : MonoBehaviour
      //   Debug.Log("难道是我");
 
 
-        Vector2Int targetLocations = currentPosition;
+        Vector2Int targetLocations = new Vector2Int(-99,-99);
         List<Vector2Int> chioceRange = attackRange;
         List<Vector2Int> temp = new List<Vector2Int>();
         int minPath = 9999;
@@ -209,7 +209,11 @@ public class Chess : MonoBehaviour
     {
         //判断攻击时候对象是否已经被摧毁
         GameObject tempGo = victim ?? null;
-        if (tempGo == null) { Debug.Log("不要鞭尸了"); return normalAttackHurt; }
+        if (tempGo == null)
+        {
+            //Debug.Log("不要鞭尸了");
+            return normalAttackHurt;
+        }
 
         if (chessType == ChessType.Car)//车打人
         {
@@ -251,7 +255,7 @@ public class Chess : MonoBehaviour
         //判断是否到达终点
         if (GetCurrentPosition() == destination)
         {
-            Debug.Log("到达终点"+destination);
+           // Debug.Log("到达终点"+destination);
             isMoving = false;
             StopMoveAnimation();
 
@@ -265,7 +269,6 @@ public class Chess : MonoBehaviour
                 //攻击
                 if (action_manager == null)
                 {
-                    //Debug.Log("actionManager NULL");
                     action_manager = gameObject.AddComponent<RoleActionManager>();
                 }
                 isAttacking = true;
@@ -363,8 +366,15 @@ public class Chess : MonoBehaviour
         if (tempGo == null) { return ; }
 
         Vector2Int vicPos = gameObject.GetComponent<Chess>().GetAttackTargetLocations(pos);
+
         MapController.instance.RedoOrder(destination);
+        if (vicPos == new Vector2Int(-99, -99))
+        {
+            StopAllAction();
+            return;
+        }
         MapController.instance.OrderPosition(vicPos);//预定下一个位置
+        Debug.Log("对象移走重新选择目的地");
         gameObject.GetComponent<Chess>().SetDestination(vicPos);
     }
     /*
@@ -401,6 +411,7 @@ public class Chess : MonoBehaviour
      */
     public void SetDestination(Vector2Int pos)
     {
+        Debug.Log("目的地是" + pos);
         destination = pos;
     }
 

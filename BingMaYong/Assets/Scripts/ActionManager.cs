@@ -76,6 +76,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 if(objectParam.gameObject.GetComponent<Chess>().DetectSurround())
                 {
                     objectParam.gameObject.GetComponent<Chess>().StopAllAction();
+                  //  Debug.Log("周围有敌人");
                     return;
                 }
             }
@@ -96,6 +97,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 //       nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放当前占领
                 objectParam.GetComponent<Chess>().RotateToNorth();
 
+                nextObjectParam.gameObject.GetComponent<Chess>().ReleaseCurrentPosition(); //释放死亡对象占领占领
                 //!!!!!!!!!!!!!!!!被攻击者死亡不再监听!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!怎样释放所有监听而不是只释放一个
                 //    nextObjectParam.GetComponent<Chess>().OnWalk -= objectParam.GetComponent<Chess>().HandleOnWalk;
                 //       nextObjectParam.GetComponent<Chess>().FreeAttacker();
@@ -109,6 +111,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
                     Destroy(nextObjectParam.gameObject);//为何这个不能 放进Chess里
                 //停止攻击状态
                 objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
+                objectParam.gameObject.GetComponent<Chess>().StopAllAction();
             }
             else if (objectParam.gameObject.GetComponent<Chess>().GetAttackStatus())
             {
@@ -131,6 +134,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
             //攻击结束后检测是45度角全部转为北方
             objectParam.GetComponent<Chess>().RotateToNorth();
             objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
+            objectParam.gameObject.GetComponent<Chess>().StopAllAction();
         }
         else if(intParam == 4)
         {
@@ -141,7 +145,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
             objectParam.gameObject.GetComponent<Chess>().OccupyPosition(objectParam.gameObject.GetComponent<Chess>().GetCurrentPosition());  //占领新的
             objectParam.gameObject.GetComponent<Chess>().attackBy = false;
             objectParam.gameObject.GetComponent<Chess>().StopMoveAnimation();
-      
+            objectParam.gameObject.GetComponent<Chess>().StopAllAction();
         }
     }
 
