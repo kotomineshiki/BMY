@@ -13,7 +13,13 @@ public class SetPrefab : MonoBehaviour
     {
         chessController = Singleton<ChessController>.Instance;
     }
-
+    public int Cost(ChessType chessType)//一个棋子的花费
+    {
+        if (chessType == ChessType.Car) return 5;
+        if (chessType == ChessType.Infantry) return 3;
+        if (chessType == ChessType.Shoot) return 3;
+        return 3;
+    }
     // Update is called once per frame
     void Update()
     {

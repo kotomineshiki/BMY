@@ -49,10 +49,12 @@ public class MapController : MonoBehaviour {
         instance = this;//设置单例模式
 
         Initialize();
-        SetObstacle(new Vector2Int(5, 5));
-        SetObstacle(new Vector2Int(4, 5));
-        SetObstacle(new Vector2Int(3, 5));
-        SetObstacle(new Vector2Int(2, 5));
+        SetObstacle(new Vector2Int(5, 7));
+        SetObstacle(new Vector2Int(4, 7));
+        SetObstacle(new Vector2Int(3, 7));
+        SetObstacle(new Vector2Int(2, 7));
+        SetObstacle(new Vector2Int(8, 6));
+        SetObstacle(new Vector2Int(9, 6));
         InitialOccupied();
     }
 	void InitialOccupied()
@@ -189,5 +191,40 @@ public class MapController : MonoBehaviour {
     {//传入一个位置和测试的边，返回该格子是否属于该阵营
         if (tiles[pos.x, pos.y].side == testSide) return true;
         else return false;
+    }
+
+    public int GetSideAdjacentCount(Vector2Int pos,Side side)//输入一个格子的位置，返回该格子周围，属于该阵营的格子的数量(还要减去属于敌对格子的数量)
+    {
+        int count = 0;
+        Vector2Int up = pos + new Vector2Int(0, 1);
+        Vector2Int left = pos + new Vector2Int(-1,0);
+        Vector2Int right = pos + new Vector2Int(1, 0);
+        Vector2Int down = pos + new Vector2Int(0, -1);
+        if(IsValid(up))
+        {
+            if(IsSide(up,side))count++;
+            if (IsSide(up, side==Side.playerA?Side.playerB:Side.playerA)) count--;//减去属于敌对阵营的
+        }
+        if (IsValid(left))
+        {
+            if (IsSide(left, side)) count++;
+            if (IsSide(left, side == Side.playerA ? Side.playerB : Side.playerA)) count--;//减去属于敌对阵营的
+        }
+        if (IsValid(right))
+        {
+            if (IsSide(right, side)) count++;
+            if (IsSide(right, side == Side.playerA ? Side.playerB : Side.playerA)) count--;//减去属于敌对阵营的
+        }
+        if (IsValid(down))
+        {
+            if (IsSide(down, side)) count++;
+            if (IsSide(down, side == Side.playerA ? Side.playerB : Side.playerA)) count--;//减去属于敌对阵营的
+        }
+        return count;
+    }
+    bool IsValid(Vector2Int pos)//判断一个位置是否合法
+    {
+        if (pos.y <= 13 && pos.y >= 0 && pos.x >= 0 && pos.y <= 9) return true;
+        return false;
     }
 }

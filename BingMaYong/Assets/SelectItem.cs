@@ -11,6 +11,7 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public ChessType chessType;//本兵牌的标号
     public Vector2Int currentTile=new Vector2Int(-1,-1);
 
+
     void Update()
     {
         if (FragmentCounter.instance.GetCount() < cost)
@@ -86,8 +87,8 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 //       Debug.Log("放置物体于：" + hit.transform.gameObject.GetComponent<Tile>().tilePosition);
              //   setController.testPlaceAt(hit.transform.gameObject.GetComponent<Tile>().tilePosition, chessType);
                 currentTile = hit.transform.gameObject.GetComponent<Tile>().tilePosition;
-
-                FragmentCounter.instance.SubCount(3);
+                int value = setController.Cost(chessType);
+                FragmentCounter.instance.SubCount(value);
                 setController.PlaceAt(currentTile, chessType);
                 currentTile = new Vector2Int(-1, -1);//恢复初始状态，方便下次使用
             }

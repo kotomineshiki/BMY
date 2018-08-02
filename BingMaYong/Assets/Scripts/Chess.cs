@@ -205,9 +205,10 @@ public class Chess : MonoBehaviour
 
         if (chessType == ChessType.Car)//车打人
         {
-            if (this.GetComponent<CarChess>().IsFront(victim.GetComponent<Chess>().GetCurrentPosition()))
+            if (this.GetComponent<CarChess>().IsFront(victim.GetComponent<Chess>().GetCurrentPosition()))//如果在前面
             {
-                return normalAttackHurt;//很大量的伤害---无视防御
+                float returnValue = normalAttackHurt * (1 + 0.08f*MapController.instance.GetSideAdjacentCount(currentPosition, chessSide)+0.07f*this.GetComponent<CarChess>().runningAccumulate);//计算冲锋加成
+                return returnValue;//很大量的伤害---无视防御
             }
             else
             {
@@ -216,18 +217,20 @@ public class Chess : MonoBehaviour
         }
         if(victim.gameObject.GetComponent<Chess>().chessType == ChessType.Car)//“我”打车
         {//步兵在侧面打车造成超量攻击
-            if (victim.gameObject.GetComponent<CarChess>().IsFront(GetCurrentPosition()))//此时造成伤害有限
+            if (victim.gameObject.GetComponent<CarChess>().IsFront(GetCurrentPosition()))//正面此时造成伤害有限
             {
-                return 0.5f * normalAttackHurt;
+                float returnValue = 0.7f * normalAttackHurt * (1 + 0.08f * MapController.instance.GetSideAdjacentCount(currentPosition, chessSide)) - victim.GetComponent<Chess>().defence;
+                return returnValue >0?returnValue:0;
             }
             else
             {
-                return 1.5f * normalAttackHurt;
+                float returnValue = 1.3f * normalAttackHurt * (1 + 0.08f * MapController.instance.GetSideAdjacentCount(currentPosition, chessSide));//侧面攻击则无视护甲
+                return returnValue;
             }
 
         }
-
-        return normalAttackHurt-victim.GetComponent<Chess>().defence;//返回攻击减去防御的值，注意如果是负数会报错的
+        float returnValue1 = normalAttackHurt * (1 + 0.08f * MapController.instance.GetSideAdjacentCount(currentPosition, chessSide))- victim.GetComponent<Chess>().defence;
+        return returnValue1>0?returnValue1:0;//返回攻击减去防御的值，注意如果是负数会报错的
 
     }
     public delegate void OnWalkFinished(Vector2Int currentPosition);
@@ -262,6 +265,7 @@ public class Chess : MonoBehaviour
                 isAttacking = true;
 
                 action_manager.Attack(gameObject, victim, hurt);
+                Debug.Log("伤害" + hurt);
                 GameObject tempGo = victim ?? null;
                 if (tempGo == null) { return; }
                 if(victim.GetComponent<Chess>().isMoving)
@@ -395,7 +399,7 @@ public class Chess : MonoBehaviour
      */
     public void SetDestination(Vector2Int pos)
     {
-        Debug.Log("目的地是" + pos);
+    //    Debug.Log("目的地是" + pos);
         destination = pos;
     }
 

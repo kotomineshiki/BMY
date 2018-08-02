@@ -50,7 +50,10 @@ public class RoleMoveAction : Action
     }
     public override void Start()
     {
-     //   speed = gameobject.GetComponent<Chess>().GetSpeed();
+        speed = gameobject.GetComponent<Chess>().GetSpeed()*(
+            1+0.2f*MapController.instance.GetSideAdjacentCount(
+            gameobject.GetComponent<Chess>().currentPosition,
+            gameobject.GetComponent<Chess>().chessSide));//这一段使得速度和格子的位置挂钩。周围属于我方的领土越多则移动速度越快
         //移动前检测是否是45度角的方向全部转为北方
         gameobject.GetComponent<Chess>().RotateToNorth();
         //播放移动动画,调用了Chess的方法
