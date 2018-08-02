@@ -412,7 +412,7 @@ MonoBehaviour:
   playerB: []
   infantryChessPrefab: {fileID: 1076460543012422, guid: 726896444f5b61147b46bc8eb2e50c20,
     type: 2}
-  carChessPrefab: {fileID: 1787070699763666, guid: e7c100e1f70f41943b73a2dd60379e9b,
+  carChessPrefab: {fileID: 1937706051929052, guid: 2ec63f1a3d1ca25449752b33b130556b,
     type: 2}
   shootChessPrefab: {fileID: 1858352294803582, guid: ae957c924401e91408dcbf4d9ba9530e,
     type: 2}
