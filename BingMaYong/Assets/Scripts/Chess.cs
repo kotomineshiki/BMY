@@ -25,7 +25,7 @@ public class Chess : MonoBehaviour
 {
     public Side chessSide;                //棋子的阵营
 
-    protected Vector2Int currentPosition;           //当前位于格子坐标
+    public Vector2Int currentPosition;           //当前位于格子坐标
 
     public Slider chessSlider;            //血条
 
@@ -154,7 +154,7 @@ public class Chess : MonoBehaviour
      */
     public virtual Vector2Int GetAttackTargetLocations(Vector2Int victimPos)//!!!!!!!!!!!!!!!!!!!bug！！！！！！！！！！！！！！！！//强行解决
     {
-
+     //   Debug.Log("难道是我");
 
 
         Vector2Int targetLocations = currentPosition;

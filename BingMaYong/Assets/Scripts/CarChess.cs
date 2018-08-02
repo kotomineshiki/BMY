@@ -33,16 +33,28 @@ public class CarChess : Chess
     {
         Vector2Int delta = victimPos - currentPosition;
         Vector2Int toward = GetNextStep(currentPosition, victimPos)-currentPosition;
-        if (toward.x == 0)//此时要么在上要么在下
+        Debug.Log(delta+"Toward" + toward);
+        if (toward.x == 0&&delta.x==0)//此时要么在上要么在下
+        {
+            if (delta.y > 0) return new Vector2Int(0, -1) + victimPos;
+            if (delta.y <0 ) return new Vector2Int(0, 1) + victimPos;
+        }
+        if (toward.y == 0&&delta.y==0)//此时要么在左要么在右
+        {
+            if (delta.x > 0) return new Vector2Int(0, -1) + victimPos;
+            if (delta.x < 0) return new Vector2Int(0, 1) + victimPos;
+        }
+        if (toward.x == 0 && delta.x != 0)//此时要么在上要么在下
         {
             if (delta.x > 0) return new Vector2Int(-1, 0) + victimPos;
-            if (delta.x <0 ) return new Vector2Int(1, 0) + victimPos;
+            if (delta.x < 0) return new Vector2Int(1, 0) + victimPos;
         }
-        if (toward.y == 0)//此时要么在左要么在右
+        if (toward.y == 0 && delta.y != 0)//此时要么在左要么在右
         {
             if (delta.y > 0) return new Vector2Int(0, -1) + victimPos;
             if (delta.y < 0) return new Vector2Int(0, 1) + victimPos;
         }
+
         Debug.Log("有妖孽");
         return new Vector2Int(-1, -1);
     }
@@ -59,10 +71,10 @@ public class CarChess : Chess
         if (delta.y > 0) nextPosition.y = 1;
         if (delta.x < 0) nextPosition.x = -1;
         if (delta.y < 0) nextPosition.y = -1;
-        if (nextPosition.magnitude >= 1)
+        if (nextPosition.magnitude > 1)
         {
 
-            Debug.Log("不应该，要走斜线了");
+            Debug.Log("不应该，要走斜线了"+nextPosition+delta+currentPos+destination);
             /*   if (Mathf.Abs(delta.x) > Mathf.Abs(delta.y))
                    nextPosition.y = 0;//此处随意了
                else
