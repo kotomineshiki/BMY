@@ -183,7 +183,7 @@ public class MapController : MonoBehaviour {
             }
         }
         var temptest = pathFinder.GeneratePath(currentPosition, destination, currentObstacles);
-        return temptest.Count;
+        return pathFinder.GeneratePath(currentPosition, destination, currentObstacles).Count;//不知道为什么两次运行的结果是不一样的
     }
     public bool IsSide(Vector2Int pos,Side testSide)
     {//传入一个位置和测试的边，返回该格子是否属于该阵营

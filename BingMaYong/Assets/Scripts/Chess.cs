@@ -174,7 +174,7 @@ public class Chess : MonoBehaviour
                 if (MapController.instance.CanWalk(targetTile.tilePosition)&&!MapController.instance.IsInOrder(targetTile.tilePosition))//可以用函数
                 {
                     int count = Singleton<MapController>.Instance.GetPathListCount(currentPosition, victimPos - vec);
-                   // Debug.Log("步数" + count + "目的地" + (victimPos - vec));
+                    Debug.Log("步数" + count + "目的地" + (victimPos - vec));
                     if (count > 0 && count < minPath)
                     {
                         minPath = count;
