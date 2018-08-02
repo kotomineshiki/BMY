@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour
 {
-    float thinkTime = 4f;
+    public float thinkTime = 1.5f;
+    public int thinkCount = 2;//思考名额，即一次思考能操纵的棋子数目
     void Start()
     {
         StartCoroutine(StartAI());
@@ -17,8 +18,17 @@ public class AIController : MonoBehaviour
     }
     private void Acting()//思考过程
     {
-        ThinkPlacing();
-        ThinkAttacking();
+        for(int i = 0; i < thinkCount; ++i)
+        {
+            int todosth=Random.Range(0, 1000);
+            if (todosth % 3 == 0) ThinkPlacing();
+            if (todosth % 3 == 1) ThinkAttacking();
+            if (todosth % 3 == 2) ThinkMoving();
+        }
+    }
+    void ThinkMoving()//思考移动到哪里
+    {
+
     }
     void ThinkPlacing()//思考要不要放置棋子
     {
@@ -62,14 +72,17 @@ public class AIController : MonoBehaviour
     void ThinkAttacking()//思考要不要让棋子攻击
     {
         List<Chess> playerB = Singleton<ChessController>.Instance.playerB;
-        foreach (Chess chess in playerB)
-        {
+        int shallAttack = Random.Range(0, playerB.Count);
+        //foreach (Chess chess in playerB)
+        //{
+        Chess chess = playerB[shallAttack];
             Chess attackChess = SelectAttackChess(chess);        //选择每个棋子的攻击对象
 
             Chess temp = chess ?? null;
             if (temp == null)
             {
-                continue;
+            // continue;
+            return;
             }
 
             if (attackChess != null)
@@ -77,7 +90,7 @@ public class AIController : MonoBehaviour
                 Singleton<PlayerController>.Instance.Attack(chess.gameObject, attackChess.gameObject);
              //   Debug.Log("自动！攻击");
             }
-        }
+       // }
     }
 
     private Chess SelectAttackChess(Chess attacker)//返回被攻击的对象,给每一个潜在的攻击对象进行估价，然后攻击估价比较高的
