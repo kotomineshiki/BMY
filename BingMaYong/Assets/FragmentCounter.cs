@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FragmentCounter : MonoBehaviour {
     public int currentCount=10;//当前碎片的个数
     public static FragmentCounter instance;
+    public Text ShowLayer;
     // Use this for initialization
     void Awake () {
         instance = this;//设置单例模式
@@ -21,7 +23,7 @@ public class FragmentCounter : MonoBehaviour {
     }
     // Update is called once per frame
     void Update () {
-		
+        ShowLayer.text = currentCount.ToString();
 	}
     public int GetCount()//返回当前碎片数量
     {

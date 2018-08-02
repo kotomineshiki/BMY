@@ -71,11 +71,31 @@ public class SelectItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        setController.DestroyPreviewChess();
         if (canUse == false) return;//如果不可用，直接截断
         if (currentTile == new Vector2Int(-1, -1)) return;//
-     //   Debug.Log("DragEnd");
-        FragmentCounter.instance.SubCount(3);
-        setController.PlaceAt(currentTile,chessType);
-        currentTile = new Vector2Int(-1, -1);//恢复初始状态，方便下次使用
+                                                          //   Debug.Log("DragEnd");
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//射出一个射线，看看射线是否碰撞到了格子
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.tag == "Tile" )//&&后面是一点点小优化，避免频繁的删除
+            {
+
+                // this.tile = hit.transform.gameObject;
+                //       Debug.Log("放置物体于：" + hit.transform.gameObject.GetComponent<Tile>().tilePosition);
+             //   setController.testPlaceAt(hit.transform.gameObject.GetComponent<Tile>().tilePosition, chessType);
+                currentTile = hit.transform.gameObject.GetComponent<Tile>().tilePosition;
+
+                FragmentCounter.instance.SubCount(3);
+                setController.PlaceAt(currentTile, chessType);
+                currentTile = new Vector2Int(-1, -1);//恢复初始状态，方便下次使用
+            }
+
+        }
+
+
+
+
     }
 }

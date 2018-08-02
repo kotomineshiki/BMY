@@ -58,7 +58,7 @@ public class SetPrefab : MonoBehaviour
         if (previewChess != null)
         {
             chessController.playerA.Remove(previewChess.GetComponent<Chess>());
-            Destroy(previewChess);
+            DestroyImmediate(previewChess);
             previewChess = null;
         }
        

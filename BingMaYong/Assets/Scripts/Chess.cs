@@ -465,7 +465,10 @@ public class Chess : MonoBehaviour
     {
         return isAttacking;
     }
+    public void CanAttack()//返回是否可以攻击
+    {
 
+    }
     /*
      * 设置棋子的阵营
      * 传入棋子设置的阵营

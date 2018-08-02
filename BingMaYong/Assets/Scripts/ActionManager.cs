@@ -42,7 +42,6 @@ public class ActionManager : MonoBehaviour, IActionCallback
         }
         waitingDelete.Clear();
     }
-
     public void RunAction(GameObject gameobject, Action action, IActionCallback manager)
     {
         action.gameobject = gameobject;

@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentCount: 10
+  ShowLayer: {fileID: 1322365892}
 --- !u!1 &1077644836
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +516,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114921166904172734, guid: a661f62b3ba44a147b573849d9549801,
+    - target: {fileID: 114961727204037420, guid: a661f62b3ba44a147b573849d9549801,
         type: 2}
       propertyPath: setController
       value: 
@@ -525,7 +526,7 @@ Prefab:
       propertyPath: setController
       value: 
       objectReference: {fileID: 611359756}
-    - target: {fileID: 114961727204037420, guid: a661f62b3ba44a147b573849d9549801,
+    - target: {fileID: 114921166904172734, guid: a661f62b3ba44a147b573849d9549801,
         type: 2}
       propertyPath: setController
       value: 
@@ -688,6 +689,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1322365892 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114965107691358886, guid: a661f62b3ba44a147b573849d9549801,
+    type: 2}
+  m_PrefabInternal: {fileID: 1183335818}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1712731946 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1533165774896380, guid: a661f62b3ba44a147b573849d9549801,
