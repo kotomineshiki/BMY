@@ -119,6 +119,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 //停止攻击状态
                 objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
                 objectParam.gameObject.GetComponent<Chess>().StopAllAction();
+                objectParam.gameObject.GetComponent<Chess>().AutoAttacks();//自动攻击
             }
             else if (objectParam.gameObject.GetComponent<Chess>().GetAttackStatus())
             {
@@ -142,6 +143,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
             objectParam.GetComponent<Chess>().RotateToNorth();
             objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
             objectParam.gameObject.GetComponent<Chess>().StopAllAction();
+            objectParam.gameObject.GetComponent<Chess>().AutoAttacks();//自动攻击
         }
         else if(intParam == 4)
         {

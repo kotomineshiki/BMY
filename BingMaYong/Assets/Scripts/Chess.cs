@@ -533,7 +533,7 @@ public class Chess : MonoBehaviour
                 if (temp.x >= 0 && temp.y >= 0 && temp.x <= 9 && temp.y <= 13)
                 {
                     Tile tile = mapController.GetTileWithPosition(temp);
-                    if (tile.tileState == TileState.Occupied && tile.side == Side.playerB)
+                    if (tile.tileState == TileState.Occupied && tile.side != chessSide)
                     {
                         //检测可以攻击的棋子是否已经死亡
                         GameObject tempGo = tile.occupyChess ?? null;
