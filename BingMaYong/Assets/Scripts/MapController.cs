@@ -189,7 +189,7 @@ public class MapController : MonoBehaviour {
     }
     public bool IsSide(Vector2Int pos,Side testSide)
     {//传入一个位置和测试的边，返回该格子是否属于该阵营
-        if (tiles[pos.x, pos.y].side == testSide) return true;
+        if (pos.x >= 0 && pos.y >= 0 && pos.x <= 9 && pos.y <= 13 && tiles[pos.x, pos.y].side == testSide) return true;
         else return false;
     }
 
