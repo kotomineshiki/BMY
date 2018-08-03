@@ -36,6 +36,8 @@ public class AIController : MonoBehaviour
         {
             ChessType myType = SelectType(); //放入哪个类型棋子
             Vector2Int myPos = SelectPlacingPosition();//放在哪里
+            if (myPos == new Vector2Int(-99, -99))
+                return;
             Singleton<ChessController>.Instance.PlaceChessAt(myPos, Side.playerB, myType);
             AIFragmentCounter.instance.SubCount(3);
         }
@@ -183,6 +185,8 @@ public class AIController : MonoBehaviour
             }
             //剩下的要么是增援了也活不了，不增援也无所谓的
         }
+        if (waitList.Count == 0)
+            return new Vector2Int(-99, -99);
         int re = Random.Range(0, waitList.Count);
         return waitList[re];
 
