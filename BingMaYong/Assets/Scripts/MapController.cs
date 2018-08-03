@@ -103,7 +103,7 @@ public class MapController : MonoBehaviour {
         if (answer.Count == 0)
         {
             Debug.Log("未能找到路径");
-            return new Vector2Int(-1, -1);//其他函数也要配合检验！！！！！！！！！！！！
+            return new Vector2Int(-99, -99);//其他函数也要配合检验！！！！！！！！！！！！
         }
         /*    if (!CanWalk(answer[0]))
             {
@@ -142,6 +142,8 @@ public class MapController : MonoBehaviour {
 
     public bool CanWalk(Vector2Int input)//传入一个格子坐标，返回该格子是否是不可走的
     {
+        if (input == new Vector2Int(-99, -99))
+            return false;
         if (tiles[input.x, input.y].tileState == TileState.Occupied || tiles[input.x, input.y].tileState == TileState.Obstacle)
             return false;
         else return true;
