@@ -159,7 +159,7 @@ public class Chess : MonoBehaviour
 
         Vector2Int targetLocations = new Vector2Int(-99,-99);
         List<Vector2Int> chioceRange = attackRange;
-        List<Vector2Int> temp = new List<Vector2Int>();
+        //List<Vector2Int> temp = new List<Vector2Int>();
         int minPath = 9999;
 
         foreach (Vector2Int vec in chioceRange)

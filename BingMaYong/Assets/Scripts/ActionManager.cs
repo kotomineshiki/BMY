@@ -105,8 +105,9 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 if (nextObjectParam.GetComponent<Chess>().chessType == ChessType.Castle)
                 {
                     Singleton<AudioManager>.Instance.Gameover();  //爆炸音效
-                    Destroy(nextObjectParam.transform.parent.gameObject);//城堡被打爆了
                     nextObjectParam.GetComponent<Castle>().SendDestroyEvent();
+                    Destroy(nextObjectParam.transform.parent.gameObject);//城堡被打爆了
+
                 }
                 else
                 {

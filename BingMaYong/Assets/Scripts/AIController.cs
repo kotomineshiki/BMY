@@ -98,7 +98,7 @@ public class AIController : MonoBehaviour
         //另外还需要一个条件
         if (attacker.GetComponent<Chess>().attackBy || attacker.GetComponent<Chess>().isMoving || attacker.GetComponent<Chess>().willAttack)
             return null;
-        int rangeRadomNum = Random.Range(0, 100);   //随机数
+        //int rangeRadomNum = Random.Range(0, 100);   //随机数
         List<Chess> playerA = Singleton<ChessController>.Instance.playerA;
         int[] rank = new int[playerA.Count];
         //   rank.Capacity = playerA.Count;
