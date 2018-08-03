@@ -21,9 +21,9 @@ public class AIController : MonoBehaviour
         for (int i = 0; i < thinkCount; ++i)
         {
             int todosth = Random.Range(0, 1000);
-            if (todosth % 3 == 0) ThinkPlacing();
-            if (todosth % 3 == 1) ThinkAttacking();
-            if (todosth % 3 == 2) ThinkMoving();
+            if (todosth<150&&todosth>0) ThinkPlacing();
+            if (todosth <800&&todosth>150) ThinkAttacking();
+            if (todosth <1000&&todosth>800) ThinkMoving();
         }
     }
     void ThinkMoving()//思考移动到哪里
