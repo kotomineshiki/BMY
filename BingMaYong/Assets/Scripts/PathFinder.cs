@@ -137,12 +137,6 @@ public class PathFinder: MonoBehaviour
         }
         if(result.Count>0)result.RemoveAt(0);
         result.Add(end);//去头加尾
-        Debug.Log("寻路路线");
-        foreach (Vector2Int vec in result)
-        {
-            Debug.Log(vec + "$");
-        }
-
         return result;
     }
     void Awake()
