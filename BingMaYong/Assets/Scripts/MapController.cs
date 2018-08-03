@@ -55,6 +55,11 @@ public class MapController : MonoBehaviour {
         SetObstacle(new Vector2Int(2, 7));
         SetObstacle(new Vector2Int(8, 6));
         SetObstacle(new Vector2Int(9, 6));
+
+     /*   SetObstacle(new Vector2Int(1, 0));
+        SetObstacle(new Vector2Int(2, 1));
+        SetObstacle(new Vector2Int(1, 2));
+        SetObstacle(new Vector2Int(0, 1));*/
         InitialOccupied();
     }
 	void InitialOccupied()
@@ -63,14 +68,14 @@ public class MapController : MonoBehaviour {
         {
             for(int j = 0; j < 3; ++j)
             {
-                SetOwner(new Vector2Int(i, j), Side.playerA);
+                if(CanWalk(new Vector2Int(i,j)))SetOwner(new Vector2Int(i, j), Side.playerA);
             }
         }
         for (int i = 0; i < 10; ++i)
         {
             for (int j = 11; j < 14; ++j)
             {
-                SetOwner(new Vector2Int(i, j), Side.playerB);
+                if (CanWalk(new Vector2Int(i, j))) SetOwner(new Vector2Int(i, j), Side.playerB);
             }
         }
     }
@@ -100,13 +105,20 @@ public class MapController : MonoBehaviour {
             Debug.Log("未能找到路径");
             return new Vector2Int(-1, -1);//其他函数也要配合检验！！！！！！！！！！！！
         }
-    /*    if (!CanWalk(answer[0]))
-        {
-            Debug.Log("asdf");
-            return currentPosition;
+        /*    if (!CanWalk(answer[0]))
+            {
+                Debug.Log("asdf");
+                return currentPosition;
 
-        }else*/
-        return pathFinder.GeneratePath(currentPosition, destination, currentObstacles)[0];
+            }else*/
+        if (IsAdjacent(pathFinder.GeneratePath(currentPosition, destination, currentObstacles)[0], currentPosition))
+            return pathFinder.GeneratePath(currentPosition, destination, currentObstacles)[0];
+        else return currentPosition;
+    }
+    public bool IsAdjacent(Vector2Int a ,Vector2Int b)
+    {
+        if ((a - b).magnitude > 1) return false;
+        else return true;
     }
     private void Initialize()//这个函数用来逐行逐列创建地图，创建后格子的父类为当前类
     {
