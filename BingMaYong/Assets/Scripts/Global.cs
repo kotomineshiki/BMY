@@ -7,9 +7,7 @@ public class Global : MonoBehaviour
 
     static Global()
     {
-        GameObject go = new GameObject("Global");
-        DontDestroyOnLoad(go);
-        instance = go.AddComponent<Global>();
+
     }
 
     public void DoSomeThings()
@@ -20,6 +18,15 @@ public class Global : MonoBehaviour
     void Start()
     {
         Debug.Log("Start");
+    }
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            GameObject go = (GameObject)Resources.Load("Prefabs\bow");
+            DontDestroyOnLoad(go);
+            instance = go.AddComponent<Global>();
+        }
     }
 
 }

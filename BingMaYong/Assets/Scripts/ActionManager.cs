@@ -112,7 +112,7 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 else
                 {
                     Singleton<AudioManager>.Instance.Explosion();  //爆炸音效
-                   Destroy(nextObjectParam.gameObject);//为何这个不能 放进Chess里
+                    Destroy(nextObjectParam.gameObject);//为何这个不能 放进Chess里
                 }
                     
 

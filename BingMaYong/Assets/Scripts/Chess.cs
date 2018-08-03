@@ -450,6 +450,15 @@ public class Chess : MonoBehaviour
         GameObject temp=Instantiate(dieParticle);//播放死亡粒子效果
         temp.transform.position = this.transform.position+new Vector3(0,0,-3);
 
+        if(chessSide == Side.playerA)
+        {
+            AIFragmentCounter.instance.AddCount(1);
+        }
+        else
+        {
+            FragmentCounter.instance.AddCount(1);
+        }
+
         ReleaseCurrentPosition();//释放当前位置
         FreeAttacker();//释放所有监听
         ChessController.instance.RemoveChess(this.GetComponent<Chess>());//移除列表
