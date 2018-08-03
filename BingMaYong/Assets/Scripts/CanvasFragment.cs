@@ -12,5 +12,6 @@ public class CanvasFragment : MonoBehaviour {
     {
         yield return new WaitForSeconds(2f);
         this.gameObject.SetActive(false);
+        Destroy(this.gameObject.transform.parent.gameObject);
     }
 }

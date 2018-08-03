@@ -359,6 +359,7 @@ public class Chess : MonoBehaviour
         if (vicPos == new Vector2Int(-99, -99) || isAttacking)
         {
             StopAllAction();
+            RotateToNorth();
             return;
         }
         MapController.instance.OrderPosition(vicPos);//预定下一个位置
