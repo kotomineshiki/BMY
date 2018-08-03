@@ -104,10 +104,17 @@ public class ActionManager : MonoBehaviour, IActionCallback
                 //血量少于0,摧毁对象
                 if (nextObjectParam.GetComponent<Chess>().chessType == ChessType.Castle)
                 {
+                    Singleton<AudioManager>.Instance.Gameover();  //爆炸音效
                     Destroy(nextObjectParam.transform.parent.gameObject);//城堡被打爆了
+                    nextObjectParam.GetComponent<Castle>().SendDestroyEvent();
                 }
                 else
-                    Destroy(nextObjectParam.gameObject);//为何这个不能 放进Chess里
+                {
+                    Singleton<AudioManager>.Instance.Explosion();  //爆炸音效
+                   Destroy(nextObjectParam.gameObject);//为何这个不能 放进Chess里
+                }
+                    
+
                 //停止攻击状态
                 objectParam.gameObject.GetComponent<Chess>().StopAttackStatus();
                 objectParam.gameObject.GetComponent<Chess>().StopAllAction();

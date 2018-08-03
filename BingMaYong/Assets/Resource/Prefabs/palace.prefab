@@ -6877,6 +6877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessSide: 0
+  currentPosition: {x: 0, y: 0}
   chessSlider: {fileID: 114061275142388662}
   victim: {fileID: 0}
   attacker: []
@@ -6885,17 +6886,18 @@ MonoBehaviour:
   destination: {x: 0, y: 0}
   nextDestination: {x: 0, y: 0}
   chessType: 0
-  isAttack: 0
+  willAttack: 0
+  isAttacking: 0
   isMoving: 0
   mapController: {fileID: 0}
   action_manager: {fileID: 0}
   attackRange: []
   normalAttackHurt: 0
   defence: 0
-  forInfantryChessHurt: 0
   blood: 0
   direction: 0
   speed: 0
+  attackBy: 0
   dieParticle: {fileID: 1598259660013802, guid: 4c526082d35b63b45901d28169b8e0f5,
     type: 2}
   leftCastle: {fileID: 1820381430541720}
@@ -6949,6 +6951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chessSide: 0
+  currentPosition: {x: 0, y: 0}
   chessSlider: {fileID: 114061275142388662}
   victim: {fileID: 0}
   attacker: []
@@ -6957,17 +6960,18 @@ MonoBehaviour:
   destination: {x: 0, y: 0}
   nextDestination: {x: 0, y: 0}
   chessType: 0
-  isAttack: 0
+  willAttack: 0
+  isAttacking: 0
   isMoving: 0
   mapController: {fileID: 0}
   action_manager: {fileID: 0}
   attackRange: []
   normalAttackHurt: 0
   defence: 0
-  forInfantryChessHurt: 0
   blood: 0
   direction: 0
   speed: 0
+  attackBy: 0
   dieParticle: {fileID: 1598259660013802, guid: 4c526082d35b63b45901d28169b8e0f5,
     type: 2}
   leftCastle: {fileID: 1820381430541720}
@@ -7110,7 +7114,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 280, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224260161526771220
 RectTransform:
@@ -7137,7 +7141,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1677912481541192}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: -2.88}
   m_LocalScale: {x: 0.01, y: 0.01, z: 1}
   m_Children:
   - {fileID: 224215763475998124}
@@ -7146,8 +7150,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: -0.081, y: 0.67}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224314378610828560
 RectTransform:

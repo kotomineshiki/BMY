@@ -33,4 +33,11 @@ public class Castle : Chess {
 		}
         blood = chessSlider.value < blood ? chessSlider.value : blood;
     }
+    public void SendDestroyEvent()
+    {
+        if (destroyEvent != null)
+        {
+            destroyEvent(winState);
+        }
+    }
 }
