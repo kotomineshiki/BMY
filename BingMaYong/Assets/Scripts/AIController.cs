@@ -171,15 +171,15 @@ public class AIController : MonoBehaviour
             if (playerCount[i] >= 0 && playerCount[i] < 2)//说明此处兵力略胜于敌方，少许需要增援
             {
                 Vector2Int temp=AvailableTile(i);
-                if (temp != new Vector2Int(-1, -1)) waitList.Add(temp);
+                if (temp != new Vector2Int(-1, -1) && MapController.instance.CanWalk(temp)) waitList.Add(temp);
             }
 
             if (playerCount[i] >= -2 && playerCount[i] < 0)//说明此处兵力略负于敌方，远需要增援
             {
                 Vector2Int temp = AvailableTile(i);
-                if (temp != new Vector2Int(-1, -1)) waitList.Add(temp);
+                if (temp != new Vector2Int(-1, -1) && MapController.instance.CanWalk(temp)) waitList.Add(temp);
                 temp = AvailableTile(i);
-                if (temp != new Vector2Int(-1, -1)) waitList.Add(temp);//重复次数可以调整
+                if (temp != new Vector2Int(-1, -1) && MapController.instance.CanWalk(temp)) waitList.Add(temp);//重复次数可以调整
             }
             //剩下的要么是增援了也活不了，不增援也无所谓的
         }
