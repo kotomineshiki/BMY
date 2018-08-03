@@ -28,7 +28,7 @@ public class ShootChess : Chess
     public GameObject arrowPrefab;
     public void Shooteffect()
     {//这个类将发射一个弓箭射向攻击目标
-        GameObject temp = Instantiate(arrowPrefab);
+        GameObject temp = Singleton<ArrowFactory>.Instance.GetArrow();
         temp.transform.position = this.transform.position + new Vector3(0,0,-5);
 
         if(direction <= Direction.North)
@@ -48,7 +48,7 @@ public class ShootChess : Chess
         Vector3 velocity = victim.transform.position - gameObject.transform.position;
 
         temp.GetComponent<Rigidbody>().velocity = velocity.normalized;//添加初始速度
-       // temp.GetComponent<Rigidbody>().AddForce(new Vector3(0,0,1));//添加重力
-
+        // temp.GetComponent<Rigidbody>().AddForce(new Vector3(0,0,1));//添加重力
     }
-}
+
+ }
